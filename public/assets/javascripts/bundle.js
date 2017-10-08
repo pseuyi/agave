@@ -3394,7 +3394,6 @@ var _user_actions = __webpack_require__(47);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 document.addEventListener('DOMContentLoaded', function () {
-  window.fetchUser = _user_actions.fetchUser;
   var store = (0, _store2.default)();
   var root = document.getElementById('root');
   _reactDom2.default.render(_react2.default.createElement(_root2.default, { store: store }), root);
