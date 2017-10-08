@@ -1,6 +1,7 @@
 class TasksController < ApplicationController
   def list
-    @tasks = Task.all
+    @user = current_user
+    @tasks = current_user.tasks
   end
 
   def show
