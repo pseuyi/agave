@@ -6151,7 +6151,7 @@ var RECEIVE_CURRENT_USER = exports.RECEIVE_CURRENT_USER = 'SESSION::RECEIVE_CURR
 
 var login = exports.login = function login(user) {
   return function (dispatch) {
-    _axios2.default.patch('/session', { user: user }).then(function (user) {
+    return _axios2.default.patch('/session', { user: user }).then(function (user) {
       return dispatch((0, _user_actions.receiveUser)(user));
     }).then(function (res) {
       return dispatch(receiveCurrentUser(res.user.id));
@@ -6163,7 +6163,7 @@ var login = exports.login = function login(user) {
 
 var logout = exports.logout = function logout(user) {
   return function (dispatch) {
-    _axios2.default.delete('/session', { user: user }).then(function (user) {
+    return _axios2.default.delete('/session', { user: user }).then(function (user) {
       return dispatch(receiveCurrentUser(null));
     }).catch(function (err) {
       return dispatch((0, _error_actions.receiveError)(err));
@@ -6174,14 +6174,11 @@ var logout = exports.logout = function logout(user) {
 var signUp = exports.signUp = function signUp(formData) {
   return function (dispatch) {
     return _axios2.default.post('/users', formData).then(function (user) {
-      debugger;
-      // console.log('user', user)
-      // return dispatch(receiveUser(user))
+      return dispatch((0, _user_actions.receiveUser)(user));
     }).then(function (res) {
       return dispatch(receiveCurrentUser(res.user.id));
     }).catch(function (err) {
-      console.log('err', err);
-      // dispatch(receiveError(err))
+      return dispatch((0, _error_actions.receiveError)(err));
     });
   };
 };
