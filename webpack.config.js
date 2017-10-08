@@ -1,10 +1,10 @@
-var path = require('path');
+const path = require('path');
 
 module.exports = {
   entry: './frontend/agave.jsx',
   output: {
     path: path.resolve(__dirname, 'public', 'assets', 'javascripts'),
-    filename: "bundle.js"
+    filename: 'bundle.js',
   },
   module: {
     loaders: [
@@ -14,13 +14,13 @@ module.exports = {
         loader: 'babel-loader',
         query: {
           presets: ['env', 'react'],
-          plugins: ["transform-object-rest-spread"]
-        }
-      }
-    ]
+          plugins: ['transform-object-rest-spread', 'transform-class-properties'],
+        },
+      },
+    ],
   },
   devtool: 'source-map',
   resolve: {
-    extensions: ['.js', '.jsx', '*']
-  }
+    extensions: ['.js', '.jsx', '*'],
+  },
 };
