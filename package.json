@@ -7,9 +7,10 @@
     "test": "test"
   },
   "scripts": {
-    "start": "npm run pack && bundle exec rails s",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "pack": "webpack --watch"
+    "pack": "webpack --watch",
+    "build-css": "node-sass --include-path scss frontend/scss/main.scss public/css/main.css",
+    "watch-css": "nodemon -e scss -x \"npm run build-css\""
   },
   "repository": {
     "type": "git",
@@ -49,6 +50,8 @@
     "eslint-config-airbnb": "^16.0.0",
     "eslint-plugin-import": "^2.7.0",
     "eslint-plugin-jsx-a11y": "^6.0.2",
-    "eslint-plugin-react": "^7.4.0"
+    "eslint-plugin-react": "^7.4.0",
+    "node-sass": "^4.5.3",
+    "nodemon": "^1.12.1"
   }
 }
