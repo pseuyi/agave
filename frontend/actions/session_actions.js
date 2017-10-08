@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { receiveUser } from './user_actions';
 import { receiveError } from './error_actions';
 
@@ -21,9 +22,9 @@ export const logout = (user) => {
   }
 }
 
-export const signUp = (user) => {
+export const signUp = (formData) => {
   return (dispatch) => {
-    axios.post('/user', { user })
+    axios.post('/users', formData)
       .then( user => dispatch(receiveUser(user)) )
       .then( res => dispatch(receiveCurrentUser(res.user.id)) )
       .catch( err => dispatch(receiveError(err)) )

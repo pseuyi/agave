@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { receiveError } from './error_actions';
 
 export const RECEIVE_USER = 'USER::RECEIVE_USER';
