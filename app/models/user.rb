@@ -13,8 +13,10 @@
 
 class User < ApplicationRecord
   attr_reader :password
-  validates :username, :email, :password_digest, presence: true
   has_many :tasks
+  validates :username, :password_digest, presence: true
+  validates :email, presence: true, email: true
+
   after_initialize :ensure_sesion_token
 
   def self.find_by_credentials(username, password)
