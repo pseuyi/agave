@@ -1,8 +1,9 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
-import Header from './header/header';
-import SessionModal from './session_modal/session_modal';
-import Board from './board';
+
+import Header from 'components/header';
+import SessionModal from 'components/session_modal';
+import Board from 'components/board';
 
 const App = () => {
   return (
