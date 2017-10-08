@@ -25,7 +25,7 @@ export const logout = (user) => {
 export const signUp = (formData) => {
   return (dispatch) => {
     axios.post('/users', formData)
-      .then( user => dispatch(receiveUser(user)) )
+      .then( res => dispatch(receiveUser(res.data.data)) )
       .then( res => dispatch(receiveCurrentUser(res.user.id)) )
       .catch( err => dispatch(receiveError(err)) )
   }

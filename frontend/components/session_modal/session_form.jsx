@@ -11,9 +11,9 @@ let SessionForm = (props) => {
             <label htmlFor="username">username:</label>
             <Field name="username" component="input" type="text" />
           </div>
-          
+
           {
-            formType === 'signup' &&
+            formType === 'sign up' &&
             <div>
               <label htmlFor="email">email:</label>
               <Field name="email" component="input" type="text" />

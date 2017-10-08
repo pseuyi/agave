@@ -20,7 +20,7 @@ class SessionModal extends Component {
   }
 
   render() {
-    const formType = this.props.path.replace(/[^a-zA-Z0-9 ]/g, "");
+    const formType = this.props.path === '/login' ? 'login' : 'sign up';
     return (
       <div className="session-modal-container">
         <h2>{formType}</h2>
