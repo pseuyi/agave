@@ -7,6 +7,7 @@
     "test": "test"
   },
   "scripts": {
+    "start": "bundle exec rails s",
     "test": "echo \"Error: no test specified\" && exit 1",
     "webpack": "webpack --watch"
   },
