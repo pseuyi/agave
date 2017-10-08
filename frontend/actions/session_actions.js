@@ -5,10 +5,10 @@ import { receiveError } from './error_actions';
 export const RECEIVE_CURRENT_USER = 'SESSION::RECEIVE_CURRENT_USER'
 
 
-export const login = (user) => {
+export const login = (formData) => {
   return (dispatch) => {
-    axios.patch('/session', { user })
-      .then( user => dispatch(receiveUser(user)) )
+    axios.post('/session', formData)
+      .then( res => dispatch(receiveUser(res.data.data)) )
       .then( res => dispatch(receiveCurrentUser(res.user.id)) )
       .catch( err => dispatch(receiveError(err)) )
   }
