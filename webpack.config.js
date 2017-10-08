@@ -22,5 +22,8 @@ module.exports = {
   devtool: 'source-map',
   resolve: {
     extensions: ['.js', '.jsx', '*'],
+    alias: {
+      components: path.resolve(__dirname, 'frontend/components'),
+    }
   },
 };
