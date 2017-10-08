@@ -14,6 +14,7 @@ class TasksController < ApplicationController
       render json: @task
     else
       render json: @task.errors.full_messages, status: 422
+    end
   end
 
   def update
