@@ -1,8 +1,13 @@
 import React from 'react';
+import Header from './header/header';
+import SessionModal from './session_modal/session_modal';
 
 const App = () => {
   return (
-    <h1>^_^</h1>
+    <section>
+      <Header />
+      <SessionModal />
+    </section>
   )
 }
 
