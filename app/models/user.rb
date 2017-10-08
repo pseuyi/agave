@@ -15,7 +15,7 @@ class User < ApplicationRecord
   attr_reader :password
   has_many :tasks, dependent: :destroy
   validates :username, :password_digest, presence: true
-  validates :email, presence: true, email: true
+  validates :email, presence: true, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, on: :create }
 
   after_initialize :ensure_sesion_token
 
