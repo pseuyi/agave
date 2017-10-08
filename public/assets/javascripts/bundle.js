@@ -6151,7 +6151,7 @@ var RECEIVE_CURRENT_USER = exports.RECEIVE_CURRENT_USER = 'SESSION::RECEIVE_CURR
 
 var login = exports.login = function login(user) {
   return function (dispatch) {
-    return _axios2.default.patch('/session', { user: user }).then(function (user) {
+    _axios2.default.patch('/session', { user: user }).then(function (user) {
       return dispatch((0, _user_actions.receiveUser)(user));
     }).then(function (res) {
       return dispatch(receiveCurrentUser(res.user.id));
@@ -6163,7 +6163,7 @@ var login = exports.login = function login(user) {
 
 var logout = exports.logout = function logout(user) {
   return function (dispatch) {
-    return _axios2.default.delete('/session', { user: user }).then(function (user) {
+    _axios2.default.delete('/session', { user: user }).then(function (user) {
       return dispatch(receiveCurrentUser(null));
     }).catch(function (err) {
       return dispatch((0, _error_actions.receiveError)(err));
@@ -6173,7 +6173,7 @@ var logout = exports.logout = function logout(user) {
 
 var signUp = exports.signUp = function signUp(formData) {
   return function (dispatch) {
-    return _axios2.default.post('/users', formData).then(function (user) {
+    _axios2.default.post('/users', formData).then(function (user) {
       return dispatch((0, _user_actions.receiveUser)(user));
     }).then(function (res) {
       return dispatch(receiveCurrentUser(res.user.id));
@@ -6489,7 +6489,7 @@ var RECEIVE_USER = exports.RECEIVE_USER = 'USER::RECEIVE_USER';
 
 var fetchUser = exports.fetchUser = function fetchUser(id) {
   return function (dispatch) {
-    return _axios2.default.get('/users/' + id).then(function (user) {
+    _axios2.default.get('/users/' + id).then(function (user) {
       return dispatch(receiveUser(user));
     }).catch(function (err) {
       return dispatch((0, _error_actions.receiveError)(err));
@@ -27332,162 +27332,13 @@ exports.default = Header;
 
 /***/ }),
 /* 149 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
 "use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _session_form = __webpack_require__(150);
-
-var _session_form2 = _interopRequireDefault(_session_form);
-
-var _reactRedux = __webpack_require__(10);
-
-var _session_actions = __webpack_require__(115);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var SessionModal = function (_Component) {
-  _inherits(SessionModal, _Component);
-
-  function SessionModal(props) {
-    _classCallCheck(this, SessionModal);
-
-    var _this = _possibleConstructorReturn(this, (SessionModal.__proto__ || Object.getPrototypeOf(SessionModal)).call(this, props));
-
-    _this.submit = _this.submit.bind(_this);
-    return _this;
-  }
-
-  _createClass(SessionModal, [{
-    key: 'submit',
-    value: function submit(values) {
-      var formData = new FormData();
-      formData.append("user[username]", values.username);
-      formData.append("user[email]", values.email);
-      formData.append("user[password]", values.password);
-
-      this.props.signUp(formData);
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      return _react2.default.createElement(
-        'div',
-        { className: 'session-modal-container' },
-        _react2.default.createElement(_session_form2.default, { onSubmit: this.submit })
-      );
-    }
-  }]);
-
-  return SessionModal;
-}(_react.Component);
-
-var mapStateToProps = function mapStateToProps(state) {
-  return {};
-};
-
-var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-  return {
-    signUp: function signUp(formData) {
-      return dispatch((0, _session_actions.signUp)(formData));
-    }
-  };
-};
-
-exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(SessionModal);
+throw new Error("Module build failed: SyntaxError: Unexpected token (8:15)\n\n\u001b[0m \u001b[90m  6 | \u001b[39m\u001b[36mclass\u001b[39m \u001b[33mSessionModal\u001b[39m \u001b[36mextends\u001b[39m \u001b[33mComponent\u001b[39m {\n \u001b[90m  7 | \u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m  8 | \u001b[39m  handleSubmit \u001b[33m=\u001b[39m (values) \u001b[33m=>\u001b[39m {\n \u001b[90m    | \u001b[39m               \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m  9 | \u001b[39m    \u001b[36mconst\u001b[39m formData \u001b[33m=\u001b[39m \u001b[36mnew\u001b[39m \u001b[33mFormData\u001b[39m()\u001b[33m;\u001b[39m\n \u001b[90m 10 | \u001b[39m    formData\u001b[33m.\u001b[39mappend(\u001b[32m\"user[username]\"\u001b[39m\u001b[33m,\u001b[39m values\u001b[33m.\u001b[39musername)\u001b[33m;\u001b[39m\n \u001b[90m 11 | \u001b[39m    formData\u001b[33m.\u001b[39mappend(\u001b[32m\"user[email]\"\u001b[39m\u001b[33m,\u001b[39m values\u001b[33m.\u001b[39memail)\u001b[33m;\u001b[39m\u001b[0m\n");
 
 /***/ }),
-/* 150 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reduxForm = __webpack_require__(73);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var SessionForm = function SessionForm(props) {
-  var handleSubmit = props.handleSubmit;
-
-
-  return _react2.default.createElement(
-    'div',
-    { className: 'session-modal-container' },
-    _react2.default.createElement(
-      'form',
-      { onSubmit: handleSubmit },
-      _react2.default.createElement(
-        'div',
-        null,
-        _react2.default.createElement(
-          'label',
-          { htmlFor: 'username' },
-          'username:'
-        ),
-        _react2.default.createElement(_reduxForm.Field, { name: 'username', component: 'input', type: 'text' })
-      ),
-      _react2.default.createElement(
-        'div',
-        null,
-        _react2.default.createElement(
-          'label',
-          { htmlFor: 'email' },
-          'email:'
-        ),
-        _react2.default.createElement(_reduxForm.Field, { name: 'email', component: 'input', type: 'text' })
-      ),
-      _react2.default.createElement(
-        'div',
-        null,
-        _react2.default.createElement(
-          'label',
-          { htmlFor: 'password' },
-          'password:'
-        ),
-        _react2.default.createElement(_reduxForm.Field, { name: 'password', component: 'input', type: 'password' })
-      ),
-      _react2.default.createElement(
-        'button',
-        { type: 'submit' },
-        'Submit'
-      )
-    )
-  );
-};
-
-SessionForm = (0, _reduxForm.reduxForm)({
-  form: 'session'
-})(SessionForm);
-
-exports.default = SessionForm;
-
-/***/ }),
+/* 150 */,
 /* 151 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 

@@ -7,33 +7,27 @@ export const RECEIVE_CURRENT_USER = 'SESSION::RECEIVE_CURRENT_USER'
 
 export const login = (user) => {
   return (dispatch) => {
-    return (
-      axios.patch('/session', { user })
+    axios.patch('/session', { user })
       .then( user => dispatch(receiveUser(user)) )
       .then( res => dispatch(receiveCurrentUser(res.user.id)) )
       .catch( err => dispatch(receiveError(err)) )
-    )
   }
 }
 
 export const logout = (user) => {
   return (dispatch) => {
-    return (
-      axios.delete('/session', { user })
+    axios.delete('/session', { user })
       .then( user => dispatch(receiveCurrentUser(null)) )
       .catch( err => dispatch(receiveError(err)) )
-    )
   }
 }
 
 export const signUp = (formData) => {
   return (dispatch) => {
-    return (
-      axios.post('/users', formData)
+    axios.post('/users', formData)
       .then( user => dispatch(receiveUser(user)) )
       .then( res => dispatch(receiveCurrentUser(res.user.id)) )
       .catch( err => dispatch(receiveError(err)) )
-    )
   }
 }
 

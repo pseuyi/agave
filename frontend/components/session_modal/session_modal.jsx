@@ -4,13 +4,8 @@ import { connect } from 'react-redux';
 import { signUp } from '../../actions/session_actions';
 
 class SessionModal extends Component {
-  constructor(props) {
-    super(props)
 
-    this.submit = this.submit.bind(this);
-  }
-
-  submit(values) {
+  handleSubmit = (values) => {
     const formData = new FormData();
     formData.append("user[username]", values.username);
     formData.append("user[email]", values.email);
@@ -22,15 +17,9 @@ class SessionModal extends Component {
   render() {
     return (
       <div className="session-modal-container">
-        <SessionForm onSubmit={ this.submit } />
+        <SessionForm onSubmit={ this.handleSubmit } />
       </div>
     )
-  }
-}
-
-const mapStateToProps = (state) => {
-  return {
-
   }
 }
 
@@ -41,6 +30,6 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export default connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps
 )(SessionModal);
