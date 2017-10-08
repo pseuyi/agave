@@ -29,5 +29,19 @@ module Agave
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
+
+    config.paperclip_defaults = {
+      :storage => :s3,
+      :s3_credentials => {
+        :s3_protocol => 'https',
+        :bucket => ENV["s3_bucket"],
+        :access_key_id => ENV["s3_access_key_id"],
+        :secret_access_key => ENV["s3_secret_access_key"],
+        :s3_region => ENV["s3_region"],
+        :s3_host_name => "s3-#{ENV['s3_region']}.amazonaws.com",
+        :url => ":s3_host_name"
+      }
+    }
+    
   end
 end
