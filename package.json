@@ -7,9 +7,9 @@
     "test": "test"
   },
   "scripts": {
-    "start": "bundle exec rails s",
+    "start": "npm run pack && bundle exec rails s",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "webpack": "webpack --watch"
+    "pack": "webpack --watch"
   },
   "repository": {
     "type": "git",
