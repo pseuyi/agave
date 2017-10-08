@@ -23,6 +23,9 @@ class User < ApplicationRecord
   validates :password_digest, presence: true
   validates :email, presence: true, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, on: :create }, uniqueness: true
 
+  has_attached_file :avatar, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "https://placeholdit.co//i/100x100?&bg=003fff&fc=ffffff&text=faceblock"
+  validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\z/
+
   after_initialize :ensure_sesion_token
 
   def self.find_by_credentials(username, password)

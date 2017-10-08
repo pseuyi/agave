@@ -17,5 +17,14 @@
 #
 
 class UserSerializer < ActiveModel::Serializer
-  attributes :id, :username, :email, :task_ids
+  attributes :id, :username, :email, :task_ids, :avatar_url, :thumb_url
+
+  def avatar_url
+    avatar.url :medium
+  end
+
+  def thumb_url
+    avatar.url :thumb
+  end
+
 end
