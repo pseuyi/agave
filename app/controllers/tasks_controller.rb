@@ -13,14 +13,14 @@ class TasksController < ApplicationController
     @user = current_user
     @task = @user.tasks.create(task_params)
     if @task.save
-      redirect_to :action => 'list'
+      render :show
     else
       render json: @task.errors.full_messages, status: 422
   end
 
   def update
     if @task.update(task_params)
-      redirect_to :action => 'list'
+      render :show
     else
       render json: @task.errors.full_messages, status: 422
     end
