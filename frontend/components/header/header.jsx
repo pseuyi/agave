@@ -1,10 +1,13 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
   return (
     <header>
       <div className="logo-box">
-        <h2>agape</h2>
+        <Link to="/login">login</Link>
+        <Link to="/signup">signup</Link>
+        <h2>agave</h2>
       </div>
     </header>
   )

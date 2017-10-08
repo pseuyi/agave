@@ -7,7 +7,9 @@ const defaultState = {
 const sessionReducer = (state = defaultState, action) => {
   switch (action.type) {
     case RECEIVE_CURRENT_USER:
-      return { currentUser: action.id };
+      return {
+        currentUser: parseInt(action.id)
+      };
     default:
       return state;
   }
