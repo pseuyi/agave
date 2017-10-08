@@ -13,7 +13,7 @@
 
 class User < ApplicationRecord
   attr_reader :password
-  has_many :tasks
+  has_many :tasks, dependent: :destroy
   validates :username, :password_digest, presence: true
   validates :email, presence: true, email: true
 
