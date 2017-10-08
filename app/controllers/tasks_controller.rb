@@ -1,6 +1,5 @@
 class TasksController < ApplicationController
   def list
-    @user = current_user
     @tasks = current_user.tasks
   end
 
@@ -10,8 +9,7 @@ class TasksController < ApplicationController
   end
 
   def create
-    @user = current_user
-    @task = @user.tasks.create(task_params)
+    @task = current_user.tasks.create(task_params)
     if @task.save
       render :show
     else
@@ -27,8 +25,7 @@ class TasksController < ApplicationController
   end
 
   def destroy
-    @user = current_user
-    @task = @user.tasks.find(params[:id])
+    @task = current_user.tasks.find(params[:id])
     @task.destroy
     redirect_to :action => 'list'
   end
