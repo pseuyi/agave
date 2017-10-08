@@ -11,14 +11,14 @@ class TasksController < ApplicationController
   def create
     @task = current_user.tasks.create(task_params)
     if @task.save
-      render :show
+      render json: @task
     else
       render json: @task.errors.full_messages, status: 422
   end
 
   def update
     if @task.update(task_params)
-      render :show
+      render json: @task
     else
       render json: @task.errors.full_messages, status: 422
     end

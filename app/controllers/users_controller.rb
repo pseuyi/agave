@@ -15,7 +15,7 @@ class UsersController < ApplicationController
 
   def update
     if @user.update(user_params)
-      render :show
+      render json: @user
     else
       render json: @user.errors.full_messages, status: 422
     end
