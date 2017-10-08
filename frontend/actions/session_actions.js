@@ -24,10 +24,17 @@ export const logout = (user) => {
 
 export const signUp = (formData) => {
   return (dispatch) => {
-    axios.post('/users', formData)
-      .then( user => dispatch(receiveUser(user)) )
-      .then( res => dispatch(receiveCurrentUser(res.user.id)) )
-      .catch( err => dispatch(receiveError(err)) )
+    return axios.post('/users', formData)
+            .then( user => {
+              debugger
+              // console.log('user', user)
+              // return dispatch(receiveUser(user))
+            }  )
+            .then( res => dispatch(receiveCurrentUser(res.user.id)) )
+            .catch( err => {
+              console.log('err', err)
+              // dispatch(receiveError(err))
+            })
   }
 }
 

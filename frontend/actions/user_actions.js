@@ -4,6 +4,7 @@ import { receiveError } from './error_actions';
 export const RECEIVE_USER = 'USER::RECEIVE_USER';
 
 
+
 export const fetchUser = (id) => {
   return (dispatch) => {
     return axios.get(`/users/${id}`)
@@ -12,7 +13,8 @@ export const fetchUser = (id) => {
   }
 }
 
-const receiveUser = (user) => {
+
+export const receiveUser = (user) => {
   return {
     type: RECEIVE_USER,
     user
