@@ -5,9 +5,11 @@ const Header = () => {
   return (
     <header>
       <div className="logo-box">
-        <Link to="/login">login</Link>
-        <Link to="/signup">signup</Link>
-        <h2>agave</h2>
+        <h2 id="logo">agave</h2>
+        <div className="logo-button">
+          <Link to="/login">login</Link>
+          <Link to="/signup">signup</Link>
+        </div>
       </div>
     </header>
   )

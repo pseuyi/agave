@@ -1,0 +1,61 @@
+body {
+  font-family: 'Arial';
+  color: white;
+  background-image: url("/assets/wormz.png");
+  padding: 12px; }
+
+.logo-box {
+  position: fixed;
+  top: 1rem;
+  right: 1rem; }
+
+#logo {
+  border-radius: 2rem;
+  border: 4px solid #1bd68e;
+  padding: 0.2rem 2.2rem;
+  background: #eafcf5;
+  color: #000000;
+  font-weight: bolder;
+  font-style: oblique; }
+
+.logo-button {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  text-decoration: none; }
+
+a {
+  text-decoration: none;
+  color: white; }
+
+a:hover {
+  color: #1bd68e; }
+
+.session-modal-container {
+  margin: auto;
+  width: 500px;
+  height: 300px;
+  border: 4px solid #1bd68e;
+  border-radius: 1rem;
+  padding: 12px;
+  text-align: center;
+  background: #eafcf5;
+  color: #000; }
+
+.sesson-form-container {
+  vertical-align: middle;
+  margin: auto; }
+
+#submit-button {
+  margin: 12px 0;
+  font-size: 16px;
+  color: #000000;
+  background: #eafcf5;
+  border: 4px solid #1bd68e;
+  border-radius: 2rem;
+  padding: 0.4rem 2rem;
+  postion: absolute;
+  right: 0; }
+
+/*# sourceMappingURL=main.css.map*/
