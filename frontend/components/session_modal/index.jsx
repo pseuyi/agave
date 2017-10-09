@@ -47,6 +47,7 @@ class SessionModal extends Component {
 
   render() {
     const formType = this.props.path === '/login' ? 'login' : 'sign up';
+
     return (
       <div className="session-modal-container">
         <h2>{formType}</h2>
@@ -55,6 +56,7 @@ class SessionModal extends Component {
           handleUpload={this.handleUpload}
           imagePreview={this.state.imagePreview}
           formType={formType}
+          errors={this.props.errors}
         />
       </div>
     )
@@ -64,6 +66,7 @@ class SessionModal extends Component {
 const mapStateToProps = (state, { match }) => {
   const { path } = match;
   return {
+    errors: state.errors,
     path
   }
 }

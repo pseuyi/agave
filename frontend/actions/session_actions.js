@@ -10,7 +10,7 @@ export const login = (formData) => {
     axios.post('/session', formData)
       .then( res => dispatch(receiveUser(res.data.data)) )
       .then( res => dispatch(receiveCurrentUser(res.user.id)) )
-      .catch( err => dispatch(receiveError(err)) )
+      .catch( err => dispatch(receiveError(err.response.data[0])) )
   }
 }
 
@@ -18,7 +18,7 @@ export const logout = (user) => {
   return (dispatch) => {
     axios.delete('/session', { user })
       .then( user => dispatch(receiveCurrentUser(null)) )
-      .catch( err => dispatch(receiveError(err)) )
+      .catch( err => dispatch(receiveError(err.response.data[0])) )
   }
 }
 
@@ -27,7 +27,7 @@ export const signUp = (formData) => {
     axios.post('/users', formData)
       .then( res => dispatch(receiveUser(res.data.data)) )
       .then( res => dispatch(receiveCurrentUser(res.user.id)) )
-      .catch( err => dispatch(receiveError(err)) )
+      .catch( err => dispatch(receiveError(err.response.data[0])) )
   }
 }
 
