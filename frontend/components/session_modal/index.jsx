@@ -5,13 +5,23 @@ import { withRouter } from 'react-router';
 import { signUp, login } from '../../actions/session_actions';
 
 class SessionModal extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      avatar: null,
+      imagePreview: null
+     }
+  }
 
   handleSubmit = (values) => {
     const formData = new FormData();
+
     formData.append("user[username]", values.username);
     formData.append("user[password]", values.password);
 
     if (this.props.path === '/signup') {
+      if (this.state.avatar) formData.append("user[avatar]", this.state.avatar);
       formData.append("user[email]", values.email);
       this.props.signUp(formData);
     } else {
@@ -19,12 +29,33 @@ class SessionModal extends Component {
     }
   }
 
+  handleUpload = (e) => {
+    e.preventDefault();
+
+    const reader = new FileReader();
+    const file = e.target.files[0];
+
+    reader.onloadend = () => {
+      this.setState({
+        avatar: file,
+        imagePreview: reader.result
+      });
+    }
+
+    reader.readAsDataURL(file);
+  }
+
   render() {
     const formType = this.props.path === '/login' ? 'login' : 'sign up';
     return (
       <div className="session-modal-container">
         <h2>{formType}</h2>
-        <SessionForm onSubmit={this.handleSubmit} formType={ formType } />
+        <SessionForm
+          onSubmit={this.handleSubmit}
+          handleUpload={this.handleUpload}
+          imagePreview={this.state.imagePreview}
+          formType={formType}
+        />
       </div>
     )
   }
