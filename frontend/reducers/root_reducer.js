@@ -8,7 +8,7 @@ const rootReducer = combineReducers({
   session: sessionReducer,
   users: userReducer,
   form: formReducer,
-  errrors: errorReducer,
+  errors: errorReducer,
 })
 
 export default rootReducer;

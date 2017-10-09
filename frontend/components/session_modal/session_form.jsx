@@ -3,10 +3,11 @@ import { Field, reduxForm } from 'redux-form';
 
 const validate = (values) => {
   const errors = {};
+  const req = 'required';
 
-  if (!values.username) errors.username = 'username required';
-  if (!values.email) errors.email = 'email required';
-  if (!values.password) errors.password = 'password required';
+  if (!values.username) errors.username = req;
+  if (!values.email) errors.email = req;
+  if (!values.password) errors.password = req;
 
   return errors;
 }
@@ -22,7 +23,14 @@ const renderField = ({ input, label, type, meta: { touched, error } }) => (
 )
 
 let SessionForm = (props) => {
-  const { handleSubmit, imagePreview, handleUpload, formType } = props;
+
+  const {
+    handleSubmit,
+    imagePreview,
+    handleUpload,
+    formType,
+    errors
+  } = props;
 
     return (
       <div className="session-modal-container">
@@ -63,6 +71,8 @@ let SessionForm = (props) => {
               <input name="avatar" type="file" onChange={handleUpload} />
             </div>
           }
+
+          { errors && <span>{errors}</span> }
 
           <button type="submit">{formType}</button>
         </form>
