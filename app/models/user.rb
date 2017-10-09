@@ -48,6 +48,14 @@ class User < ApplicationRecord
     self.session_token
   end
 
+  def avatar_url
+    avatar.url(:medium)
+  end
+
+  def thumb_url
+    avatar.url(:thumb)
+  end
+
   private
 
   def ensure_sesion_token
