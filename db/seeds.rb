@@ -10,5 +10,31 @@
   username = Faker::Internet.user_name
   email = Faker::Internet.email
   password = 'carrot'
-  User.create({ username: username, email: email, password: password })
+
+  user = User.create({
+    username: username,
+    email: email,
+    password: password
+  })
+
+  tasks = [{
+    title: "#{Faker::Hacker.verb} #{Faker::Hacker.adjective} #{Faker::Hacker.noun}",
+    status: 'in progress',
+    priority: 1
+  },
+  {
+    title: 'moisturize',
+    description: 'moisty',
+    status: 'done',
+    priority: 1
+  },
+  {
+    title: "#{Faker::Hacker.verb} #{Faker::Hacker.adjective} #{Faker::Hacker.noun}",
+    description: '1337 h4x0r task',
+    status: 'done',
+    priority: 2
+  }]
+
+  user.tasks.create(tasks)
+
 end
