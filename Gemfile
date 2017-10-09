@@ -27,7 +27,7 @@ gem 'active_model_serializers', '~> 0.10.0'
 gem 'rb-readline'
 gem 'paperclip', '~> 5.0.0'
 gem 'paperclip-meta'
-gem 'aws-sdk', '~> 3'
+gem 'aws-sdk', '2.10.47'
 gem 'figaro'
 
 group :development, :test do

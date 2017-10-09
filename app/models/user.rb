@@ -19,7 +19,7 @@
 class User < ApplicationRecord
   attr_reader :password
   has_many :tasks, dependent: :destroy
-  validates :username, uniqueness: true
+  validates :username, uniqueness: true, presence: true
   validates :password_digest, presence: true
   validates :email, presence: true, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, on: :create }, uniqueness: true
 
