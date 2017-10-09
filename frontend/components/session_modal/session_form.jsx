@@ -1,29 +1,63 @@
 import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 
+const validate = (values) => {
+  const errors = {};
+  const req = 'required';
+
+  if (!values.username) errors.username = req;
+  if (!values.email) errors.email = req;
+  if (!values.password) errors.password = req;
+
+  return errors;
+}
+
+const renderField = ({ input, label, type, meta: { touched, error } }) => (
+  <div>
+    <label htmlFor={label}>{label}:</label>
+    <div>
+      <input {...input} placeholder={label} type={type} />
+      {touched && error && <span>{error}</span>}
+    </div>
+  </div>
+)
+
 let SessionForm = (props) => {
-  const { handleSubmit, imagePreview, handleUpload, formType } = props;
+
+  const {
+    handleSubmit,
+    imagePreview,
+    handleUpload,
+    formType,
+    errors
+  } = props;
 
     return (
       <div className="session-modal-container">
         <form onSubmit={handleSubmit}>
-          <div>
-            <label htmlFor="username">username:</label>
-            <Field name="username" component="input" type="text" />
-          </div>
+          <Field
+            name="username"
+            type="text"
+            component={renderField}
+            label="username"
+          />
 
           {
             formType === 'sign up' &&
-            <div>
-              <label htmlFor="email">email:</label>
-              <Field name="email" component="input" type="text" />
-            </div>
+            <Field
+              name="email"
+              type="email"
+              component={renderField}
+              label="email"
+            />
           }
 
-          <div>
-            <label htmlFor="password">password:</label>
-            <Field name="password" component="input" type="password" />
-          </div>
+          <Field
+            name="password"
+            type="password"
+            component={renderField}
+            label="password"
+          />
 
           {
             formType === 'sign up' &&
@@ -38,6 +72,8 @@ let SessionForm = (props) => {
             </div>
           }
 
+          { errors && <span>{errors}</span> }
+
           <button type="submit">{formType}</button>
         </form>
       </div>
@@ -45,7 +81,8 @@ let SessionForm = (props) => {
 }
 
 SessionForm = reduxForm({
-  form: 'session'
+  form: 'session',
+  validate
 })(SessionForm)
 
 export default SessionForm;
