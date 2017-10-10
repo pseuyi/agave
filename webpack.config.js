@@ -26,7 +26,7 @@ module.exports = {
         },
       }, {
         test: /\.scss$/,
-        include: path.resolve(__dirname, 'frontend'),
+        include: [path.resolve(__dirname, 'frontend'), path.resolve(__dirname, 'scss')],
         loader: ExtractTextPlugin.extract('css-loader!sass-loader')
       }
     ]
