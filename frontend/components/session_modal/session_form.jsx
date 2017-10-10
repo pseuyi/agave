@@ -13,10 +13,9 @@ const validate = (values) => {
 }
 
 const renderField = ({ input, label, type, meta: { touched, error } }) => (
-  <div>
-    <label htmlFor={label}>{label}:</label>
-    <div>
-      <input {...input} placeholder={label} type={type} />
+  <div className="session-form-field">
+    <div className="session-form-input">
+      <input  {...input} placeholder={label} type={type} />
       {touched && error && <span>{error}</span>}
     </div>
   </div>
@@ -40,6 +39,7 @@ let SessionForm = (props) => {
             type="text"
             component={renderField}
             label="username"
+            placeholder="aksdjfak;sdjf"
           />
 
           {
@@ -74,7 +74,7 @@ let SessionForm = (props) => {
 
           { errors && <span>{errors}</span> }
 
-          <button id="submit-button" type="submit">{formType}</button>
+          <button id="session-submit-button" type="submit">{formType}</button>
         </form>
       </div>
     )
