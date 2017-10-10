@@ -10,9 +10,9 @@ const App = () => {
   return (
     <section id="app-container">
       <Header />
-      <Route path="/login" component={SessionModal} />
+      <AuthRoute path="/login" component={SessionModal} />
       <AuthRoute path="/signup" component={SessionModal} />
-      <Route exact path="/board" component={Board} />
+      <ProtectedRoute exact path="/board" component={Board} />
     </section>
   )
 };

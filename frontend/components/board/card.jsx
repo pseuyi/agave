@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 
-const Card = ({title}) => (
+const Card = ({title, description}) => (
   <article>
-    <header>{ title }</header>
+    <header>{title}</header>
+    <p>{description}</p>
   </article>
 )
 

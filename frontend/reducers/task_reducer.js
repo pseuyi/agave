@@ -10,7 +10,16 @@ const taskReducer = (state = defaultState, action) => {
     case RECEIVE_TASKS:
       const tasksByIds = {};
       action.tasks.forEach(t => tasksByIds[t.id] = {...t})
-      return {...state, tasksByIds: {...state.tasksByIds, ...tasksByIds}}
+      return {
+        tasksByIds: {
+          ...state.tasksByIds,
+          ...tasksByIds
+        },
+        ids: [
+          ...state.ids,
+          ...Object.keys(tasksByIds)
+        ]
+      }
     default:
       return state
   }
