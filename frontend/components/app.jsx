@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
+import { AuthRoute, ProtectedRoute } from '../util/route_util';
 
 import Header from 'components/header';
 import SessionModal from 'components/session_modal';
@@ -9,9 +10,9 @@ const App = () => {
   return (
     <section id="app-container">
       <Header />
-      <Route exact path="/login" component={ SessionModal } />
-      <Route exact path="/signup" component={ SessionModal } />
-      <Board />
+      <AuthRoute path="/login" component={SessionModal} />
+      <AuthRoute path="/signup" component={SessionModal} />
+      <ProtectedRoute path="/board" component={Board} />
     </section>
   )
 };

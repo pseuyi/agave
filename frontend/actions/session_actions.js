@@ -4,7 +4,6 @@ import { receiveError } from './error_actions';
 
 export const RECEIVE_CURRENT_USER = 'SESSION::RECEIVE_CURRENT_USER'
 
-
 export const login = (formData) => {
   return (dispatch) => {
     axios.post('/session', formData)
