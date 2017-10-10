@@ -50,14 +50,16 @@ class SessionModal extends Component {
 
     return (
       <div className="session-modal-container">
-        <h2>{formType}</h2>
-        <SessionForm
-          onSubmit={this.handleSubmit}
-          handleUpload={this.handleUpload}
-          imagePreview={this.state.imagePreview}
-          formType={formType}
-          errors={this.props.errors}
-        />
+        <div className="session-modal">  
+          <h2>{formType}</h2>
+          <SessionForm
+            onSubmit={this.handleSubmit}
+            handleUpload={this.handleUpload}
+            imagePreview={this.state.imagePreview}
+            formType={formType}
+            errors={this.props.errors}
+            />
+        </div>
       </div>
     )
   }

@@ -7,7 +7,7 @@ import Board from 'components/board';
 
 const App = () => {
   return (
-    <section>
+    <section id="app-container">
       <Header />
       <Route exact path="/login" component={ SessionModal } />
       <Route exact path="/signup" component={ SessionModal } />
