@@ -2,82 +2,9 @@
 
 body {
   font-family: 'Arial';
-  color: white;
-  // background: #112260;
-  // background-image: url('/assets/wormz.png');
-  padding: 2rem;
-}
-
-#app-container {
-
-}
-
-.logo-box {
-  position: fixed;
-  top: 1rem;
-  right: 1rem;
-}
-
-#logo {
-  border-radius: 2rem;
-  border: 4px solid #1bd68e;
-  padding: 0.2rem 4.2rem;
-  background: #eafcf5;
-  color: #000000;
-  font-weight: bolder;
-  font-style: oblique;
-}
-
-.logo-button {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: space-between;
-  text-decoration: none;
-}
-
-a {
-  text-decoration: none;
-  color: white;
-}
-
-a:hover {
-  color: #1bd68e;
-}
-
-.session-modal-container {
+  color: #fff;
+  background: #f2fcf8;
+  position: relative;
   height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  // margin: auto;
-  // width: 500px;
-  // height: 300px;
-  // border-radius: 1rem;
-  // padding: 12px;
-  // text-align: center;
-}
-
-.session-modal {
-  border: 4px solid #1bd68e;
-  background: #fff;
-  color: #000;
-  max-width: 50%;
-}
-
-.sesson-form-container {
-  vertical-align: middle;
-  margin: auto;
-}
-
-#submit-button {
-  margin: 12px 0;
-  font-size: 16px;
-  color: #000000;
-  background: #eafcf5;
-  border: 4px solid #1bd68e;
-  border-radius: 2rem;
-  padding: 0.4rem 2rem;
-  postion: absolute;
-  right: 0;
+  margin: 0;
 }

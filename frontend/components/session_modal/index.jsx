@@ -50,7 +50,7 @@ class SessionModal extends Component {
 
     return (
       <div className="session-modal-container">
-        <div className="session-modal">  
+        <div className="session-modal">
           <h2>{formType}</h2>
           <SessionForm
             onSubmit={this.handleSubmit}

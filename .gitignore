@@ -19,8 +19,7 @@
 
 .byebug_history
 node_modules/
-bundle.js
-bundle.js.map
+dist/
 
 # Ignore application configuration
 /config/application.yml
