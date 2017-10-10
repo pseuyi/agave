@@ -27,9 +27,11 @@ class SessionModal extends Component {
     if (this.props.path === '/signup') {
       if (this.state.avatar) formData.append("user[avatar]", this.state.avatar);
       formData.append("user[email]", values.email);
-      this.props.signUp(formData);
+      this.props.signUp(formData)
+        .then(() => this.props.history.push('/board'))
     } else {
-      this.props.login(formData);
+      this.props.login(formData)
+        .then(() => this.props.history.push('/board'))
     }
   }
 
