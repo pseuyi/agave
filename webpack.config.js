@@ -12,6 +12,7 @@ module.exports = {
     extensions: ['.js', '.jsx', '*'],
     alias: {
       components: path.resolve(__dirname, 'frontend/components'),
+      scss: path.resolve(__dirname, 'scss/'),
     }
   },
   module: {
@@ -26,7 +27,9 @@ module.exports = {
         },
       }, {
         test: /\.scss$/,
-        include: [path.resolve(__dirname, 'frontend'), path.resolve(__dirname, 'scss')],
+        include: [
+          path.resolve(__dirname, 'frontend'), path.resolve(__dirname, 'scss')
+        ],
         loader: ExtractTextPlugin.extract('css-loader!sass-loader')
       }
     ]
