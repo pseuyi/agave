@@ -1,3 +1,5 @@
+@import 'reset';
+
 body {
   font-family: 'Arial';
   color: white;
@@ -44,7 +46,7 @@ a:hover {
 }
 
 .session-modal-container {
-  height: 100vh; 
+  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
