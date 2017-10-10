@@ -19,7 +19,7 @@
 
 .byebug_history
 node_modules/
-dist/
+public/dist/
 
 # Ignore application configuration
 /config/application.yml
