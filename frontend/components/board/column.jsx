@@ -14,7 +14,6 @@ class Column extends Component {
   )
 
   render () {
-    console.log('column', this.props.tasks)
     return (
       <section id="board-column">
         <header><h1>{this.props.header}</h1></header>
