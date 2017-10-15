@@ -1,6 +1,7 @@
 class TasksController < ApplicationController
-  def list
-    @tasks = current_user.tasks
+  def index
+    @tasks = User.find(params[:user_id]).tasks
+    render json: @tasks
   end
 
   def show

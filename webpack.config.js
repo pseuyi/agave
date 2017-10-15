@@ -13,6 +13,8 @@ module.exports = {
     alias: {
       components: path.resolve(__dirname, 'frontend/components'),
       scss: path.resolve(__dirname, 'scss/'),
+      reducers: path.resolve(__dirname, 'frontend/reducers'),
+      actions: path.resolve(__dirname, 'frontend/actions')
     }
   },
   module: {

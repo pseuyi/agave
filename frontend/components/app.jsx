@@ -12,7 +12,7 @@ const App = () => {
       <Header />
       <AuthRoute path="/login" component={SessionModal} />
       <AuthRoute path="/signup" component={SessionModal} />
-      <ProtectedRoute path="/board" component={Board} />
+      <ProtectedRoute exact path="/board" component={Board} />
     </section>
   )
 };
