@@ -1,3 +1,5 @@
+import { keyBy } from 'lodash';
+
 import { RECEIVE_TASKS } from 'actions/task_actions';
 
 const defaultState = {
@@ -8,16 +10,15 @@ const defaultState = {
 const taskReducer = (state = defaultState, action) => {
   switch (action.type) {
     case RECEIVE_TASKS:
-      const tasksByIds = {};
-      action.tasks.forEach(t => tasksByIds[t.id] = {...t})
+      const tasksByIds = keyBy(action.tasks, 'id');
       return {
         tasksByIds: {
           ...state.tasksByIds,
-          ...tasksByIds
+          ...tasksByIds,
         },
         ids: [
           ...state.ids,
-          ...Object.keys(tasksByIds)
+          ...Object.keys(tasksByIds),
         ]
       }
     default:
