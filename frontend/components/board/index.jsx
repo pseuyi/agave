@@ -46,6 +46,7 @@ class Board extends Component {
 
   render () {
     let openTasks, readyTasks, inProgressTasks, doneTasks;
+    const width = this.state.width;
 
     if (this.props.tasks) {
       openTasks = this.filterTasks('open');
@@ -63,28 +64,32 @@ class Board extends Component {
           className='column open'
           header='open'
           tasks={openTasks}
-          width={this.state.width}
+          width={width}
+          bounds={{left: 0, right: width * 0.75}}
         />
 
         <Column
           className='column ready'
           header='ready'
           tasks={readyTasks}
-          width={this.state.width}
+          width={width}
+          bounds={{left: width * -0.25, right: width * 0.5}}
         />
 
         <Column
           className='column in-progress'
           header='in progress'
           tasks={inProgressTasks}
-          width={this.state.width}
+          width={width}
+          bounds={{left: width * -0.5, right: width * 0.25}}
         />
 
         <Column
           className='column done'
           header='done'
           tasks={doneTasks}
-          width={this.state.width}
+          width={width}
+          bounds={{left: width * -0.75, right: 0}}
         />
 
       </section>

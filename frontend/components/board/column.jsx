@@ -11,6 +11,7 @@ class Column extends Component {
         key={`${task.id}-${task.title}`}
         description={task.description}
         width={this.props.width}
+        bounds={this.props.bounds}
       />
     ))
   )
