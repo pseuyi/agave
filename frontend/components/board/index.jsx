@@ -25,15 +25,15 @@ class Board extends Component {
 
   constructor() {
     super()
-    this.state = { width: 0 }
+    this.state = {
+      width: 0
+    }
   }
 
   componentDidMount() {
     this.props.fetchTasks(this.props.currentUserId);
     const width = this.boardElement.clientWidth;
     this.setState({ width });
-    console.log('width', width)
-    console.log('grid', width * 0.05)
   }
 
   filterTasks = (filter) => {
