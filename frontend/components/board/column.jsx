@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Draggable from 'react-draggable';
 import Card from 'components/board/card'
 
 class Column extends Component {
