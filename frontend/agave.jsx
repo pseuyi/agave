@@ -5,7 +5,24 @@ import configureStore from './store/store';
 
 
 document.addEventListener('DOMContentLoaded', () => {
-  const store = configureStore();
+  let preloadedState;
+
+  if (localStorage['currentUser']) {
+    const data = JSON.parse(localStorage['currentUser']);
+
+    preloadedState = {
+      session: {
+        currentUser: parseInt(data.id)
+      },
+      users: {
+        usersByIds: {
+          [data.id]: data.attributes
+        }
+      }
+    }
+  }
+
+  const store = configureStore(preloadedState);
   const root = document.getElementById('root');
   ReactDOM.render(<Root store={ store } />, root);
 })
