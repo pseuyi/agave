@@ -3,14 +3,12 @@
 .board-container {
   display: flex;
   justify-content: space-between;
-  // border: solid 1px green;
   color: black;
-  margin: 140px 76px;
+  margin: 140px 50px;
 }
 
 .column {
-  width: 280px;
-  // border: solid 1px red;
+  width: 20%;
 
   header {
     text-align: center;
@@ -18,15 +16,19 @@
   }
 }
 
+.column:first-of-type {
+  margin-left: 2.5%;
+}
+
+.column:last-of-type {
+  margin-right: 2.5%;
+}
+
 .card-container {
   height: 100px;
   text-overflow: ellipsis;
-  border: solid 1px black;
   padding: 10px;
   margin: 10px 0;
-
-  header {
-    border-bottom: solid 1px black;
-    margin-bottom: 10px;
-  }
+  border: solid 1px black;
+  box-sizing: border-box;
 }

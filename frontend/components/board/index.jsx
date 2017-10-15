@@ -23,8 +23,17 @@ class Board extends Component {
     currentUser: PropTypes.object
   }
 
+  constructor() {
+    super()
+    this.state = { width: 0 }
+  }
+
   componentDidMount() {
     this.props.fetchTasks(this.props.currentUserId);
+    const width = this.boardElement.clientWidth;
+    this.setState({ width });
+    console.log('width', width)
+    console.log('grid', width * 0.05)
   }
 
   filterTasks = (filter) => {
@@ -46,11 +55,38 @@ class Board extends Component {
     }
 
     return (
-      <section className='board-container'>
-        <Column className='column open' header='open' tasks={openTasks} />
-        <Column className='column ready' header='ready' tasks={readyTasks} />
-        <Column className='column in-progress' header='in progress' tasks={inProgressTasks} />
-        <Column className='column done' header='done' tasks={doneTasks} />
+      <section
+        className='board-container'
+        ref={boardElement => this.boardElement = boardElement}
+      >
+        <Column
+          className='column open'
+          header='open'
+          tasks={openTasks}
+          width={this.state.width}
+        />
+
+        <Column
+          className='column ready'
+          header='ready'
+          tasks={readyTasks}
+          width={this.state.width}
+        />
+
+        <Column
+          className='column in-progress'
+          header='in progress'
+          tasks={inProgressTasks}
+          width={this.state.width}
+        />
+
+        <Column
+          className='column done'
+          header='done'
+          tasks={doneTasks}
+          width={this.state.width}
+        />
+
       </section>
     )
   }
