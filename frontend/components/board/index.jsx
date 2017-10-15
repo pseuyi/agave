@@ -13,6 +13,8 @@ import {
 
 import Column from './column'
 
+import style from './index.scss';
+
 class Board extends Component {
   static propTypes = {
     tasks: PropTypes.object, // key tasks by status
@@ -21,8 +23,17 @@ class Board extends Component {
     currentUser: PropTypes.object
   }
 
+  constructor() {
+    super()
+    this.state = {
+      width: 0
+    }
+  }
+
   componentDidMount() {
     this.props.fetchTasks(this.props.currentUserId);
+    const width = this.boardElement.clientWidth;
+    this.setState({ width });
   }
 
   filterTasks = (filter) => {
@@ -35,6 +46,7 @@ class Board extends Component {
 
   render () {
     let openTasks, readyTasks, inProgressTasks, doneTasks;
+    const width = this.state.width;
 
     if (this.props.tasks) {
       openTasks = this.filterTasks('open');
@@ -44,12 +56,42 @@ class Board extends Component {
     }
 
     return (
-      <section style={{ color: 'black' }}>
-        <h1>board</h1>
-        <Column header='open' tasks={openTasks} />
-        <Column header='ready' tasks={readyTasks} />
-        <Column header='in progress' tasks={inProgressTasks} />
-        <Column header='done' tasks={doneTasks} />
+      <section
+        className='board-container'
+        ref={boardElement => this.boardElement = boardElement}
+      >
+        <Column
+          className='column open'
+          header='open'
+          tasks={openTasks}
+          width={width}
+          bounds={{left: 0, right: width * 0.75}}
+        />
+
+        <Column
+          className='column ready'
+          header='ready'
+          tasks={readyTasks}
+          width={width}
+          bounds={{left: width * -0.25, right: width * 0.5}}
+        />
+
+        <Column
+          className='column in-progress'
+          header='in progress'
+          tasks={inProgressTasks}
+          width={width}
+          bounds={{left: width * -0.5, right: width * 0.25}}
+        />
+
+        <Column
+          className='column done'
+          header='done'
+          tasks={doneTasks}
+          width={width}
+          bounds={{left: width * -0.75, right: 0}}
+        />
+
       </section>
     )
   }
