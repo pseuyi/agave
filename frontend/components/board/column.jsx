@@ -15,7 +15,7 @@ class Column extends Component {
 
   render () {
     return (
-      <section id="board-column">
+      <section className={this.props.className}>
         <header><h1>{this.props.header}</h1></header>
         { this.props.tasks && this.renderCards(this.props.tasks) }
       </section>

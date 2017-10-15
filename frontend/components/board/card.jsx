@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 const Card = ({title, description}) => (
-  <article>
+  <article className='card-container'>
     <header>{title}</header>
     <p>{description}</p>
   </article>

@@ -13,6 +13,8 @@ import {
 
 import Column from './column'
 
+import style from './index.scss';
+
 class Board extends Component {
   static propTypes = {
     tasks: PropTypes.object, // key tasks by status
@@ -44,12 +46,11 @@ class Board extends Component {
     }
 
     return (
-      <section style={{ color: 'black' }}>
-        <h1>board</h1>
-        <Column header='open' tasks={openTasks} />
-        <Column header='ready' tasks={readyTasks} />
-        <Column header='in progress' tasks={inProgressTasks} />
-        <Column header='done' tasks={doneTasks} />
+      <section className='board-container'>
+        <Column className='column open' header='open' tasks={openTasks} />
+        <Column className='column ready' header='ready' tasks={readyTasks} />
+        <Column className='column in-progress' header='in progress' tasks={inProgressTasks} />
+        <Column className='column done' header='done' tasks={doneTasks} />
       </section>
     )
   }

@@ -1,0 +1,32 @@
+@import 'scss/_colors';
+
+.board-container {
+  display: flex;
+  justify-content: space-between;
+  // border: solid 1px green;
+  color: black;
+  margin: 140px 76px;
+}
+
+.column {
+  width: 280px;
+  // border: solid 1px red;
+
+  header {
+    text-align: center;
+    border-bottom: solid 1px black;
+  }
+}
+
+.card-container {
+  height: 100px;
+  text-overflow: ellipsis;
+  border: solid 1px black;
+  padding: 10px;
+  margin: 10px 0;
+
+  header {
+    border-bottom: solid 1px black;
+    margin-bottom: 10px;
+  }
+}
