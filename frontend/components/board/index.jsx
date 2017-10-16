@@ -7,8 +7,10 @@ import { fetchTasks } from 'actions/task_actions';
 
 import {
   currentUserSelector,
-  tasksSelector,
-  tasksIdsSelector
+  getOpenTasks,
+  getReadyTasks,
+  getInProgressTasks,
+  getDoneTasks,
 } from 'reducers/selectors';
 
 import Column from './column'
@@ -17,8 +19,10 @@ import style from './index.scss';
 
 class Board extends Component {
   static propTypes = {
-    tasks: PropTypes.object, // key tasks by status
-    tasksIds: PropTypes.array,
+    openTasks: PropTypes.object,
+    readyTasks: PropTypes.object,
+    inProgressTasks: PropTypes.object,
+    doneTasks: PropTypes.object,
     currentUserId: PropTypes.number,
     currentUser: PropTypes.object
   }
@@ -36,15 +40,8 @@ class Board extends Component {
     this.setState({ width });
   }
 
-  filterTasks = (filter) => {
-    const { tasks, tasksIds } = this.props;
-    return tasksIds
-            .filter(id => tasks[id].status === filter)
-            .map(id => tasks[id])
-            .sort((a, b) => a.priority - b.priority );
-  }
-
   render () {
+<<<<<<< HEAD
     let openTasks, readyTasks, inProgressTasks, doneTasks;
     const width = this.state.width;
 
@@ -55,6 +52,9 @@ class Board extends Component {
       doneTasks = this.filterTasks('done');
     }
 
+=======
+    const { openTasks, readyTasks, inProgressTasks, doneTasks } = this.props;
+>>>>>>> refactor tasks selectors
     return (
       <section
         className='board-container'
@@ -101,8 +101,10 @@ const mapStateToProps = (state) => {
   return {
     currentUserId: state.session.currentUser,
     currentUser: currentUserSelector(state),
-    tasksIds: tasksIdsSelector(state),
-    tasks: tasksSelector(state),
+    openTasks: getOpenTasks(state),
+    readyTasks: getReadyTasks:(state),
+    inProgressTasks: getInProgressTasks(state),
+    doneTasks: getDoneTasks(state),
   }
 }
 
