@@ -17,7 +17,7 @@ const Header = (props) => {
         {
           props.currentUser ?
             [
-              <h4 key={props.currentUser.username}>{props.currentUser.username}</h4>,
+              <h4 key='username'>{props.currentUser.username}</h4>,
               <button key='logout' onClick={handleLogout}>logout</button>
             ] : [
               <Link key='login' to='/login'>login</Link>,
