@@ -7,7 +7,6 @@ import { logout } from 'actions/session_actions';
 const Header = (props) => {
 
   const handleLogout = (e) => {
-    console.log(props.currentUserId)
     e.preventDefault();
     props.logout(props.currentUserId);
   }
