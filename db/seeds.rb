@@ -19,8 +19,38 @@
 
   tasks = [{
     title: "#{Faker::Hacker.verb} #{Faker::Hacker.adjective} #{Faker::Hacker.noun}",
+    status: 'open',
+    priority: 1
+  },
+  {
+    title: "#{Faker::Hacker.verb} #{Faker::Hacker.adjective} #{Faker::Hacker.noun}",
+    status: 'open',
+    priority: 2
+  },
+  {
+    title: "#{Faker::Hacker.verb} #{Faker::Hacker.adjective} #{Faker::Hacker.noun}",
+    status: 'ready',
+    priority: 1
+  },
+  {
+    title: "#{Faker::Hacker.verb} #{Faker::Hacker.adjective} #{Faker::Hacker.noun}",
+    status: 'ready',
+    priority: 2
+  },
+  {
+    title: "#{Faker::Hacker.verb} #{Faker::Hacker.adjective} #{Faker::Hacker.noun}",
+    status: 'ready',
+    priority: 3
+  },
+  {
+    title: "#{Faker::Hacker.verb} #{Faker::Hacker.adjective} #{Faker::Hacker.noun}",
     status: 'in progress',
     priority: 1
+  },
+  {
+    title: "#{Faker::Hacker.verb} #{Faker::Hacker.adjective} #{Faker::Hacker.noun}",
+    status: 'in progress',
+    priority: 2
   },
   {
     title: 'moisturize',
