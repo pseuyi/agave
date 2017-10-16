@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
   def index
-    @tasks = User.find(params[:user_id]).tasks
+    @tasks = current_user.tasks
     render json: @tasks
   end
 

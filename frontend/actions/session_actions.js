@@ -29,9 +29,9 @@ export const login = (formData) => {
   )
 }
 
-export const logout = (user) => {
+export const logout = (id) => {
   return (dispatch) => {
-    axios.delete('/session', { user })
+    axios.delete(`/session/${id}`)
       .then( user => {
         APIUtil.removeUserLocalStorage();
         return dispatch(receiveCurrentUser(null));
