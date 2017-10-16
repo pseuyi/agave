@@ -41,20 +41,7 @@ class Board extends Component {
   }
 
   render () {
-<<<<<<< HEAD
-    let openTasks, readyTasks, inProgressTasks, doneTasks;
-    const width = this.state.width;
-
-    if (this.props.tasks) {
-      openTasks = this.filterTasks('open');
-      readyTasks = this.filterTasks('ready');
-      inProgressTasks = this.filterTasks('in progress');
-      doneTasks = this.filterTasks('done');
-    }
-
-=======
     const { openTasks, readyTasks, inProgressTasks, doneTasks } = this.props;
->>>>>>> refactor tasks selectors
     return (
       <section
         className='board-container'
