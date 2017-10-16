@@ -19,10 +19,10 @@ import style from './index.scss';
 
 class Board extends Component {
   static propTypes = {
-    openTasks: PropTypes.object,
-    readyTasks: PropTypes.object,
-    inProgressTasks: PropTypes.object,
-    doneTasks: PropTypes.object,
+    openTasks: PropTypes.array,
+    readyTasks: PropTypes.array,
+    inProgressTasks: PropTypes.array,
+    doneTasks: PropTypes.array,
     currentUserId: PropTypes.number,
     currentUser: PropTypes.object
   }
@@ -43,6 +43,7 @@ class Board extends Component {
   render () {
     const { openTasks, readyTasks, inProgressTasks, doneTasks } = this.props;
     const { width } = this.state;
+
     return (
       <section
         className='board-container'
