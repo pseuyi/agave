@@ -17,19 +17,19 @@ const receiveTasks = (data) => {
   }
 }
 
-const createTask = (data) => {
+const createTask = (task) => {
   type: CREATE_TASK_SUCCESS,
-  payload: data
+  task
 }
 
-const updateTask = (data) => {
+const updateTask = (task) => {
   type: UPDATE_TASK_SUCCESS,
-  payload: data
+  task
 }
 
 const deleteTask = (id) => {
   type: DELETE_TASK_SUCCESS,
-  payload: id
+  id
 }
 
 export const fetchTasks = (userId) => (dispatch) => {

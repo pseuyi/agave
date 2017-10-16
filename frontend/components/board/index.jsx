@@ -89,7 +89,7 @@ const mapStateToProps = (state) => {
     currentUserId: state.session.currentUser,
     currentUser: currentUserSelector(state),
     openTasks: getOpenTasks(state),
-    readyTasks: getReadyTasks:(state),
+    readyTasks: getReadyTasks(state),
     inProgressTasks: getInProgressTasks(state),
     doneTasks: getDoneTasks(state),
   }

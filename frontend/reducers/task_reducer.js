@@ -30,21 +30,21 @@ const taskReducer = (state = defaultState, action) => {
       return {
         tasksByIds: {
           ...state.tasksByIds,
-          [action.payload.id]: {...action.payload},
+          [action.task.id]: {...action.task},
         },
-        ids: [...state.ids, action.payload.id]
+        ids: [...state.ids, action.task.id]
       }
     case UPDATE_TASK_SUCCESS:
       return {
         tasksByIds: {
           ...state.tasksByIds,
-          [action.payload.id]: {...action.payload},
+          [action.task.id]: {...action.task},
         },
         ids: [...state.ids]
       }
     case DELETE_TASK_SUCCESS:
-      const { action.payload, ...tasksByIds } = state.taskByIds
-      const ids = without(state.ids, action.payload);
+      const { action.id, ...tasksByIds } = state.tasksByIds
+      const ids = without(state.ids, action.id);
       return {
         tasksByIds,
         ids
