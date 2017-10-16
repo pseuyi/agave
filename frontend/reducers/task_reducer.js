@@ -17,14 +17,8 @@ const taskReducer = (state = defaultState, action) => {
     case RECEIVE_TASKS:
       const tasksByIds = keyBy(action.tasks, 'id');
       return {
-        tasksByIds: {
-          ...state.tasksByIds,
-          ...tasksByIds,
-        },
-        ids: [
-          ...state.ids,
-          ...Object.keys(tasksByIds),
-        ]
+        tasksByIds,
+        ids: Object.keys(tasksByIds)
       }
     case CREATE_TASK_SUCCESS:
       return {
@@ -43,10 +37,11 @@ const taskReducer = (state = defaultState, action) => {
         ids: [...state.ids]
       }
     case DELETE_TASK_SUCCESS:
-      const { action.id, ...tasksByIds } = state.tasksByIds
+      const newTasksByIds = Object.assign({}, state.tasksByIds);
+      delete newTasksByIds[action.id];
       const ids = without(state.ids, action.id);
       return {
-        tasksByIds,
+        tasksByIds: newTasksByIds,
         ids
       }
     default:

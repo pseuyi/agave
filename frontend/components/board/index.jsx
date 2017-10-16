@@ -42,6 +42,7 @@ class Board extends Component {
 
   render () {
     const { openTasks, readyTasks, inProgressTasks, doneTasks } = this.props;
+    const { width } = this.state;
     return (
       <section
         className='board-container'
