@@ -7,7 +7,6 @@ export const removeUserLocalStorage = () => {
   delete localStorage['currentUser'];
 }
 
-
 export const getPreloadedState = () => {
   if (localStorage['currentUser']) {
     const data = JSON.parse(localStorage['currentUser']);
@@ -23,6 +22,6 @@ export const getPreloadedState = () => {
       }
     };
   } else {
-    return null;
+    return {};
   }
 }
