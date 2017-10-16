@@ -52,6 +52,6 @@ export const editTask = (userId, taskId) => (dispatch) => {
 
 export const removeTask = (userId, taskId) => (dispatch) => {
   axios.delete(`users/${userId}/tasks/${taskId}`)
-  .then(res => dispatch(deleteTask(res.data.data)))
+  .then(res => dispatch(deleteTask(taskId)))
   .catch(err => dispatch(receiveError(err.response.data[0])))
 }
