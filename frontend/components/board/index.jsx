@@ -29,20 +29,14 @@ class Board extends Component {
 
   constructor() {
     super()
-    this.state = {
-      width: 0
-    }
   }
 
   componentDidMount() {
     this.props.fetchTasks(this.props.currentUserId);
-    const width = this.boardElement.clientWidth;
-    this.setState({ width });
   }
 
   render () {
     const { openTasks, readyTasks, inProgressTasks, doneTasks } = this.props;
-    const { width } = this.state;
 
     return (
       <section
@@ -53,32 +47,24 @@ class Board extends Component {
           className='column open'
           header='open'
           tasks={openTasks}
-          width={width}
-          bounds={{left: 0, right: width * 0.75}}
         />
 
         <Column
           className='column ready'
           header='ready'
           tasks={readyTasks}
-          width={width}
-          bounds={{left: width * -0.25, right: width * 0.5}}
         />
 
         <Column
           className='column in-progress'
           header='in progress'
           tasks={inProgressTasks}
-          width={width}
-          bounds={{left: width * -0.5, right: width * 0.25}}
         />
 
         <Column
           className='column done'
           header='done'
           tasks={doneTasks}
-          width={width}
-          bounds={{left: width * -0.75, right: 0}}
         />
 
       </section>

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Draggable from 'react-draggable';
 import Card from 'components/board/card'
 
 class Column extends Component {
@@ -10,8 +9,6 @@ class Column extends Component {
         title={task.title}
         key={`${task.id}-${task.title}`}
         description={task.description}
-        width={this.props.width}
-        bounds={this.props.bounds}
       />
     ))
   )
