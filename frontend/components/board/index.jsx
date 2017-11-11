@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import * as _ from 'lodash';
+import { Responsive, WidthProvider }  from 'react-grid-layout';
+const ResponsiveGridLayout = WidthProvider(Responsive);
 
 import { fetchTasks } from 'actions/task_actions';
 
@@ -13,7 +15,8 @@ import {
   getDoneTasks,
 } from 'reducers/selectors';
 
-import Column from './column'
+// import Column from './column'
+import Card from './card'
 
 import style from './index.scss';
 
@@ -29,45 +32,59 @@ class Board extends Component {
 
   constructor() {
     super()
+
+    this.state = {
+      layouts: {
+        lg: []
+      },
+      cards: [],
+    }
   }
 
   componentDidMount() {
     this.props.fetchTasks(this.props.currentUserId);
+    this.buildLayout();
+  }
+
+  buildLayout = () => {
+    const layout = []
+    const { openTasks, readyTasks, inProgressTasks, doneTasks } = this.props;
+
+    const cards = openTasks.map( (task, i) => {
+      layout.push({
+        i: `${i}-${task.title}`,
+        x: 0, y: i, w: 1, h: 1
+      })
+
+      return (
+        <Card
+          key={`${i}-${task.title}`}
+          title={task.title}
+          description={task.description}
+        />
+      )
+    })
+
+    this.setState({
+      layouts: { lg: layout },
+      cards
+    })
   }
 
   render () {
-    const { openTasks, readyTasks, inProgressTasks, doneTasks } = this.props;
-
+    console.log('state: ', this.state)
+    
     return (
-      <section
-        className='board-container'
-        ref={boardElement => this.boardElement = boardElement}
-      >
-        <Column
-          className='column open'
-          header='open'
-          tasks={openTasks}
-        />
+      <ResponsiveGridLayout
+        className='layout'
+        layouts={this.state.layouts}
+        breakpoints={{ lg: 1200 }}
+        cols={{ lg: 4 }}
+        >
 
-        <Column
-          className='column ready'
-          header='ready'
-          tasks={readyTasks}
-        />
+        { this.state.cards }
 
-        <Column
-          className='column in-progress'
-          header='in progress'
-          tasks={inProgressTasks}
-        />
-
-        <Column
-          className='column done'
-          header='done'
-          tasks={doneTasks}
-        />
-
-      </section>
+      </ResponsiveGridLayout>
     )
   }
 }
