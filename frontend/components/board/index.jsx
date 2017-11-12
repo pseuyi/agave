@@ -85,7 +85,6 @@ class Board extends Component {
   }
 
   render () {
-    console.log('state: ', this.state)
 
     return (
       <section className='board-container'>
