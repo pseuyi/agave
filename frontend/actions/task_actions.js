@@ -41,7 +41,6 @@ export const fetchTasks = (userId) => (dispatch) => {
 export const addTask = (userId, newTask) => (dispatch) => {
   axios.post(`users/${userId}/tasks`, newTask)
   .then(res => {
-    console.log('response', res)
     dispatch(createTask(res.data.data))
   })
   .catch(err => dispatch(receiveError(err.response.data[0])))

@@ -7,7 +7,6 @@ import style from './index.scss';
 export class Footer extends Component {
 
   handleAddTask = (values) => {
-    console.log('HANDLE ADD TASK', values)
     this.props.addTask(this.props.userId, values);
   }
 
