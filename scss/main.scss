@@ -3,17 +3,38 @@
 //   font-weight: regular;
 //   src: url('BodoniXT.ttf');
 // }
+
 @import '_reset';
 @import '_colors';
+@import 'rgl_styles';
+@import 'rgl_styles2';
 
 body {
   font-family: 'Arial', sans-serif;
   color: #000;
-  background: $field;
-  position: relative;
-  height: 100vh;
+  // background: $field;
+  // position: relative;
+  // height: 100vh;
   margin: 0;
 }
 
-@import 'rgl_styles';
-@import 'rgl_styles2';
+video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  z-index: -1;
+}
+
+#root {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
