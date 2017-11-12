@@ -59,9 +59,9 @@ class Board extends Component {
         h: 1,
         isResizable: false,
       })
-    )
+    );
 
-    this.props.updateLayouts({ lg: layout })
+    this.props.updateLayouts({ lg: layout });
   }
 
   getColIdx = (status) => columnIndices[status];
@@ -79,7 +79,7 @@ class Board extends Component {
         title={task.title}
         description={task.description}
       />
-    ))
+    ));
 
     return (
       <section className='board-container'>
