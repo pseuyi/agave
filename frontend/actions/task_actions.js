@@ -38,9 +38,11 @@ export const fetchTasks = (userId) => (dispatch) => {
   .catch(err => dispatch(receiveError(err.response.data[0])))
 }
 
-export const addTask = (userId) => (dispatch) => {
-  axios.post(`users/${userId}/tasks`)
-  .then(res => dispatch(createTask(res.data.data)))
+export const addTask = (userId, newTask) => (dispatch) => {
+  axios.post(`users/${userId}/tasks`, newTask)
+  .then(res => {
+    dispatch(createTask(res.data.data))
+  })
   .catch(err => dispatch(receiveError(err.response.data[0])))
 }
 
