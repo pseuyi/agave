@@ -14,12 +14,17 @@ import {
   layoutsSelector
 } from 'reducers/selectors';
 
-import { getCol } from '../../util/board_util';
-
 import Column from './column'
 import Card from './card'
 
 import style from './index.scss';
+
+const columnIndices = {
+  'open': 0,
+  'ready': 1,
+  'in progress': 2,
+  'done': 3,
+}
 
 class Board extends Component {
   static propTypes = {
@@ -48,7 +53,7 @@ class Board extends Component {
   buildInitialLayouts = () => {
     const layout = this.props.tasks.map((task) => ({
         i: `${task.id}-${task.title}`,
-        x: getCol(task.status),
+        x: this.getColIdx(task.status),
         y: task.priority - 1,
         w: 1,
         h: 1,
@@ -58,6 +63,8 @@ class Board extends Component {
 
     this.props.updateLayouts({ lg: layout })
   }
+
+  getColIdx = (status) => columnIndices[status];
 
   onLayoutChange = (layout, layouts) => {
     this.props.updateLayouts(layouts);
