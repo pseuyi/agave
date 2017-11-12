@@ -6,10 +6,12 @@ import { Responsive, WidthProvider } from 'react-grid-layout';
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
 import { fetchTasks } from 'actions/task_actions';
+import { updateLayouts } from 'actions/board_actions';
 
 import {
   currentUserSelector,
   tasksSelector,
+  layoutsSelector
 } from 'reducers/selectors';
 
 import { getCol } from '../../util/board_util';
@@ -33,10 +35,6 @@ class Board extends Component {
     super()
 
     this.state = {
-      layouts: {
-        lg: []
-      },
-      cards: [],
       mounted: false,
     }
   }
@@ -44,15 +42,11 @@ class Board extends Component {
   componentDidMount() {
     this.props.fetchTasks(this.props.currentUserId);
     this.setState({ mounted: true });
-    this.buildLayout();
+    this.buildInitialLayouts();
   }
 
-  buildLayout = () => {
-    const layout = []
-
-    this.props.tasks.forEach((task) => {
-      console.log(task);
-      layout.push({
+  buildInitialLayouts = () => {
+    const layout = this.props.tasks.map((task) => ({
         i: `${task.id}-${task.title}`,
         x: getCol(task.status),
         y: task.priority - 1,
@@ -60,20 +54,16 @@ class Board extends Component {
         h: 1,
         isResizable: false,
       })
-    })
+    )
 
-    this.setState({
-      layouts: { lg: layout }
-    })
+    this.props.updateLayouts({ lg: layout })
   }
 
   onLayoutChange = (layout, layouts) => {
-    this.setState({ layouts });
+    this.props.updateLayouts(layouts);
   }
 
   render () {
-    console.log('layout: ', this.state.layouts.lg);
-
     const cards = this.props.tasks.map(task => (
       <Card
         className='card-container'
@@ -96,7 +86,7 @@ class Board extends Component {
 
         <ResponsiveReactGridLayout
           style={{ width: '100%' }}
-          layouts={this.state.layouts}
+          layouts={this.props.layouts}
           onLayoutChange={this.onLayoutChange}
           breakpoints={{ lg: 1000 }}
           cols={{ lg: 4 }}
@@ -119,12 +109,14 @@ const mapStateToProps = (state) => {
     currentUserId: state.session.currentUser,
     currentUser: currentUserSelector(state),
     tasks: tasksSelector(state),
+    layouts: layoutsSelector(state),
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     fetchTasks: userId => dispatch(fetchTasks(userId)),
+    updateLayouts: layouts => dispatch(updateLayouts(layouts)),
   }
 }
 
