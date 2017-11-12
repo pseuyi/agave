@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import * as _ from 'lodash';
+import { Responsive, WidthProvider } from 'react-grid-layout';
+const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
 import { fetchTasks } from 'actions/task_actions';
 
@@ -14,6 +16,7 @@ import {
 } from 'reducers/selectors';
 
 import Column from './column'
+import Card from './card'
 
 import style from './index.scss';
 
@@ -29,62 +32,88 @@ class Board extends Component {
 
   constructor() {
     super()
+
     this.state = {
-      width: 0
+      layouts: {
+        lg: []
+      },
+      cards: [],
+      mounted: false,
     }
   }
 
   componentDidMount() {
     this.props.fetchTasks(this.props.currentUserId);
-    const width = this.boardElement.clientWidth;
-    this.setState({ width });
+    this.setState({ mounted: true });
+    this.buildLayout();
+  }
+
+  buildLayout = () => {
+    const layout = []
+    const { openTasks, readyTasks, inProgressTasks, doneTasks } = this.props;
+    const taskCols = [openTasks, readyTasks, inProgressTasks, doneTasks];
+    const cards = [];
+
+    taskCols.forEach( (tasks, colIdx) => {
+      tasks.forEach( (task, i) => {
+        layout.push({
+          i: `${colIdx}-${i}-${task.title}`,
+          x: colIdx,
+          y: i,
+          w: 1,
+          h: 1,
+          maxH: 2,
+          maxW: 1,
+        })
+
+        cards.push(
+          <Card
+            className='card-container'
+            style=''
+            key={`${colIdx}-${i}-${task.title}`}
+            title={task.title}
+            description={task.description}
+          />
+        )
+      })
+    })
+
+    this.setState({
+      layouts: { lg: layout },
+      cards
+    })
   }
 
   render () {
-    const { openTasks, readyTasks, inProgressTasks, doneTasks } = this.props;
-    const { width } = this.state;
 
     return (
-      <section
-        className='board-container'
-        ref={boardElement => this.boardElement = boardElement}
-      >
-        <Column
-          className='column open'
-          header='open'
-          tasks={openTasks}
-          width={width}
-          bounds={{left: 0, right: width * 0.75}}
-        />
+      <section className='board-container'>
 
-        <Column
-          className='column ready'
-          header='ready'
-          tasks={readyTasks}
-          width={width}
-          bounds={{left: width * -0.25, right: width * 0.5}}
-        />
+        <div className='col-headers'>
+          <Column header='open' />
+          <Column header='ready' />
+          <Column header='in progress' />
+          <Column header='done' />
+        </div>
 
-        <Column
-          className='column in-progress'
-          header='in progress'
-          tasks={inProgressTasks}
-          width={width}
-          bounds={{left: width * -0.5, right: width * 0.25}}
-        />
+        <ResponsiveReactGridLayout
+          style={{ width: '100%' }}
+          layouts={this.state.layouts}
+          breakpoints={{ lg: 1000 }}
+          cols={{ lg: 4 }}
+          measureBeforeMount={false}
+          useCSSTransforms={this.state.mounted}
+          >
 
-        <Column
-          className='column done'
-          header='done'
-          tasks={doneTasks}
-          width={width}
-          bounds={{left: width * -0.75, right: 0}}
-        />
+          { this.state.cards }
 
+        </ResponsiveReactGridLayout>
       </section>
     )
   }
 }
+
+
 
 const mapStateToProps = (state) => {
   return {
