@@ -7,19 +7,25 @@ export const currentUserSelector = state =>
 export const getTasksIds = state => state.tasks.ids;
 export const getTasks = state => state.tasks.tasksByIds;
 
-export const getTasksByStatus = createSelector(
+export const tasksSelector = createSelector(
+  getTasksIds,
   getTasks,
-  (tasksById) => groupBy(tasksById, 'status')
-);
+  (ids, tasks) => ids.map(id => tasks[id])
+)
 
-export const makeStatusPrioritySelector = (status) => createSelector(
-  getTasksByStatus,
-  (tasksByStatus) => (
-    tasksByStatus[status] ? orderBy(tasksByStatus[status], 'priority', 'asc') : []
-  )
-);
+// export const getTasksByStatus = createSelector(
+//   getTasks,
+//   (tasksById) => groupBy(tasksById, 'status')
+// );
 
-export const getOpenTasks = makeStatusPrioritySelector('open');
-export const getReadyTasks = makeStatusPrioritySelector('ready');
-export const getInProgressTasks = makeStatusPrioritySelector('in progress');
-export const getDoneTasks = makeStatusPrioritySelector('done');
+// export const makeStatusPrioritySelector = (status) => createSelector(
+//   getTasksByStatus,
+//   (tasksByStatus) => (
+//     tasksByStatus[status] ? orderBy(tasksByStatus[status], 'priority', 'asc') : []
+//   )
+// );
+//
+// export const getOpenTasks = makeStatusPrioritySelector('open');
+// export const getReadyTasks = makeStatusPrioritySelector('ready');
+// export const getInProgressTasks = makeStatusPrioritySelector('in progress');
+// export const getDoneTasks = makeStatusPrioritySelector('done');

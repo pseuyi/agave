@@ -9,11 +9,10 @@ import { fetchTasks } from 'actions/task_actions';
 
 import {
   currentUserSelector,
-  getOpenTasks,
-  getReadyTasks,
-  getInProgressTasks,
-  getDoneTasks,
+  tasksSelector,
 } from 'reducers/selectors';
+
+import { getCol } from '../../util/board_util';
 
 import Column from './column'
 import Card from './card'
@@ -50,38 +49,21 @@ class Board extends Component {
 
   buildLayout = () => {
     const layout = []
-    const { openTasks, readyTasks, inProgressTasks, doneTasks } = this.props;
-    const taskCols = [openTasks, readyTasks, inProgressTasks, doneTasks];
-    const cards = [];
 
-    taskCols.forEach( (tasks, colIdx) => {
-      tasks.forEach( (task, i) => {
-        layout.push({
-          i: `${colIdx}-${i}-${task.title}`,
-          x: colIdx,
-          y: task.priority - 1,
-          w: 1,
-          h: 1,
-          maxH: 2,
-          maxW: 1,
-          isResizable: false,
-        })
-
-        cards.push(
-          <Card
-            className='card-container'
-            style=''
-            key={`${colIdx}-${i}-${task.title}`}
-            title={task.title}
-            description={task.description}
-          />
-        )
+    this.props.tasks.forEach((task) => {
+      console.log(task);
+      layout.push({
+        i: `${task.id}-${task.title}`,
+        x: getCol(task.status),
+        y: task.priority - 1,
+        w: 1,
+        h: 1,
+        isResizable: false,
       })
     })
 
     this.setState({
-      layouts: { lg: layout },
-      cards
+      layouts: { lg: layout }
     })
   }
 
@@ -91,6 +73,16 @@ class Board extends Component {
 
   render () {
     console.log('layout: ', this.state.layouts.lg);
+
+    const cards = this.props.tasks.map(task => (
+      <Card
+        className='card-container'
+        style=''
+        key={`${task.id}-${task.title}`}
+        title={task.title}
+        description={task.description}
+      />
+    ))
 
     return (
       <section className='board-container'>
@@ -112,7 +104,7 @@ class Board extends Component {
           useCSSTransforms={this.state.mounted}
           >
 
-          { this.state.cards }
+          { cards }
 
         </ResponsiveReactGridLayout>
       </section>
@@ -126,10 +118,7 @@ const mapStateToProps = (state) => {
   return {
     currentUserId: state.session.currentUser,
     currentUser: currentUserSelector(state),
-    openTasks: getOpenTasks(state),
-    readyTasks: getReadyTasks(state),
-    inProgressTasks: getInProgressTasks(state),
-    doneTasks: getDoneTasks(state),
+    tasks: tasksSelector(state),
   }
 }
 
