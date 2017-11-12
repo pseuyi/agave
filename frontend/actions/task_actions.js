@@ -33,7 +33,7 @@ const deleteTask = (id) => {
 }
 
 export const fetchTasks = (userId) => (dispatch) => {
-  axios.get(`users/${userId}/tasks`)
+  return axios.get(`users/${userId}/tasks`)
   .then(res => dispatch(receiveTasks(res.data.data)))
   .catch(err => dispatch(receiveError(err.response.data[0])))
 }

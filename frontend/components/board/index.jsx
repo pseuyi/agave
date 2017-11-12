@@ -6,19 +6,25 @@ import { Responsive, WidthProvider } from 'react-grid-layout';
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
 import { fetchTasks } from 'actions/task_actions';
+import { updateLayouts } from 'actions/board_actions';
 
 import {
   currentUserSelector,
-  getOpenTasks,
-  getReadyTasks,
-  getInProgressTasks,
-  getDoneTasks,
+  tasksSelector,
+  layoutsSelector
 } from 'reducers/selectors';
 
 import Column from './column'
 import Card from './card'
 
 import style from './index.scss';
+
+const columnIndices = {
+  'open': 0,
+  'ready': 1,
+  'in progress': 2,
+  'done': 3,
+}
 
 class Board extends Component {
   static propTypes = {
@@ -34,57 +40,46 @@ class Board extends Component {
     super()
 
     this.state = {
-      layouts: {
-        lg: []
-      },
-      cards: [],
       mounted: false,
     }
   }
 
   componentDidMount() {
-    this.props.fetchTasks(this.props.currentUserId);
+    this.props.fetchTasks(this.props.currentUserId)
+      .then((res) => this.buildInitialLayouts());
     this.setState({ mounted: true });
-    this.buildLayout();
   }
 
-  buildLayout = () => {
-    const layout = []
-    const { openTasks, readyTasks, inProgressTasks, doneTasks } = this.props;
-    const taskCols = [openTasks, readyTasks, inProgressTasks, doneTasks];
-    const cards = [];
-
-    taskCols.forEach( (tasks, colIdx) => {
-      tasks.forEach( (task, i) => {
-        layout.push({
-          i: `${colIdx}-${i}-${task.title}`,
-          x: colIdx,
-          y: i,
-          w: 1,
-          h: 1,
-          maxH: 2,
-          maxW: 1,
-        })
-
-        cards.push(
-          <Card
-            className='card-container'
-            style=''
-            key={`${colIdx}-${i}-${task.title}`}
-            title={task.title}
-            description={task.description}
-          />
-        )
+  buildInitialLayouts = () => {
+    const layout = this.props.tasks.map((task) => ({
+        i: `${task.id}-${task.title}`,
+        x: this.getColIdx(task.status),
+        y: task.priority - 1,
+        w: 1,
+        h: 1,
+        isResizable: false,
       })
-    })
+    );
 
-    this.setState({
-      layouts: { lg: layout },
-      cards
-    })
+    this.props.updateLayouts({ lg: layout });
+  }
+
+  getColIdx = (status) => columnIndices[status];
+
+  onLayoutChange = (layout, layouts) => {
+    this.props.updateLayouts(layouts);
   }
 
   render () {
+    const cards = this.props.tasks.map(task => (
+      <Card
+        className='card-container'
+        style=''
+        key={`${task.id}-${task.title}`}
+        title={task.title}
+        description={task.description}
+      />
+    ));
 
     return (
       <section className='board-container'>
@@ -98,14 +93,15 @@ class Board extends Component {
 
         <ResponsiveReactGridLayout
           style={{ width: '100%' }}
-          layouts={this.state.layouts}
+          layouts={this.props.layouts}
+          onLayoutChange={this.onLayoutChange}
           breakpoints={{ lg: 1000 }}
           cols={{ lg: 4 }}
           measureBeforeMount={false}
           useCSSTransforms={this.state.mounted}
           >
 
-          { this.state.cards }
+          { cards }
 
         </ResponsiveReactGridLayout>
       </section>
@@ -119,16 +115,15 @@ const mapStateToProps = (state) => {
   return {
     currentUserId: state.session.currentUser,
     currentUser: currentUserSelector(state),
-    openTasks: getOpenTasks(state),
-    readyTasks: getReadyTasks(state),
-    inProgressTasks: getInProgressTasks(state),
-    doneTasks: getDoneTasks(state),
+    tasks: tasksSelector(state),
+    layouts: layoutsSelector(state),
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     fetchTasks: userId => dispatch(fetchTasks(userId)),
+    updateLayouts: layouts => dispatch(updateLayouts(layouts)),
   }
 }
 
