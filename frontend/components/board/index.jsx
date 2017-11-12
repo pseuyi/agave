@@ -40,9 +40,9 @@ class Board extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchTasks(this.props.currentUserId);
+    this.props.fetchTasks(this.props.currentUserId)
+      .then((res) => this.buildInitialLayouts());
     this.setState({ mounted: true });
-    this.buildInitialLayouts();
   }
 
   buildInitialLayouts = () => {
