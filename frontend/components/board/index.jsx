@@ -59,11 +59,12 @@ class Board extends Component {
         layout.push({
           i: `${colIdx}-${i}-${task.title}`,
           x: colIdx,
-          y: i,
+          y: task.priority - 1,
           w: 1,
           h: 1,
           maxH: 2,
           maxW: 1,
+          isResizable: false,
         })
 
         cards.push(
@@ -84,7 +85,12 @@ class Board extends Component {
     })
   }
 
+  onLayoutChange = (layout, layouts) => {
+    this.setState({ layouts });
+  }
+
   render () {
+    console.log('layout: ', this.state.layouts.lg);
 
     return (
       <section className='board-container'>
@@ -99,6 +105,7 @@ class Board extends Component {
         <ResponsiveReactGridLayout
           style={{ width: '100%' }}
           layouts={this.state.layouts}
+          onLayoutChange={this.onLayoutChange}
           breakpoints={{ lg: 1000 }}
           cols={{ lg: 4 }}
           measureBeforeMount={false}
