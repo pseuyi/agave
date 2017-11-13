@@ -26,6 +26,20 @@ class TasksController < ApplicationController
     end
   end
 
+  #TODO: handle rollbacks
+  def update_tasks
+    Task.transaction do
+      @tasks = []
+      tasks_params.each do |data|
+        task = Task.find(data[:id])
+        task.update({ status: data[:status], priority: data[:priority].to_i })
+        @tasks << task
+      end
+    end
+
+    render json: @tasks
+  end
+
   def destroy
     @task = current_user.tasks.find(params[:id])
     @task.destroy
@@ -38,4 +52,7 @@ class TasksController < ApplicationController
     params.require(:task).permit(:title, :description, :status, :priority)
   end
 
+  def tasks_params
+    params.require(:tasks)
+  end
 end
