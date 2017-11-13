@@ -90,7 +90,7 @@ class Board extends Component {
     ));
 
     const columns = statuses.map(status => (
-      <Column header={status} />
+      <Column key={status} header={status} />
     ))
 
     return (
