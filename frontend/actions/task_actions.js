@@ -38,6 +38,12 @@ export const fetchTasks = (userId) => (dispatch) => {
   .catch(err => dispatch(receiveError(err.response.data[0])))
 }
 
+export const updateTasks = (tasks) => (dispatch) => {
+  return axios.patch(`tasks/`, { tasks: tasks })
+    .then(res => dispatch(receiveTasks(res.data.data)))
+    .catch(err => dispatch(receiveError(err.response.data[0])))
+}
+
 export const addTask = (userId, newTask) => (dispatch) => {
   axios.post(`users/${userId}/tasks`, newTask)
   .then(res => {
