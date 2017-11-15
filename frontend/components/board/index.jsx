@@ -81,7 +81,7 @@ class Board extends Component {
       />
     ));
 
-    const columns = this.statuses.map((status, i) => (
+    const columns = this.statuses.map(status => (
       <Column key={status} header={status} />
     ))
 
