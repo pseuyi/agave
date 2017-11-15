@@ -28,10 +28,10 @@ class SessionModal extends Component {
       if (this.state.avatar) formData.append("user[avatar]", this.state.avatar);
       formData.append("user[email]", values.email);
       this.props.signUp(formData)
-        .then(() => this.props.history.push('/board'))
+        .then(() => this.props.history.push('/home'))
     } else {
       this.props.login(formData)
-        .then(() => this.props.history.push('/board'))
+        .then(() => this.props.history.push('/home'))
     }
   }
 
