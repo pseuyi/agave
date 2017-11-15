@@ -19,7 +19,6 @@ import Card from './card'
 
 import style from './index.scss';
 
-const statuses = ['open', 'ready', 'in progress', 'done'];
 
 class Board extends Component {
   static propTypes = {
@@ -31,21 +30,17 @@ class Board extends Component {
     currentUser: PropTypes.object
   }
 
-  constructor() {
-    super()
-
-    this.state = {
-      mounted: false,
-    }
-  }
+  state = { mounted: false }
+  statuses = ['open', 'ready', 'in progress', 'done'];
 
   componentDidMount() {
     this.props.fetchTasks(this.props.currentUserId)
-      .then((res) => this.buildInitialLayouts());
+      .then(this.buildInitialLayouts);
     this.setState({ mounted: true });
   }
 
   buildInitialLayouts = () => {
+    console.log('building layoutes')
     const layout = this.props.tasks.map((task) => ({
         i: `${task.id}-${task.title}`,
         x: this.getColIdx(task.status),
@@ -59,7 +54,9 @@ class Board extends Component {
     this.props.updateLayouts({ lg: layout });
   }
 
-  getColIdx = (status) => statuses.indexOf(status);
+  getColIdx = (status) => {
+    this.statuses.indexOf(status);
+  }
 
   onLayoutChange = (layout, layouts) => {
     const tasks = this.getTasksData(layout)
@@ -70,7 +67,7 @@ class Board extends Component {
   getTasksData = (layout) => (
     layout.map((card) => ({
         id: card.i.split('-')[0],
-        status: statuses[card.x],
+        status: this.statuses[card.x],
         priority: card.y + 1,
       })
     )
@@ -89,7 +86,7 @@ class Board extends Component {
       />
     ));
 
-    const columns = statuses.map(status => (
+    const columns = this.statuses.map(status => (
       <Column key={status} header={status} />
     ))
 
