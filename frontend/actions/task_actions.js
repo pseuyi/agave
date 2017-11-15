@@ -17,9 +17,12 @@ const receiveTasks = (data) => {
   }
 }
 
-const receiveTask = (task) => {
-  type: RECEIVE_TASK,
-  task
+const receiveTask = (data) => {
+  const task = { id: data.id, ...data.attributes }
+  return {
+    type: RECEIVE_TASK,
+    task
+  }
 }
 
 const updateTask = (task) => {

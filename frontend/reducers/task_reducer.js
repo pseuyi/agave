@@ -2,7 +2,7 @@ import { keyBy, without } from 'lodash';
 
 import {
   RECEIVE_TASKS,
-  CREATE_TASK_SUCCESS,
+  RECEIVE_TASK,
   UPDATE_TASK_SUCCESS,
   DELETE_TASK_SUCCESS,
 } from 'actions/task_actions';
@@ -20,7 +20,7 @@ const taskReducer = (state = defaultState, action) => {
         tasksByIds,
         ids: Object.keys(tasksByIds)
       }
-    case CREATE_TASK_SUCCESS:
+    case RECEIVE_TASK:
       return {
         tasksByIds: {
           ...state.tasksByIds,
