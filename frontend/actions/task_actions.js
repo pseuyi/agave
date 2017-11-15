@@ -39,7 +39,7 @@ export const fetchTasks = (userId) => (dispatch) => {
 }
 
 export const updateTasks = (tasks) => (dispatch) => {
-  return axios.patch(`tasks/`, tasks)
+  return axios.patch(`tasks/`, { tasks: tasks })
     .then(res => dispatch(receiveTasks(res.data.data)))
     .catch(err => dispatch(receiveError(err.response.data[0])))
 }
