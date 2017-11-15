@@ -3,8 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import TaskForm from 'components/task_form';
 import { createTask } from 'actions/task_actions';
-import { tasksSelector } from 'reducers/selectors';
-import { getLastPriority } from '../../util/task_util';
+import { newPrioritySelector } from 'reducers/selectors';
 import style from './index.scss';
 
 export class Footer extends Component {
@@ -13,7 +12,7 @@ export class Footer extends Component {
   }
 
   handleAddTask = (values) => {
-    values['priority'] = getLastPriority(values['status'], this.props.tasks)
+    values['priority'] = this.props.newPriority;
     this.props.createTask(values);
   }
 
@@ -27,7 +26,7 @@ export class Footer extends Component {
 }
 
 const mapStateToProps = state => ({
-  tasks: tasksSelector(state),
+  newPriority: newPrioritySelector(state),
 })
 
 const mapDispatchToProps = dispatch => ({
