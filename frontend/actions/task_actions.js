@@ -4,7 +4,7 @@ import { receiveError } from './error_actions';
 
 // actions
 export const RECEIVE_TASKS = 'TASKS::RECEIVE_TASKS';
-export const CREATE_TASK_SUCCESS = 'TASKS::CREATE_TASK';
+export const RECEIVE_TASK = 'TASKS::RECEIVE_TASK';
 export const UPDATE_TASK_SUCCESS = 'TASKS::UPDATE_TASK';
 export const DELETE_TASK_SUCCESS = 'TASKS::DELETE_TASK';
 
@@ -17,8 +17,8 @@ const receiveTasks = (data) => {
   }
 }
 
-const createTask = (task) => {
-  type: CREATE_TASK_SUCCESS,
+const receiveTask = (task) => {
+  type: RECEIVE_TASK,
   task
 }
 
@@ -44,12 +44,10 @@ export const updateTasks = (tasks) => (dispatch) => {
     .catch(err => dispatch(receiveError(err.response.data[0])))
 }
 
-export const addTask = (userId, newTask) => (dispatch) => {
-  axios.post(`users/${userId}/tasks`, newTask)
-  .then(res => {
-    dispatch(createTask(res.data.data))
-  })
-  .catch(err => dispatch(receiveError(err.response.data[0])))
+export const createTask = (newTask) => (dispatch) => {
+  return axios.post(`tasks`, newTask)
+    .then(res => dispatch(receiveTask(res.data.data)))
+    .catch(err => dispatch(receiveError(err.response.data[0])))
 }
 
 export const editTask = (userId, taskId) => (dispatch) => {
