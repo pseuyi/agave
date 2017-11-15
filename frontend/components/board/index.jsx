@@ -22,12 +22,10 @@ import style from './index.scss';
 
 class Board extends Component {
   static propTypes = {
-    openTasks: PropTypes.array,
-    readyTasks: PropTypes.array,
-    inProgressTasks: PropTypes.array,
-    doneTasks: PropTypes.array,
     currentUserId: PropTypes.number,
-    currentUser: PropTypes.object
+    currentUser: PropTypes.object,
+    tasks: PropTypes.array,
+    layouts: PropTypes.object,
   }
 
   state = { mounted: false }
@@ -40,7 +38,6 @@ class Board extends Component {
   }
 
   buildInitialLayouts = () => {
-    console.log('building layoutes')
     const layout = this.props.tasks.map((task) => ({
         i: `${task.id}-${task.title}`,
         x: this.getColIdx(task.status),
@@ -54,9 +51,7 @@ class Board extends Component {
     this.props.updateLayouts({ lg: layout });
   }
 
-  getColIdx = (status) => {
-    this.statuses.indexOf(status);
-  }
+  getColIdx = (status) => this.statuses.indexOf(status);
 
   onLayoutChange = (layout, layouts) => {
     const tasks = this.getTasksData(layout)
@@ -86,7 +81,7 @@ class Board extends Component {
       />
     ));
 
-    const columns = this.statuses.map(status => (
+    const columns = this.statuses.map((status, i) => (
       <Column key={status} header={status} />
     ))
 
