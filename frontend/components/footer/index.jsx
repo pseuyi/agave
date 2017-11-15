@@ -30,7 +30,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  createTask: (id, values) => dispatch(createTask(id, values)),
+  createTask: (values) => dispatch(createTask(values)),
 })
 
 export default connect(
