@@ -1,4 +1,4 @@
-import { groupBy, orderBy, get, filter, map } from 'lodash';
+import { get, filter, map } from 'lodash';
 import { createSelector } from 'reselect';
 
 export const currentUserSelector = state =>
