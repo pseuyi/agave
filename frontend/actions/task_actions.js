@@ -37,6 +37,7 @@ const deleteTask = (id) => {
 export const fetchTasks = (userId) => (dispatch) => {
   return axios.get('/tasks')
   .then(res => {
+    console.log('res', res)
     const tasks = res.data.data.map((d) =>  ({ ...d.attributes, id: d.id }))
     dispatch(buildLayouts(tasks))
     dispatch(receiveTasks(tasks))
@@ -57,6 +58,7 @@ export const updateTasks = (tasks) => (dispatch) => {
 export const createTask = (newTask) => (dispatch) => {
   return axios.post('/tasks', { task: newTask })
     .then(res => {
+      console.log('res', res)
       const task = { id: res.data.data.id, ...res.data.data.attributes }
       dispatch(addLayout(task))
       dispatch(receiveTask(task))

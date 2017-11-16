@@ -42,7 +42,7 @@ const boardReducer = (state = defaultState, action) => {
         layouts: {
           lg: [
             ...state.layouts.lg,
-            buildTaskLayout(action.task)
+            buildTaskLayout(state, action.task)
           ]
         }
       }
