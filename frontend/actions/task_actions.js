@@ -38,6 +38,7 @@ export const fetchTasks = (userId) => (dispatch) => {
   // .catch(err => dispatch(receiveError(err.response.data[0])))
 }
 
+// updates all tasks priority and layout positions
 export const updateTasks = (tasks) => (dispatch) => {
   return axios.patch('/update_tasks', { tasks: tasks })
     .then(res => {
