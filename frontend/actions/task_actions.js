@@ -11,8 +11,6 @@ export const DELETE_TASK_SUCCESS = 'TASKS::DELETE_TASK';
 
 // action creators
 const receiveTasks = (tasks) => {
-  // const tasks = data.map((d) =>  ({ ...d.attributes, id: d.id }))
-  console.log('receiveTasks')
   return {
     type: RECEIVE_TASKS,
     tasks
@@ -20,7 +18,6 @@ const receiveTasks = (tasks) => {
 }
 
 const receiveTask = (task) => {
-  // const task = { id: data.id, ...data.attributes }
   return {
     type: RECEIVE_TASK,
     task
