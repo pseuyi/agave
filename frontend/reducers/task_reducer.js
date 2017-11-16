@@ -3,7 +3,6 @@ import { without } from 'lodash';
 import {
   RECEIVE_TASKS,
   RECEIVE_TASK,
-  UPDATE_TASK_SUCCESS,
   DELETE_TASK_SUCCESS,
 } from 'actions/task_actions';
 
@@ -26,14 +25,6 @@ const taskReducer = (state = defaultState, action) => {
           ...action.payload.entities.tasks,
         },
         ids: [...state.ids, ...action.payload.result.tasks]
-      }
-    case UPDATE_TASK_SUCCESS:
-      return {
-        tasksByIds: {
-          ...state.tasksByIds,
-          [action.task.id]: {...action.task},
-        },
-        ids: [...state.ids]
       }
     case DELETE_TASK_SUCCESS:
       const newTasksByIds = Object.assign({}, state.tasksByIds);

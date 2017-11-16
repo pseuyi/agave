@@ -9,7 +9,6 @@ import * as schema from '../lib/schema';
 // actions
 export const RECEIVE_TASKS = 'TASKS::RECEIVE_TASKS';
 export const RECEIVE_TASK = 'TASKS::RECEIVE_TASK';
-export const UPDATE_TASK_SUCCESS = 'TASKS::UPDATE_TASK';
 export const DELETE_TASK_SUCCESS = 'TASKS::DELETE_TASK';
 
 // action creators
@@ -21,11 +20,6 @@ const receiveTasks = (payload) => ({
 const receiveTask = (payload) => ({
     type: RECEIVE_TASK,
     payload
-})
-
-const updateTask = (task) => ({
-  type: UPDATE_TASK_SUCCESS,
-  task
 })
 
 const deleteTask = (id) => ({
