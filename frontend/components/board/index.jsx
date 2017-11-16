@@ -6,7 +6,6 @@ import { Responsive, WidthProvider } from 'react-grid-layout';
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
 import { fetchTasks, updateTasks } from 'actions/task_actions';
-import { updateLayouts } from 'actions/board_actions';
 
 import {
   currentUserSelector,
@@ -110,7 +109,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     fetchTasks: userId => dispatch(fetchTasks(userId)),
-    updateLayouts: layouts => dispatch(updateLayouts(layouts)),
     updateTasks: tasks => dispatch(updateTasks(tasks)),
   }
 }
