@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+import { buildLayouts, addLayout } from './board_actions';
 import { receiveError } from './error_actions';
 
 // actions
@@ -9,16 +10,17 @@ export const UPDATE_TASK_SUCCESS = 'TASKS::UPDATE_TASK';
 export const DELETE_TASK_SUCCESS = 'TASKS::DELETE_TASK';
 
 // action creators
-const receiveTasks = (data) => {
-  const tasks = data.map((d) =>  ({ ...d.attributes, id: d.id }))
+const receiveTasks = (tasks) => {
+  // const tasks = data.map((d) =>  ({ ...d.attributes, id: d.id }))
+  console.log('receiveTasks')
   return {
     type: RECEIVE_TASKS,
     tasks
   }
 }
 
-const receiveTask = (data) => {
-  const task = { id: data.id, ...data.attributes }
+const receiveTask = (task) => {
+  // const task = { id: data.id, ...data.attributes }
   return {
     type: RECEIVE_TASK,
     task
@@ -37,19 +39,31 @@ const deleteTask = (id) => {
 
 export const fetchTasks = (userId) => (dispatch) => {
   return axios.get('/tasks')
-  .then(res => dispatch(receiveTasks(res.data.data)))
+  .then(res => {
+    const tasks = res.data.data.map((d) =>  ({ ...d.attributes, id: d.id }))
+    dispatch(buildLayouts(tasks))
+    dispatch(receiveTasks(tasks))
+  })
   .catch(err => dispatch(receiveError(err.response.data[0])))
 }
 
 export const updateTasks = (tasks) => (dispatch) => {
   return axios.patch('/update_tasks', { tasks: tasks })
-    .then(res => dispatch(receiveTasks(res.data.data)))
+    .then(res => {
+      const tasks = res.data.data.map((d) =>  ({ ...d.attributes, id: d.id }))
+      dispatch(buildLayouts(tasks))
+      dispatch(receiveTasks(tasks))
+    })
     .catch(err => dispatch(receiveError(err.response.data[0])))
 }
 
 export const createTask = (newTask) => (dispatch) => {
   return axios.post('/tasks', { task: newTask })
-    .then(res => dispatch(receiveTask(res.data.data)))
+    .then(res => {
+      const task = { id: res.data.data.id, ...res.data.data.attributes }
+      dispatch(addLayout(task))
+      dispatch(receiveTask(task))
+    })
     .catch(err => dispatch(receiveError(err.response.data[0])))
 }
 

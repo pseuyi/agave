@@ -11,7 +11,8 @@ import { updateLayouts } from 'actions/board_actions';
 import {
   currentUserSelector,
   tasksSelector,
-  layoutsSelector
+  layoutsSelector,
+  statusesSelector
 } from 'reducers/selectors';
 
 import Column from './column'
@@ -26,43 +27,25 @@ class Board extends Component {
     currentUser: PropTypes.object,
     tasks: PropTypes.array,
     layouts: PropTypes.object,
+    statuses: PropTypes.array,
   }
 
   state = { mounted: false }
-  statuses = ['open', 'ready', 'in progress', 'done'];
 
   componentDidMount() {
     this.props.fetchTasks(this.props.currentUserId)
-      .then(this.buildInitialLayouts);
     this.setState({ mounted: true });
   }
-
-  buildInitialLayouts = () => {
-    const layout = this.props.tasks.map((task) => ({
-        i: `${task.id}-${task.title}`,
-        x: this.getColIdx(task.status),
-        y: task.priority - 1,
-        w: 1,
-        h: 1,
-        isResizable: false,
-      })
-    );
-
-    this.props.updateLayouts({ lg: layout });
-  }
-
-  getColIdx = (status) => this.statuses.indexOf(status);
 
   onLayoutChange = (layout, layouts) => {
     const tasks = this.getTasksData(layout)
     this.props.updateTasks(tasks)
-      .then(() => this.props.updateLayouts(layouts))
   }
 
   getTasksData = (layout) => (
     layout.map((card) => ({
         id: card.i.split('-')[0],
-        status: this.statuses[card.x],
+        status: this.props.statuses[card.x],
         priority: card.y + 1,
       })
     )
@@ -81,7 +64,7 @@ class Board extends Component {
       />
     ));
 
-    const columns = this.statuses.map(status => (
+    const columns = this.props.statuses.map(status => (
       <Column key={status} header={status} />
     ))
 
@@ -92,19 +75,23 @@ class Board extends Component {
           { columns }
         </div>
 
-        <ResponsiveReactGridLayout
-          style={{ width: '100%' }}
-          layouts={this.props.layouts}
-          onLayoutChange={this.onLayoutChange}
-          breakpoints={{ lg: 1000 }}
-          cols={{ lg: 4 }}
-          measureBeforeMount={false}
-          useCSSTransforms={this.state.mounted}
-          >
+        {
+          cards.length === this.props.layouts.lg.length &&
+          <ResponsiveReactGridLayout
+            style={{ width: '100%' }}
+            layouts={this.props.layouts}
+            onLayoutChange={this.onLayoutChange}
+            breakpoints={{ lg: 1000 }}
+            cols={{ lg: 4 }}
+            measureBeforeMount={false}
+            useCSSTransforms={this.state.mounted}
+            >
 
-          { cards }
+            { cards }
 
-        </ResponsiveReactGridLayout>
+          </ResponsiveReactGridLayout>
+        }
+
       </section>
     )
   }
@@ -116,6 +103,7 @@ const mapStateToProps = (state) => {
     currentUser: currentUserSelector(state),
     tasks: tasksSelector(state),
     layouts: layoutsSelector(state),
+    statuses: statusesSelector(state),
   }
 }
 
