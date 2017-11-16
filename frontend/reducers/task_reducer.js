@@ -1,4 +1,4 @@
-import { keyBy, without } from 'lodash';
+import { without } from 'lodash';
 
 import {
   RECEIVE_TASKS,
@@ -15,18 +15,17 @@ const defaultState = {
 const taskReducer = (state = defaultState, action) => {
   switch (action.type) {
     case RECEIVE_TASKS:
-      const tasksByIds = keyBy(action.tasks, 'id');
       return {
-        tasksByIds,
-        ids: Object.keys(tasksByIds)
+        tasksByIds: action.payload.entities.tasks,
+        ids: action.payload.result.tasks
       }
     case RECEIVE_TASK:
       return {
         tasksByIds: {
           ...state.tasksByIds,
-          [action.task.id]: {...action.task},
+          ...action.payload.entities.tasks,
         },
-        ids: [...state.ids, action.task.id]
+        ids: [...state.ids, ...action.payload.result.tasks]
       }
     case UPDATE_TASK_SUCCESS:
       return {

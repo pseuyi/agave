@@ -1,9 +1,13 @@
+import { map } from 'lodash';
+import { denormalize } from 'normalizr';
+
 import {
   UPDATE_LAYOUTS,
   BUILD_LAYOUTS,
   ADD_LAYOUT,
 } from 'actions/board_actions';
-import { map } from 'lodash';
+
+import * as schema from '../lib/schema';
 
 const defaultState = {
   layouts: {},
@@ -25,6 +29,14 @@ const buildTaskLayout = (state, task) => ({
 
 const getColIdx = (state, status) => state.statuses.indexOf(status);
 
+const denormalized = action => (
+  denormalize(
+    action.payload.result,
+    schema.tasks,
+    action.payload.entities
+  ).tasks
+)
+
 const boardReducer = (state = defaultState, action) => {
   switch (action.type) {
     case UPDATE_LAYOUTS:
@@ -33,7 +45,7 @@ const boardReducer = (state = defaultState, action) => {
       return {
         ...state,
         layouts: {
-          lg: buildLayouts(state, action.tasks)
+          lg: buildLayouts(state, denormalized(action))
         }
       };
     case ADD_LAYOUT:
@@ -42,7 +54,7 @@ const boardReducer = (state = defaultState, action) => {
         layouts: {
           lg: [
             ...state.layouts.lg,
-            buildTaskLayout(state, action.task)
+            buildTaskLayout(state, ...denormalized(action))
           ]
         }
       }

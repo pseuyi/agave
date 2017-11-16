@@ -1,7 +1,10 @@
 import axios from 'axios';
+import { normalize } from 'normalizr';
 
 import { buildLayouts, addLayout } from './board_actions';
 import { receiveError } from './error_actions';
+
+import * as schema from '../lib/schema';
 
 // actions
 export const RECEIVE_TASKS = 'TASKS::RECEIVE_TASKS';
@@ -10,47 +13,44 @@ export const UPDATE_TASK_SUCCESS = 'TASKS::UPDATE_TASK';
 export const DELETE_TASK_SUCCESS = 'TASKS::DELETE_TASK';
 
 // action creators
-const receiveTasks = (tasks) => {
-  return {
+const receiveTasks = (payload) => ({
     type: RECEIVE_TASKS,
-    tasks
-  }
-}
+    payload
+})
 
-const receiveTask = (task) => {
-  return {
+const receiveTask = (payload) => ({
     type: RECEIVE_TASK,
-    task
-  }
-}
+    payload
+})
 
-const updateTask = (task) => {
+const updateTask = (task) => ({
   type: UPDATE_TASK_SUCCESS,
   task
-}
+})
 
-const deleteTask = (id) => {
+const deleteTask = (id) => ({
   type: DELETE_TASK_SUCCESS,
   id
-}
+})
 
 export const fetchTasks = (userId) => (dispatch) => {
   return axios.get('/tasks')
   .then(res => {
-    console.log('res', res)
     const tasks = res.data.data.map((d) =>  ({ ...d.attributes, id: d.id }))
-    dispatch(buildLayouts(tasks))
-    dispatch(receiveTasks(tasks))
+    const normalizedData = normalize({ tasks }, schema.tasks)
+    dispatch(buildLayouts(normalizedData))
+    dispatch(receiveTasks(normalizedData))
   })
-  .catch(err => dispatch(receiveError(err.response.data[0])))
+  // .catch(err => dispatch(receiveError(err.response.data[0])))
 }
 
 export const updateTasks = (tasks) => (dispatch) => {
   return axios.patch('/update_tasks', { tasks: tasks })
     .then(res => {
       const tasks = res.data.data.map((d) =>  ({ ...d.attributes, id: d.id }))
-      dispatch(buildLayouts(tasks))
-      dispatch(receiveTasks(tasks))
+      const normalizedData = normalize({ tasks }, schema.tasks)
+      dispatch(buildLayouts(normalizedData))
+      dispatch(receiveTasks(normalizedData))
     })
     .catch(err => dispatch(receiveError(err.response.data[0])))
 }
@@ -58,12 +58,12 @@ export const updateTasks = (tasks) => (dispatch) => {
 export const createTask = (newTask) => (dispatch) => {
   return axios.post('/tasks', { task: newTask })
     .then(res => {
-      console.log('res', res)
-      const task = { id: res.data.data.id, ...res.data.data.attributes }
-      dispatch(addLayout(task))
-      dispatch(receiveTask(task))
+      const tasks = [{ id: res.data.data.id, ...res.data.data.attributes }]
+      const normalizedData = normalize({ tasks }, schema.tasks)
+      dispatch(addLayout(normalizedData))
+      dispatch(receiveTask(normalizedData))
     })
-    .catch(err => dispatch(receiveError(err.response.data[0])))
+    // .catch(err => dispatch(receiveError(err.response.data[0])))
 }
 
 export const editTask = (userId, taskId) => (dispatch) => {

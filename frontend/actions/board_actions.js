@@ -8,12 +8,12 @@ export const updateLayouts = (layouts) => ({
   layouts
 })
 
-export const buildLayouts = (tasks) => ({
+export const buildLayouts = (payload) => ({
   type: BUILD_LAYOUTS,
-  tasks
+  payload
 })
 
-export const addLayout = (task) => ({
+export const addLayout = (payload) => ({
   type: ADD_LAYOUT,
-  task
+  payload
 })
