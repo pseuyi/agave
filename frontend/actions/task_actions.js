@@ -4,6 +4,7 @@ import { normalize } from 'normalizr';
 import { buildLayouts, addLayout } from './board_actions';
 import { receiveError } from './error_actions';
 
+import * as actions from '../consts/action-types';
 import * as schema from '../lib/schema';
 
 // actions
@@ -27,16 +28,34 @@ const deleteTask = (id) => ({
   id
 })
 
-export const fetchTasks = (userId) => (dispatch) => {
-  return axios.get('/tasks')
-  .then(res => {
-    const tasks = res.data.data.map((d) =>  ({ ...d.attributes, id: d.id }))
-    const normalizedData = normalize({ tasks }, schema.tasks)
-    dispatch(buildLayouts(normalizedData))
-    dispatch(receiveTasks(normalizedData))
-  })
-  // .catch(err => dispatch(receiveError(err.response.data[0])))
-}
+export const fetchTasks = () => (
+  {
+    type: actions.API,
+    payload: {
+      options: {
+        method: 'get',
+        url: '/tasks'
+      },
+      schema: schema.tasks,
+      success: (data) => [
+        buildLayouts(data),
+        receiveTasks(data)
+      ],
+      label: 'tasks'
+    }
+  }
+)
+
+// export const fetchTasks = (userId) => (dispatch) => {
+//   return axios.get('/tasks')
+//   .then(res => {
+//     const tasks = res.data.data.map((d) =>  ({ ...d.attributes, id: d.id }))
+//     const normalizedData = normalize({ tasks }, schema.tasks)
+//     dispatch(buildLayouts(normalizedData))
+//     dispatch(receiveTasks(normalizedData))
+//   })
+//   // .catch(err => dispatch(receiveError(err.response.data[0])))
+// }
 
 // updates all tasks priority and layout positions
 export const updateTasks = (tasks) => (dispatch) => {
