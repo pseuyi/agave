@@ -1,7 +1,9 @@
 import axios from 'axios';
+import { normalize } from 'normalizr';
 import { receiveUser } from './user_actions';
 import { receiveError } from './error_actions';
 import * as APIUtil from '../util/session_util';
+import * as schema from '../lib/schema';
 
 export const RECEIVE_CURRENT_USER = 'SESSION::RECEIVE_CURRENT_USER'
 
@@ -21,11 +23,15 @@ export const login = (formData) => {
   return (dispatch) => (
     axios.post('/session', formData)
       .then( res => {
-        APIUtil.setUserLocalStorage(res.data.data);
-        return dispatch(receiveUser(res.data.data));
+        const users = [{ id: res.data.data.id, ...res.data.data.attributes }]
+        const normalizedData = normalize({ users }, schema.users)
+        APIUtil.setUserLocalStorage(normalizedData);
+        return dispatch(receiveUser(normalizedData));
       })
-      .then( res => dispatch(receiveCurrentUser(res.user.id)) )
-      .catch( err => dispatch(receiveError(err.response.data[0])) )
+      .then( data => {
+        dispatch(receiveCurrentUser(data.payload.result.users[0]))
+      })
+      // .catch( err => dispatch(receiveError(err.response.data[0])) )
   )
 }
 

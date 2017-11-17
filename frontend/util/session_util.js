@@ -1,4 +1,5 @@
-export const setUserLocalStorage = (user) => {
+export const setUserLocalStorage = (data) => {
+  const user = data.entities.users[data.result.users[0]];
   const userJSON = JSON.stringify(user);
   localStorage.setItem('currentUser', userJSON);
 }
@@ -17,8 +18,9 @@ export const getPreloadedState = () => {
       },
       users: {
         usersByIds: {
-          [data.id]: data.attributes
-        }
+          [data.id]: data
+        },
+        ids: [data.id]
       }
     };
   } else {
