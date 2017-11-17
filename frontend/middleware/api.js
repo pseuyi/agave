@@ -45,19 +45,3 @@ const api = ({ getState, dispatch }) => next => action => {
 }
 
 export default api;
-
-
-/*
-  {
-    type: actions.API,
-    payload: {
-      url: 'api/books.json',
-      schema: [schema.books],
-      success: ({ entities }) => [
-        setAuthors(entities.authors),
-        setBooks(entities.books)
-      ],
-      label: 'books'
-    }
-  }
-*/
