@@ -26,3 +26,5 @@ export const newPrioritySelector = createSelector(
     return filter(tasks, (task) => task.status === status ).length + 1;
   }
 )
+
+export const statusesSelector = state => state.board.statuses;
