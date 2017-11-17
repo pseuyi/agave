@@ -65,16 +65,24 @@ export const updateTasks = (tasks) => (
   }
 )
 
-export const createTask = (newTask) => (dispatch) => {
-  return axios.post('/tasks', { task: newTask })
-    .then(res => {
-      const tasks = [{ id: res.data.data.id, ...res.data.data.attributes }]
-      const normalizedData = normalize({ tasks }, schema.tasks)
-      dispatch(addLayout(normalizedData))
-      dispatch(receiveTask(normalizedData))
-    })
-    // .catch(err => dispatch(receiveError(err.response.data[0])))
-}
+export const createTask = (newTask) => (
+  {
+    type: actions.API,
+    payload: {
+      options: {
+        method: 'post',
+        url: '/tasks',
+        data: { task: newTask }
+      },
+      schema: schema.tasks,
+      success: (data) => [
+        addLayout(data),
+        receiveTask(data)
+      ],
+      label: 'tasks'
+    }
+  }
+)
 
 export const editTask = (userId, taskId) => (dispatch) => {
   axios.patch(`/tasks/${taskId}`)
