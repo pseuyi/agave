@@ -46,17 +46,24 @@ export const fetchTasks = () => (
   }
 )
 
-// updates all tasks priority and layout positions
-export const updateTasks = (tasks) => (dispatch) => {
-  return axios.patch('/update_tasks', { tasks: tasks })
-    .then(res => {
-      const tasks = res.data.data.map((d) =>  ({ ...d.attributes, id: d.id }))
-      const normalizedData = normalize({ tasks }, schema.tasks)
-      dispatch(buildLayouts(normalizedData))
-      dispatch(receiveTasks(normalizedData))
-    })
-    .catch(err => dispatch(receiveError(err.response.data[0])))
-}
+export const updateTasks = (tasks) => (
+  {
+    type: actions.API,
+    payload: {
+      options: {
+        method: 'patch',
+        url: '/update_tasks',
+        data: { tasks }
+      },
+      schema: schema.tasks,
+      success: (data) => [
+        buildLayouts(data),
+        receiveTasks(data)
+      ],
+      label: 'tasks'
+    }
+  }
+)
 
 export const createTask = (newTask) => (dispatch) => {
   return axios.post('/tasks', { task: newTask })
