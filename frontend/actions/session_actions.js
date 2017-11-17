@@ -1,11 +1,12 @@
 import axios from 'axios';
 import { normalize } from 'normalizr';
+
 import { receiveUser } from './user_actions';
 import { receiveError } from './error_actions';
+
 import * as APIUtil from '../util/session_util';
 import * as schema from '../lib/schema';
-
-export const RECEIVE_CURRENT_USER = 'SESSION::RECEIVE_CURRENT_USER'
+import * as actions from '../consts/action-types';
 
 export const signUp = (formData) => {
   return (dispatch) => (
@@ -48,7 +49,7 @@ export const logout = (id) => {
 
 const receiveCurrentUser = (id) => {
   return {
-    type: RECEIVE_CURRENT_USER,
+    type: actions.RECEIVE_CURRENT_USER,
     id
   }
 }

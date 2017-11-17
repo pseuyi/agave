@@ -4,8 +4,7 @@ import { normalize } from 'normalizr';
 import { receiveError } from './error_actions';
 
 import * as schema from '../lib/schema';
-
-export const RECEIVE_USER = 'USER::RECEIVE_USER';
+import * as actions from '../consts/action-types';
 
 export const fetchUser = (id) => {
   return (dispatch) => {
@@ -21,7 +20,7 @@ export const fetchUser = (id) => {
 
 export const receiveUser = (payload) => {
   return {
-    type: RECEIVE_USER,
+    type: actions.RECEIVE_USER,
     payload
   }
 }

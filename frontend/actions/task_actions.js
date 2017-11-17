@@ -7,24 +7,19 @@ import { receiveError } from './error_actions';
 import * as actions from '../consts/action-types';
 import * as schema from '../lib/schema';
 
-// actions
-export const RECEIVE_TASKS = 'TASKS::RECEIVE_TASKS';
-export const RECEIVE_TASK = 'TASKS::RECEIVE_TASK';
-export const DELETE_TASK_SUCCESS = 'TASKS::DELETE_TASK';
-
 // action creators
 const receiveTasks = (payload) => ({
-    type: RECEIVE_TASKS,
+    type: actions.RECEIVE_TASKS,
     payload
 })
 
 const receiveTask = (payload) => ({
-    type: RECEIVE_TASK,
+    type: actions.RECEIVE_TASK,
     payload
 })
 
 const deleteTask = (id) => ({
-  type: DELETE_TASK_SUCCESS,
+  type: actions.DELETE_TASK_SUCCESS,
   id
 })
 

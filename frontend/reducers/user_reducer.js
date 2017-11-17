@@ -1,4 +1,4 @@
-import { RECEIVE_USER } from '../actions/user_actions';
+import * as actions from '../consts/action-types';
 
 const defaultState = {
   usersByIds: {},
@@ -7,7 +7,7 @@ const defaultState = {
 
 const userReducer = (state = defaultState, action) => {
   switch (action.type) {
-    case RECEIVE_USER:
+    case actions.RECEIVE_USER:
       return {
         usersByIds: {
           ...state.usersByIds,

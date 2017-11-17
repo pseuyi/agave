@@ -1,10 +1,6 @@
 import { without } from 'lodash';
 
-import {
-  RECEIVE_TASKS,
-  RECEIVE_TASK,
-  DELETE_TASK_SUCCESS,
-} from 'actions/task_actions';
+import * as actions from '../consts/action-types';
 
 const defaultState = {
   tasksByIds: {},
@@ -13,12 +9,12 @@ const defaultState = {
 
 const taskReducer = (state = defaultState, action) => {
   switch (action.type) {
-    case RECEIVE_TASKS:
+    case actions.RECEIVE_TASKS:
       return {
         tasksByIds: action.payload.entities.tasks,
         ids: action.payload.result.tasks
       }
-    case RECEIVE_TASK:
+    case actions.RECEIVE_TASK:
       return {
         tasksByIds: {
           ...state.tasksByIds,
@@ -26,7 +22,7 @@ const taskReducer = (state = defaultState, action) => {
         },
         ids: [...state.ids, ...action.payload.result.tasks]
       }
-    case DELETE_TASK_SUCCESS:
+    case actions.DELETE_TASK_SUCCESS:
       const newTasksByIds = Object.assign({}, state.tasksByIds);
       delete newTasksByIds[action.id];
       const ids = without(state.ids, action.id);
