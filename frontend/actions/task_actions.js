@@ -17,9 +17,12 @@ const receiveTasks = (data) => {
   }
 }
 
-const receiveTask = (task) => {
-  type: RECEIVE_TASK,
-  task
+const receiveTask = (data) => {
+  const task = { id: data.id, ...data.attributes }
+  return {
+    type: RECEIVE_TASK,
+    task
+  }
 }
 
 const updateTask = (task) => {
@@ -33,31 +36,31 @@ const deleteTask = (id) => {
 }
 
 export const fetchTasks = (userId) => (dispatch) => {
-  return axios.get(`users/${userId}/tasks`)
+  return axios.get('/tasks')
   .then(res => dispatch(receiveTasks(res.data.data)))
   .catch(err => dispatch(receiveError(err.response.data[0])))
 }
 
 export const updateTasks = (tasks) => (dispatch) => {
-  return axios.patch(`tasks/`, { tasks: tasks })
+  return axios.patch('/update_tasks', { tasks: tasks })
     .then(res => dispatch(receiveTasks(res.data.data)))
     .catch(err => dispatch(receiveError(err.response.data[0])))
 }
 
 export const createTask = (newTask) => (dispatch) => {
-  return axios.post(`tasks`, newTask)
+  return axios.post('/tasks', { task: newTask })
     .then(res => dispatch(receiveTask(res.data.data)))
     .catch(err => dispatch(receiveError(err.response.data[0])))
 }
 
 export const editTask = (userId, taskId) => (dispatch) => {
-  axios.patch(`users/${userId}/tasks/${taskId}`)
+  axios.patch(`/tasks/${taskId}`)
   .then(res => dispatch(updateTask(res.data.data)))
   .catch(err => dispatch(receiveError(err.response.data[0])))
 }
 
 export const removeTask = (userId, taskId) => (dispatch) => {
-  axios.delete(`users/${userId}/tasks/${taskId}`)
+  axios.delete(`/tasks/${taskId}`)
   .then(res => dispatch(deleteTask(taskId)))
   .catch(err => dispatch(receiveError(err.response.data[0])))
 }
