@@ -8,8 +8,10 @@ import * as schema from '../lib/schema';
 
 const normalizedData = (data, schema, label) => normalize({ [label]: data }, schema);
 
-const massageData = (data, schema, label) => {
-  if (Array.isArray(data)) {
+const massageData = (res, schema, label) => {
+  let data;
+
+  if (Array.isArray(res.data.data)) {
     data = res.data.data.map((d) =>  ({ ...d.attributes, id: d.id }))
   } else {
     data = [{ id: res.data.data.id, ...res.data.data.attributes }]
@@ -18,6 +20,14 @@ const massageData = (data, schema, label) => {
   if (schema) return normalizedData(data, schema, label);
 
   return data;
+}
+
+const handleSuccess = (data, success, dispatch) => {
+  if (Array.isArray(success(data))) {
+    success(data).forEach(succ => dispatch(succ))
+  } else {
+    dispatch(success(data));
+  }
 }
 
 const api = ({ getState, dispatch }) => next => action => {
@@ -30,7 +40,7 @@ const api = ({ getState, dispatch }) => next => action => {
 
   axios({ ...options })
     .then( res => massageData(res, schema, label) )
-    .then( data => dispatch(success(data)) )
+    .then( data => handleSuccess(data, success, dispatch) )
     .catch( err => dispatch(receiveError(err)))
 }
 
