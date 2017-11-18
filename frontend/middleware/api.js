@@ -26,7 +26,7 @@ const massageData = (res, schema, label) => {
 
 const handleSuccess = (data, action, dispatch) => {
   if (get(action, 'meta.session', false)) {
-    handleLocalStorage(data, action.meta.session)
+    APIUtil.handleLocalStorage(data, action.meta.session)
   }
 
   const success = action.payload.success;
@@ -34,14 +34,6 @@ const handleSuccess = (data, action, dispatch) => {
     success(data).forEach(succ => dispatch(succ))
   } else {
     dispatch(success(data));
-  }
-}
-
-const handleLocalStorage = (data, type) => {
-  if (type === 'login' || type === 'signup') {
-    APIUtil.setUserLocalStorage(data);
-  } else if (type === 'logout') {
-    APIUtil.removeUserLocalStorage();
   }
 }
 

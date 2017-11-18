@@ -1,3 +1,11 @@
+export const handleLocalStorage = (data, type) => {
+  if (type === 'login' || type === 'signup') {
+    setUserLocalStorage(data);
+  } else if (type === 'logout') {
+    removeUserLocalStorage();
+  }
+}
+
 export const setUserLocalStorage = (data) => {
   const user = data.entities.users[data.result.users[0]];
   const userJSON = JSON.stringify(user);
@@ -23,6 +31,7 @@ export const getPreloadedState = () => {
         ids: [data.id]
       }
     };
+    
   } else {
     return {};
   }
