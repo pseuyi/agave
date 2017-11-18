@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { normalize } from 'normalizr';
-import { get } from 'lodash';
+import { get, keys } from 'lodash';
 
 import { receiveError } from 'actions/error_actions';
 import * as APIUtil from '../util/session_util';
@@ -10,6 +10,8 @@ import * as schema from '../lib/schema';
 const normalizedData = (data, schema, label) => normalize({ [label]: data }, schema);
 
 const massageData = (res, schema, label) => {
+  if (keys(res.data.data).length === 0) return res.data.data
+  
   let data;
 
   if (Array.isArray(res.data.data)) {

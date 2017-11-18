@@ -42,16 +42,21 @@ export const login = (formData) => (
   }
 )
 
-export const logout = (id) => {
-  return (dispatch) => {
-    axios.delete(`/session/${id}`)
-      .then( user => {
-        APIUtil.removeUserLocalStorage();
-        return dispatch(receiveCurrentUser(null));
-      })
-      .catch( err => dispatch(receiveError(err.response.data[0])) )
+export const logout = (id) => (
+  {
+    type: actions.API,
+    payload: {
+      options: {
+        method: 'delete',
+        url: `/session/${id}`
+      },
+      success: () => receiveCurrentUser(null)
+    },
+    meta: {
+      session: 'logout'
+    }
   }
-}
+)
 
 const receiveCurrentUser = (id) => {
   return {
