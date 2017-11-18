@@ -11,7 +11,6 @@ const normalizedData = (data, schema, label) => normalize({ [label]: data }, sch
 
 const massageData = (res, schema, label) => {
   if (keys(res.data.data).length === 0) return res.data.data
-  
   let data;
 
   if (Array.isArray(res.data.data)) {
@@ -30,7 +29,7 @@ const handleSuccess = (data, action, dispatch) => {
     handleLocalStorage(data, action.meta.session)
   }
 
-  const success = action.payload.success
+  const success = action.payload.success;
   if (Array.isArray(success(data))) {
     success(data).forEach(succ => dispatch(succ))
   } else {

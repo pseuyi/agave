@@ -19,7 +19,7 @@ class SessionModal extends Component {
   }
 
   componentWillReceiveProps(newProps) {
-    if (this.newProps.loggedIn) newProps.history.push('/home')
+    if (newProps.loggedIn) newProps.history.push('/home')
   }
 
   handleSubmit = (values) => {
