@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { normalize } from 'normalizr';
+import { get } from 'lodash';
 
 import { receiveError } from 'actions/error_actions';
 import * as APIUtil from '../util/session_util';
@@ -22,11 +23,24 @@ const massageData = (res, schema, label) => {
   return data;
 }
 
-const handleSuccess = (data, success, dispatch) => {
+const handleSuccess = (data, action, dispatch) => {
+  if (get(action, 'meta.session', false)) {
+    handleLocalStorage(data, action.meta.session)
+  }
+
+  const success = action.payload.success
   if (Array.isArray(success(data))) {
     success(data).forEach(succ => dispatch(succ))
   } else {
     dispatch(success(data));
+  }
+}
+
+const handleLocalStorage = (data, type) => {
+  if (type === 'login' || type === 'signup') {
+    APIUtil.setUserLocalStorage(data);
+  } else if (type === 'logout') {
+    APIUtil.removeUserLocalStorage();
   }
 }
 
@@ -40,7 +54,7 @@ const api = ({ getState, dispatch }) => next => action => {
 
   axios({ ...options })
     .then( res => massageData(res, schema, label) )
-    .then( data => handleSuccess(data, success, dispatch) )
+    .then( data => handleSuccess(data, action, dispatch) )
     .catch( err => dispatch(receiveError(err)))
 }
 

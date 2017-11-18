@@ -20,21 +20,27 @@ export const signUp = (formData) => {
   )
 }
 
-export const login = (formData) => {
-  return (dispatch) => (
-    axios.post('/session', formData)
-      .then( res => {
-        const users = [{ id: res.data.data.id, ...res.data.data.attributes }]
-        const normalizedData = normalize({ users }, schema.users)
-        APIUtil.setUserLocalStorage(normalizedData);
-        return dispatch(receiveUser(normalizedData));
-      })
-      .then( data => {
-        dispatch(receiveCurrentUser(data.payload.result.users[0]))
-      })
-      // .catch( err => dispatch(receiveError(err.response.data[0])) )
-  )
-}
+export const login = (formData) => (
+  {
+    type: actions.API,
+    payload: {
+      options: {
+        method: 'post',
+        url: '/session',
+        data: formData
+      },
+      schema: schema.users,
+      success: (data) => [
+        receiveUser(data),
+        receiveCurrentUser(data.result.users[0])
+      ],
+      label: 'users'
+    },
+    meta: {
+      session: 'login'
+    }
+  }
+)
 
 export const logout = (id) => {
   return (dispatch) => {
