@@ -79,14 +79,14 @@ export const createTask = (newTask) => (
   }
 )
 
-export const editTask = (userId, taskId) => (dispatch) => {
-  axios.patch(`/tasks/${taskId}`)
-  .then(res => dispatch(updateTask(res.data.data)))
-  .catch(err => dispatch(receiveError(err.response.data[0])))
-}
-
-export const removeTask = (userId, taskId) => (dispatch) => {
-  axios.delete(`/tasks/${taskId}`)
-  .then(res => dispatch(deleteTask(taskId)))
-  .catch(err => dispatch(receiveError(err.response.data[0])))
-}
+// export const editTask = (userId, taskId) => (dispatch) => {
+//   axios.patch(`/tasks/${taskId}`)
+//   .then(res => dispatch(updateTask(res.data.data)))
+//   .catch(err => dispatch(receiveError(err.response.data[0])))
+// }
+//
+// export const removeTask = (userId, taskId) => (dispatch) => {
+//   axios.delete(`/tasks/${taskId}`)
+//   .then(res => dispatch(deleteTask(taskId)))
+//   .catch(err => dispatch(receiveError(err.response.data[0])))
+// }
