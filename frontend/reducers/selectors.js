@@ -13,8 +13,8 @@ export const tasksSelector = createSelector(
   (ids, tasks) => ids.map(id => tasks[id])
 )
 
-export const taskSelector = (state, match) => {
-  return state.tasks.tasksByIds[match.params['taskId']]
+export const taskSelector = state => {
+  return state.tasks.tasksByIds[state.modal.taskId];
 }
 
 export const layoutsSelector = state => state.board.layouts;

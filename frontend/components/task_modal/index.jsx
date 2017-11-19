@@ -35,8 +35,9 @@ const TaskModal = (props) => {
   )
 }
 
-const mapStateToProps = (state, { match }) => ({
-  task: taskSelector(state, match),
+const mapStateToProps = state => ({
+  active: state.modal.active,
+  task: taskSelector(state),
 })
 
 const mapDispatchToProps = dispatch => ({
