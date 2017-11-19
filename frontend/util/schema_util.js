@@ -13,7 +13,9 @@ export const tasks = { tasks: [ task ] }
 
   outcome:
   {
-    result: [1, 2],
+    result: {
+      tasks: [1, 2]
+    },
     entities: {
       tasks: { 1: {}, 2: {} }
     }
