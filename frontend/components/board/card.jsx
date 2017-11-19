@@ -1,13 +1,34 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { activateTaskModal } from 'actions/modal_actions';
 
-const Card = (props) => (
-  <article {...props} >
+const Card = (props) => {
+
+  const handleEditTask = () => {
+    props.activateTaskModal(props.task.id)
+  }
+
+  return (
+    <article {...props} >
     <header>{props.task.title}</header>
     <p>{props.task.description}</p>
     {props.task.children}
-    <Link to={`/edit/${props.task.id}`}>edit</Link>
-  </article>
-)
+    <button
+      className="edit-task-button"
+      type="edit"
+      onClick={handleEditTask}
+      >
+      edit
+    </button>
+    </article>
+  )
+}
 
-export default Card;
+const mapDispatchToProps = (dispatch) => ({
+  activateTaskModal: id => dispatch(activateTaskModal(id)),
+})
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(Card);

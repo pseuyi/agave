@@ -12,8 +12,8 @@ const App = () => {
       <Route exact path="/" component={Landing}/>
       <AuthRoute path="/login" component={SessionModal} />
       <AuthRoute path="/signup" component={SessionModal} />
-      <ProtectedRoute exact path="/home" component={Home} />
-      <ProtectedRoute path="/edit/:taskId" component={TaskModal} />
+      <ProtectedRoute path="/home" component={Home} />
+      <TaskModal />
     </section>
   )
 };

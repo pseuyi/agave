@@ -6,6 +6,7 @@ import TaskEditForm from './task_edit_form';
 import style from './index.scss';
 
 import { editTask, deleteTask } from 'actions/task_actions';
+import { taskSelector } from 'reducers/selectors';
 
 const TaskModal = (props) => {
 
