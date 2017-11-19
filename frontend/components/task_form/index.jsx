@@ -1,20 +1,50 @@
 import React, { Component } from 'react';
+import styled from 'styled-components';
 import { Field, reduxForm } from 'redux-form';
-import style from './index.scss';
+
+const Form = styled.form`
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  width: 50%;
+`
+const FormField = styled.div`
+  padding: 0.4rem 0;
+  height: 1rem;
+  width: 240px;
+  border-bottom: 1px solid black;
+`
+const Select = styled.div`
+  padding: 0.4rem 0;
+  select {
+  	line-height: normal;
+  	position: relative;
+  	background-position: right 10px top 50%;
+  	background-repeat: no-repeat;
+  }
+`
+const Button = styled.button`
+  font-size: 16px;
+  color: #000000;
+  border: 1px solid #1bd68e;
+  padding: 0.4rem 2rem;
+  box-shadow: 3px 3px 10px rgba(0,0,0,0.1);
+  &:hover {
+    box-shadow: inset 3px 3px 10px rgba(0,0,0,0.1);
+  }
+`
 
 const renderInputField = ({ input, label, name, type, meta: { touched, error } }) => (
-  <div className="add-task-form-field">
-    <div className="add-task-input">
-      <input  {...input} placeholder={label} type={type} />
-      {touched && error && <span>{error}</span>}
-    </div>
-  </div>
+  <FormField className="add-task-form-field">
+    <input  {...input} placeholder={label} type={type} />
+    {touched && error && <span>{error}</span>}
+  </FormField>
 )
 
 let TaskForm = ({ handleSubmit }) => {
 
   return (
-    <form onSubmit={handleSubmit}>
+    <Form onSubmit={handleSubmit}>
       <Field
         name="title"
         component={renderInputField}
@@ -27,24 +57,21 @@ let TaskForm = ({ handleSubmit }) => {
         type="text"
         label="description"
       />
-      <div className="add-task-input">
-        <label htmlFor="status">status</label>
+      <Select>
+        <label htmlFor="status">status  </label>
         <Field name="status" component="select" type="text">
-          <option></option>
           <option name="open">open</option>
           <option name="ready">ready</option>
           <option name="in progress">in progress</option>
           <option name="done">done</option>
         </Field>
-      </div>
-      <div className="add-task-button-container" >
-        <button
-          className="add-task-button"
-          type="submit">
-          add task
-        </button>
-      </div>
-    </form>
+      </Select>
+      <Button
+        className="add-task-button"
+        type="submit">
+        add task
+      </Button>
+    </Form>
   )
 }
 

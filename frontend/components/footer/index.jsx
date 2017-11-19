@@ -1,10 +1,18 @@
 import React, { Component } from 'react';
+import styled from 'styled-components';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import TaskForm from 'components/task_form';
 import { createTask } from 'actions/task_actions';
 import { newPrioritySelector } from 'reducers/selectors';
-import style from './index.scss';
+
+const Container = styled.footer`
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 100px;
+  padding: 0 4.4rem;
+`
 
 export class Footer extends Component {
   static propTypes = {
@@ -18,9 +26,9 @@ export class Footer extends Component {
 
   render () {
     return (
-      <footer className="footer">
+      <Container>
         <TaskForm onSubmit={this.handleAddTask}/>
-      </footer>
+      </Container>
     )
   }
 }
