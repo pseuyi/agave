@@ -1,7 +1,8 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import TaskEditForm from 'task-edit-form';
+import TaskEditForm from './task_edit_form';
 import style from './index.scss';
 
 import { editTask, deleteTask } from 'actions/task_actions';
