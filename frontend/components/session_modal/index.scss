@@ -1,23 +1,5 @@
 @import 'scss/_colors';
 
-.logo-box {
-  position: fixed;
-  top: 0;
-  right: 0;
-}
-
-#logo {
-  font-size: 4rem;
-  line-height: normal;
-  padding: 0.2rem 4.4rem;
-  color: $green;
-  font-weight: lighter;
-  font-style: oblique;
-  // font-family: 'Archivo Black', sans-serif;
-  font-family: 'BodoniXt';
-  letter-spacing: 10px;
-}
-
 a {
   text-decoration: none;
   color: $green;
