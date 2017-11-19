@@ -1,8 +1,8 @@
-import { RECEIVE_ERROR } from '../actions/error_actions';
+import * as actions from '../consts/action-types';
 
 const errorReducer = (state = "", action) => {
   switch (action.type) {
-    case RECEIVE_ERROR:
+    case actions.RECEIVE_ERROR:
       return action.error;
     default:
       return state;

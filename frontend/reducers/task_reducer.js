@@ -1,11 +1,6 @@
-import { keyBy, without } from 'lodash';
+import { without } from 'lodash';
 
-import {
-  RECEIVE_TASKS,
-  RECEIVE_TASK,
-  UPDATE_TASK_SUCCESS,
-  DELETE_TASK_SUCCESS,
-} from 'actions/task_actions';
+import * as actions from '../consts/action-types';
 
 const defaultState = {
   tasksByIds: {},
@@ -14,29 +9,20 @@ const defaultState = {
 
 const taskReducer = (state = defaultState, action) => {
   switch (action.type) {
-    case RECEIVE_TASKS:
-      const tasksByIds = keyBy(action.tasks, 'id');
+    case actions.RECEIVE_TASKS:
       return {
-        tasksByIds,
-        ids: Object.keys(tasksByIds)
+        tasksByIds: action.payload.entities.tasks,
+        ids: action.payload.result.tasks
       }
-    case RECEIVE_TASK:
-      return {
-        tasksByIds: {
-          ...state.tasksByIds,
-          [action.task.id]: {...action.task},
-        },
-        ids: [...state.ids, action.task.id]
-      }
-    case UPDATE_TASK_SUCCESS:
+    case actions.RECEIVE_TASK:
       return {
         tasksByIds: {
           ...state.tasksByIds,
-          [action.task.id]: {...action.task},
+          ...action.payload.entities.tasks,
         },
-        ids: [...state.ids]
+        ids: [...state.ids, ...action.payload.result.tasks]
       }
-    case DELETE_TASK_SUCCESS:
+    case actions.DELETE_TASK_SUCCESS:
       const newTasksByIds = Object.assign({}, state.tasksByIds);
       delete newTasksByIds[action.id];
       const ids = without(state.ids, action.id);

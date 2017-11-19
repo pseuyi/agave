@@ -18,6 +18,10 @@ class SessionModal extends Component {
      }
   }
 
+  componentWillReceiveProps(newProps) {
+    if (newProps.loggedIn) newProps.history.push('/home')
+  }
+
   handleSubmit = (values) => {
     const formData = new FormData();
 
@@ -28,10 +32,8 @@ class SessionModal extends Component {
       if (this.state.avatar) formData.append("user[avatar]", this.state.avatar);
       formData.append("user[email]", values.email);
       this.props.signUp(formData)
-        .then(() => this.props.history.push('/home'))
     } else {
       this.props.login(formData)
-        .then(() => this.props.history.push('/home'))
     }
   }
 
@@ -80,6 +82,7 @@ class SessionModal extends Component {
 const mapStateToProps = (state, { match }) => {
   const { path } = match;
   return {
+    loggedIn: !!state.session.currentUser,
     errors: state.errors,
     path
   }

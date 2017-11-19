@@ -1,4 +1,5 @@
-import { RECEIVE_CURRENT_USER } from '../actions/session_actions';
+import * as actions from '../consts/action-types';
+
 
 const defaultState = {
   currentUser: null,
@@ -6,7 +7,7 @@ const defaultState = {
 
 const sessionReducer = (state = defaultState, action) => {
   switch (action.type) {
-    case RECEIVE_CURRENT_USER:
+    case actions.RECEIVE_CURRENT_USER:
       return {
         currentUser: parseInt(action.id)
       };

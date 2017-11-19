@@ -1,19 +1,16 @@
-
-export const UPDATE_LAYOUTS = 'BOARD::UPDATE_LAYOUTS';
-export const BUILD_LAYOUTS = 'BOARD::BUILD_LAYOUTS';
-export const ADD_LAYOUT = 'BOARD::ADD_LAYOUT';
+import * as actions from '../consts/action-types';
 
 export const updateLayouts = (layouts) => ({
-  type: UPDATE_LAYOUTS,
+  type: actions.UPDATE_LAYOUTS,
   layouts
 })
 
-export const buildLayouts = (tasks) => ({
-  type: BUILD_LAYOUTS,
-  tasks
+export const buildLayouts = (payload) => ({
+  type: actions.BUILD_LAYOUTS,
+  payload
 })
 
-export const addLayout = (task) => ({
-  type: ADD_LAYOUT,
-  task
+export const addLayout = (payload) => ({
+  type: actions.ADD_LAYOUT,
+  payload
 })

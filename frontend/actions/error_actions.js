@@ -1,8 +1,8 @@
-export const RECEIVE_ERROR = 'ERROR::RECEIVE_ERROR';
+import * as actions from '../consts/action-types';
 
 export const receiveError = (error) => {
   return {
-    type: RECEIVE_ERROR,
+    type: actions.RECEIVE_ERROR,
     error
   }
 }
