@@ -1,7 +1,7 @@
 import { map } from 'lodash';
 import { denormalize } from 'normalizr';
 
-import * as schema from '../lib/schema';
+import * as schema from '../util/schema_util';
 import * as actions from '../consts/action-types';
 
 const defaultState = {

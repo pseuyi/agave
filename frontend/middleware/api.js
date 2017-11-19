@@ -5,7 +5,7 @@ import { get, keys } from 'lodash';
 import { receiveError } from 'actions/error_actions';
 import * as APIUtil from '../util/session_util';
 import * as actions from '../consts/action-types';
-import * as schema from '../lib/schema';
+import * as schema from '../util/schema_util';
 
 const normalizedData = (data, schema, label) => normalize({ [label]: data }, schema);
 
@@ -24,21 +24,27 @@ const massageData = (res, schema, label) => {
   return data;
 }
 
-const handleSuccess = (data, action, dispatch) => {
-  if (get(action, 'meta.session', false)) {
-    APIUtil.handleLocalStorage(data, action.meta.session)
+const handleMeta = (data, action) => {
+  if (get(action, 'meta.persistToLocalStorage', false)) {
+    APIUtil.setUserLocalStorage(data)
   }
 
-  const success = action.payload.success;
+  if (get(action, 'meta.clearLocalStorage', false)) {
+    APIUtil.removeUserLocalStorage()
+  }
+
+  return data;
+}
+
+const handleSuccess = (data, success, dispatch) => {
   if (Array.isArray(success(data))) {
-    success(data).forEach(succ => dispatch(succ))
+    success(data).forEach(action => dispatch(action))
   } else {
     dispatch(success(data));
   }
 }
 
 const api = ({ getState, dispatch }) => next => action => {
-
   if (action.type !== actions.API) {
     return next(action);
   }
@@ -47,8 +53,9 @@ const api = ({ getState, dispatch }) => next => action => {
 
   axios({ ...options })
     .then( res => massageData(res, schema, label) )
-    .then( data => handleSuccess(data, action, dispatch) )
-    .catch( err => dispatch(receiveError(err)))
+    .then( data => handleMeta(data, action) )
+    .then( data => handleSuccess(data, success, dispatch) )
+    .catch( err => dispatch(receiveError(err)) )
 }
 
 export default api;

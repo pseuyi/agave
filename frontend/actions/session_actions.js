@@ -1,11 +1,9 @@
 import axios from 'axios';
-import { normalize } from 'normalizr';
 
-import { receiveUser } from './user_actions';
 import { receiveError } from './error_actions';
 
 import * as APIUtil from '../util/session_util';
-import * as schema from '../lib/schema';
+import * as schema from '../util/schema_util';
 import * as actions from '../consts/action-types';
 
 export const signUp = (formData) => (
@@ -25,7 +23,7 @@ export const signUp = (formData) => (
       label: 'users'
     },
     meta: {
-      session: 'signup'
+      persistToLocalStorage: true
     }
   }
 )
@@ -47,7 +45,7 @@ export const login = (formData) => (
       label: 'users'
     },
     meta: {
-      session: 'login'
+      persistToLocalStorage: true
     }
   }
 )
@@ -63,10 +61,17 @@ export const logout = (id) => (
       success: () => receiveCurrentUser(null)
     },
     meta: {
-      session: 'logout'
+      clearLocalStorage: true
     }
   }
 )
+
+export const receiveUser = (payload) => {
+  return {
+    type: actions.RECEIVE_USER,
+    payload
+  }
+}
 
 const receiveCurrentUser = (id) => {
   return {
