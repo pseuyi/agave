@@ -19,6 +19,7 @@ const TaskModal = (props) => {
   }
 
   return (
+    <div className='task-modal-background'>
       <div className='task-modal-container'>
         <TaskEditForm
           onSubmit={handleEditTask}
@@ -32,6 +33,7 @@ const TaskModal = (props) => {
           delete task
         </button>
       </div>
+    </div>
   )
 }
 
