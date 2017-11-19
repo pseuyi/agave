@@ -58,8 +58,7 @@ class Board extends Component {
         className='card-container'
         style=''
         key={`${task.id}-${task.title}`}
-        title={task.title}
-        description={task.description}
+        task={task}
       />
     ));
 
