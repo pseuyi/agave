@@ -30,6 +30,7 @@ gem 'paperclip', '~> 5.0.0'
 gem 'paperclip-meta'
 gem 'aws-sdk', '2.10.47'
 gem 'figaro'
+gem 'faker'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -43,7 +44,6 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'pry-rails'
   gem 'annotate'
-  gem 'faker'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
