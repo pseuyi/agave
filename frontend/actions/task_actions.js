@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { buildLayouts, addLayout } from './board_actions';
+import { buildLayouts, addLayout, removeLayout } from './board_actions';
 import { receiveError } from './error_actions';
 
 import * as actions from '../consts/action-types';
@@ -101,12 +101,10 @@ export const deleteTask = (id) => (
         method: 'delete',
         url: `/tasks/${id}`
       },
-      schema: schema.tasks,
       success: (data) => [
-        removeTask(data),
         removeLayout(data),
-      ],
-      label: 'tasks'
+        removeTask(data),
+      ]
     }
   }
 )

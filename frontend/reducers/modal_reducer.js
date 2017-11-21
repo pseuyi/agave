@@ -10,7 +10,7 @@ const modalReducer = (state = defaultState, action) => {
     case actions.ACTIVATE_TASK_MODAL:
       return { active: true, taskId: action.payload };
     case actions.DISABLE_TASK_MODAL:
-      return defaultState;
+      return { active: false, taskId: null };
     default:
       return state;
   }

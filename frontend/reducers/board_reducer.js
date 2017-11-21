@@ -1,4 +1,4 @@
-import { map } from 'lodash';
+import { map, without } from 'lodash';
 import { denormalize } from 'normalizr';
 
 import * as schema from '../util/schema_util';
@@ -24,11 +24,12 @@ const buildTaskLayout = (state, task) => ({
 
 const getColIdx = (state, status) => state.statuses.indexOf(status);
 
-const denormalized = action => (
+// convert schema to array of tasks
+const denormalized = payload => (
   denormalize(
-    action.payload.result,
+    payload.result,
     schema.tasks,
-    action.payload.entities
+    payload.entities
   ).tasks
 )
 
@@ -40,7 +41,7 @@ const boardReducer = (state = defaultState, action) => {
       return {
         ...state,
         layouts: {
-          lg: buildLayouts(state, denormalized(action))
+          lg: buildLayouts(state, denormalized(action.payload))
         }
       };
     case actions.ADD_LAYOUT:
@@ -49,9 +50,17 @@ const boardReducer = (state = defaultState, action) => {
         layouts: {
           lg: [
             ...state.layouts.lg,
-            buildTaskLayout(state, ...denormalized(action))
+            buildTaskLayout(state, ...denormalized(action.payload))
           ]
         }
+      }
+    case actions.REMOVE_LAYOUT:
+      const task = action.payload[0];
+      const newLayout = Object.assign([], state.layouts.lg)
+        .filter(layout => layout.i !== `${task.id}-${task.title}`);
+      return {
+        ...state,
+        layouts: { lg: newLayout }
       }
     default:
       return state;

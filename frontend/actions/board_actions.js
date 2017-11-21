@@ -14,3 +14,8 @@ export const addLayout = (payload) => ({
   type: actions.ADD_LAYOUT,
   payload
 })
+
+export const removeLayout = (payload) => ({
+  type: actions.REMOVE_LAYOUT,
+  payload
+})
