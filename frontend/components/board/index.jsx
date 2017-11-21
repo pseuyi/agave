@@ -15,6 +15,7 @@ import {
   statusesSelector
 } from 'reducers/selectors';
 
+import TaskModal from 'components/task_modal';
 import Column from './column'
 import Card from './card'
 
@@ -95,6 +96,8 @@ class Board extends Component {
 
           </ResponsiveReactGridLayout>
         }
+
+        <TaskModal />
 
       </section>
     )
