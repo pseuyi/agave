@@ -6,6 +6,7 @@ import { Responsive, WidthProvider } from 'react-grid-layout';
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
 import { fetchTasks, updateTasks } from 'actions/task_actions';
+import { activateTaskModal } from 'actions/modal_actions';
 
 import {
   currentUserSelector,
@@ -14,6 +15,7 @@ import {
   statusesSelector
 } from 'reducers/selectors';
 
+import TaskModal from 'components/task_modal';
 import Column from './column'
 import Card from './card'
 
@@ -50,6 +52,10 @@ class Board extends Component {
     )
   )
 
+  handleEditTaskModal = (id) => {
+    this.props.activateTaskModal(id);
+  }
+
   render () {
     if (!this.props.layouts.lg) return null;
 
@@ -58,8 +64,8 @@ class Board extends Component {
         className='card-container'
         style=''
         key={`${task.id}-${task.title}`}
-        title={task.title}
-        description={task.description}
+        task={task}
+        handleEditTaskModal={this.handleEditTaskModal}
       />
     ));
 
@@ -91,6 +97,8 @@ class Board extends Component {
           </ResponsiveReactGridLayout>
         }
 
+        <TaskModal />
+
       </section>
     )
   }
@@ -110,6 +118,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     fetchTasks: userId => dispatch(fetchTasks(userId)),
     updateTasks: tasks => dispatch(updateTasks(tasks)),
+    activateTaskModal: id => dispatch(activateTaskModal(id)),
   }
 }
 

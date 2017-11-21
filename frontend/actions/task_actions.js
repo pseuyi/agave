@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { buildLayouts, addLayout } from './board_actions';
+import { buildLayouts, addLayout, removeLayout } from './board_actions';
 import { receiveError } from './error_actions';
 
 import * as actions from '../consts/action-types';
@@ -16,9 +16,9 @@ const receiveTask = (payload) => ({
     payload
 })
 
-const deleteTask = (id) => ({
-  type: actions.DELETE_TASK_SUCCESS,
-  id
+const removeTask = (payload) => ({
+  type: actions.REMOVE_TASK,
+  payload
 })
 
 export const fetchTasks = () => (
@@ -73,6 +73,38 @@ export const createTask = (newTask) => (
         receiveTask(data)
       ],
       label: 'tasks'
+    }
+  }
+)
+
+export const editTask = (task) => (
+  {
+    type: actions.API,
+    payload: {
+      options: {
+        method: 'patch',
+        url: `/tasks/${task.id}`,
+        data: { task }
+      },
+      schema: schema.tasks,
+      success: (data) => receiveTask(data),
+      label: 'tasks'
+    }
+  }
+)
+
+export const deleteTask = (id) => (
+  {
+    type: actions.API,
+    payload: {
+      options: {
+        method: 'delete',
+        url: `/tasks/${id}`
+      },
+      success: (data) => [
+        removeLayout(data),
+        removeTask(data),
+      ]
     }
   }
 )

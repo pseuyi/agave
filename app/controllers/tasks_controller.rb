@@ -19,6 +19,7 @@ class TasksController < ApplicationController
   end
 
   def update
+    @task = Task.find(task_params[:id])
     if @task.update(task_params)
       render json: @task
     else
@@ -43,13 +44,13 @@ class TasksController < ApplicationController
   def destroy
     @task = current_user.tasks.find(params[:id])
     @task.destroy
-    redirect_to :action => 'list'
+    render json: @task
   end
 
   private
 
   def task_params
-    params.require(:task).permit(:title, :description, :status, :priority)
+    params.require(:task).permit(:title, :description, :status, :priority, :id)
   end
 
   def tasks_params

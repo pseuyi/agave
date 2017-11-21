@@ -1,6 +1,7 @@
 import { without } from 'lodash';
 
 import * as actions from '../consts/action-types';
+import * as schema from '../util/schema_util';
 
 const defaultState = {
   tasksByIds: {},
@@ -15,17 +16,21 @@ const taskReducer = (state = defaultState, action) => {
         ids: action.payload.result.tasks
       }
     case actions.RECEIVE_TASK:
+      const stateIds = Object.assign([], state.ids);
+      const newId = action.payload.result.tasks[0];
+      if (!stateIds.includes(newId)) stateIds.push(newId);
       return {
         tasksByIds: {
           ...state.tasksByIds,
           ...action.payload.entities.tasks,
         },
-        ids: [...state.ids, ...action.payload.result.tasks]
+        ids: [...stateIds]
       }
-    case actions.DELETE_TASK_SUCCESS:
+    case actions.REMOVE_TASK:
+      const task = action.payload[0];
       const newTasksByIds = Object.assign({}, state.tasksByIds);
-      delete newTasksByIds[action.id];
-      const ids = without(state.ids, action.id);
+      delete newTasksByIds[task.id];
+      const ids = without(state.ids, task.id);
       return {
         tasksByIds: newTasksByIds,
         ids

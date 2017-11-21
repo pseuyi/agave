@@ -1,0 +1,77 @@
+.task-modal-background {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.task-modal-container {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  top: 50%;
+  left: 50%;
+  width: 30%;
+  height: 460px;
+  transform: translateX(-50%) translateY(-50%);
+  background: url('/assets/still-background.png');
+  background-position: center;
+  border: solid 1px black;
+
+  .disable-task-modal-button {
+    border: solid 1px black;
+    border-radius: 0;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    margin: 4px;
+    box-shadow: 3px 3px 10px rgba(0,0,0,0.1);
+    &:hover {
+      box-shadow: inset 3px 3px 10px rgba(0,0,0,0.1);
+    }
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 300px;
+    align-items: center;
+    margin-top: 10px;
+  }
+
+  input {
+    border-bottom: solid 1px black;
+    margin: 0 10px;
+  }
+
+  .edit-task-submit-button {
+    color: #1bd68e;
+    border: solid 1px black;
+    border-radius: 0;
+    padding: 6px 12px;
+    background: rgba(255, 255, 255, 0.3);
+    box-shadow: 3px 3px 10px rgba(0,0,0,0.1);
+    &:hover {
+      box-shadow: inset 3px 3px 10px rgba(0,0,0,0.1);
+    }
+  }
+
+  .delete-task-button {
+    color: firebrick;
+    border: solid 1px black;
+    border-radius: 0;
+    text-align: center;
+    margin: 4px;
+    padding: 6px 0;
+    background: rgba(255, 255, 255, 0.3);
+    box-shadow: 3px 3px 10px rgba(0,0,0,0.1);
+    &:hover {
+      box-shadow: inset 3px 3px 10px rgba(0,0,0,0.1);
+    }
+  }
+}
