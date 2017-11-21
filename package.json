@@ -36,6 +36,7 @@
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.6.0",
     "babel-preset-react": "^6.24.1",
+    "extract-text-webpack-plugin": "^3.0.2",
     "lodash": "^4.17.4",
     "normalizr": "^3.2.4",
     "prop-types": "^15.6.0",
