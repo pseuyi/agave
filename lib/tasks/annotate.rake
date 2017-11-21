@@ -4,6 +4,6 @@ namespace :db do
   end
 
   task :migrate do
-    add_annotation_to_models
+    add_annotation_to_models unless Rails.env == 'production'
   end
 end
