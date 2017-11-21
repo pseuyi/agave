@@ -6,7 +6,7 @@ const Card = (props) => (
   <p>{props.task.description}</p>
   {props.task.children}
   <button
-    className="edit-task-button"
+    className="edit-task-button non-draggable-element"
     type="edit"
     onClick={() => props.handleEditTaskModal(props.task.id)}
     >
