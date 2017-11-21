@@ -90,6 +90,7 @@ class Board extends Component {
             cols={{ lg: 4 }}
             measureBeforeMount={false}
             useCSSTransforms={this.state.mounted}
+            draggableCancel='.non-draggable-element'
             >
 
             { cards }
