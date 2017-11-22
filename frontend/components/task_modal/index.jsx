@@ -2,12 +2,67 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import TaskEditForm from './task_edit_form';
-import style from './index.scss';
+import styled from 'styled-components';
 
 import { editTask, deleteTask } from 'actions/task_actions';
 import { disableTaskModal } from 'actions/modal_actions';
 import { taskSelector } from 'reducers/selectors';
+
+import TaskEditForm from './task_edit_form';
+
+const ModalBackground = styled.div`
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.4);
+`
+
+const ModalContainer = styled.div`
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  top: 54%;
+  left: 50%;
+  width: 40%;
+  height: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  &::after {
+    content: "";
+    background: url('/assets/still-background.png');
+    background-position: center;
+    opacity: 0.9;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    border-radius: 1%;
+    z-index: -1;
+  }
+`
+const DisableModalButton = styled.button`
+  font-size: 16px;
+  line-height: 16px;
+  color: #000000;
+  margin: 6px 10px;
+`
+
+const Button = styled.button`
+  font-size: 16px;
+  text-align: center;
+  color: #000000;
+  padding: 0.4rem 2rem;
+  width: 60px;
+  margin: 0 0 5% 10%;
+  box-shadow: 3px 3px 10px rgba(0,0,0,0.1);
+  &:hover {
+    box-shadow: inset 3px 3px 10px rgba(0,0,0,0.1);
+  }
+`
 
 const TaskModal = (props) => {
 
@@ -27,29 +82,27 @@ const TaskModal = (props) => {
 
   if (props.active) {
     return (
-      <div className='task-modal-background'>
-        <div className='task-modal-container'>
-          <button
-            className="disable-task-modal-button"
+      <ModalBackground>
+        <ModalContainer>
+          <DisableModalButton
             type="disable"
             onClick={handleDisableTaskModal}>
             x
-          </button>
+          </DisableModalButton>
 
           <TaskEditForm
             initialValues={props.task}
             onSubmit={handleSubmitEditTask}
           />
 
-          <button
-            className="delete-task-button"
+          <Button
             type="delete"
             onClick={handleDeleteTask}>
             delete
-          </button>
+          </Button>
 
-        </div>
-      </div>
+        </ModalContainer>
+      </ModalBackground>
       )
   } else {
     return null;
