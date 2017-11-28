@@ -83,7 +83,7 @@ class Board extends Component {
         {
           cards.length === this.props.layouts.lg.length &&
           <ResponsiveReactGridLayout
-            style={{ width: '100%', height: 400, overflowY: 'scroll' }}
+            style={{ width: '100%', height: '90%', overflowY: 'scroll' }}
             layouts={this.props.layouts}
             onLayoutChange={this.onLayoutChange}
             breakpoints={{ lg: 1000 }}

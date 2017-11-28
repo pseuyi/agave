@@ -6,7 +6,9 @@ const Form = styled.form`
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
-  width: 50%;
+  width: 70%;
+  min-width: 860px;
+  margin: 1rem 0;
 `
 const FormField = styled.div`
   padding: 0.4rem 0;
@@ -17,10 +19,16 @@ const FormField = styled.div`
 const Select = styled.div`
   padding: 0.4rem 0;
   select {
+    font-size: 16px;
   	line-height: normal;
   	position: relative;
+    margin-left: 0.4rem;
+    background-color: transparent;
   	background-position: right 10px top 50%;
   	background-repeat: no-repeat;
+    &:focus {
+      outline:none
+    }
   }
 `
 const Button = styled.button`
