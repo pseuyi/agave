@@ -37,6 +37,15 @@ class SessionModal extends Component {
     }
   }
 
+  handleSubmitAsGuest = () => {
+    const values = {
+      username: 'guest',
+      password: 'carrot'
+    }
+
+    this.handleSubmit(values);
+  }
+
   handleUpload = (e) => {
     e.preventDefault();
 
@@ -73,6 +82,15 @@ class SessionModal extends Component {
             formType={formType}
             errors={this.props.errors}
             />
+            {
+              formType === 'login' &&
+              <button
+                className="login-as-guest-button"
+                type="submit"
+                onClick={this.handleSubmitAsGuest}>
+                login as guest
+              </button>
+            }
         </div>
       </div>
     )

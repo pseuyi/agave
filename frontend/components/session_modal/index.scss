@@ -39,6 +39,7 @@ a:hover {
   padding-bottom: 1rem;
 }
 
+
 .session-form-field {
   display: flex;
   flex-flow: row nowrap;
@@ -58,5 +59,14 @@ a:hover {
   color: #000000;
   border: 1px solid $green;
   padding: 0.4rem 2rem;
+  float: right;
+}
+
+.login-as-guest-button {
+  width: 100px;
+  margin: 1rem;
+  padding: 0.4rem 2rem;
+  color: #000000;
+  border: 1px solid $green;
   float: right;
 }
