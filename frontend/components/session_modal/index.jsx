@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import SessionForm from './session_form';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
+
+import SessionForm from './session_form';
+import GoogLogin from './login';
 
 import { signUp, login } from '../../actions/session_actions';
 
@@ -91,6 +93,7 @@ class SessionModal extends Component {
                 login as guest
               </button>
             }
+            <GoogLogin />
         </div>
       </div>
     )

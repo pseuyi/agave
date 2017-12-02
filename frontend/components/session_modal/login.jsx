@@ -1,24 +1,29 @@
 import React, { Component } from 'react';
 import { GoogleLogin } from 'react-google-login';
 
-class Login extends Component {
+class GoogLogin extends Component {
 
-  onLoginSuccess = ({ accessToken, tokenId }) => {
-    console.log('login success: ', accessToken, ' --- ', tokenId);
+  onLoginSuccess = (response) => {
+    console.log('response --- ', response)
+    //console.log('login success: ', accessToken, ' --- ', tokenId);
   }
 
-  onLoginFailure = ({ error, details }) => {
-    conosle.log('login failed: ', error, ' --- ', details);
+  onLoginFailure = (response) => {
+    console.log('response --- ', response)
+    // console.log('login failed: ', error, ' --- ', details);
   }
 
-  return (
-    <GoogleLogin
-      clientId={process.env.CLIENT_ID}
-      buttonText="Login"
-      onSuccess={onLoginSuccess}
-      onFailure={onLoginFailure}
-    />
-  )
+  render() {
+    console.log('process: ', process.env.CLIENT_ID);
+    return (
+      <GoogleLogin
+        clientId={process.env.CLIENT_ID}
+        buttonText="Login"
+        onSuccess={this.onLoginSuccess}
+        onFailure={this.onLoginFailure}
+        ></GoogleLogin>
+    )
+  }
 }
 
-export default Login;
+export default GoogLogin;
