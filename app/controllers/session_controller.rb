@@ -1,12 +1,6 @@
 class SessionController < ApplicationController
   def create
 
-    # make sure token is valid (opt)
-    # if jwt present? decode jwt
-    # check if email from jwt matches a users email in db.
-    #    - if yes, login user
-    #    - if no, tell frontend to sign up
-
     if !params[:id_token]
       @user = User.find_by_credentials(
         params[:user][:username],
