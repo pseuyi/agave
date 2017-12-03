@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 
-const Card = (props) => (
-  <article className={props.className} style={props.style}>
-    <header>{props.task.title}</header>
-    <p>{props.task.description}</p>
-    {props.task.children}
+// articleProps contains handlers from react-grid-layout that should be attached to this dom element
+const Card = ({ task, handleEditTaskModal, ...articleProps }) => (
+  <article {...articleProps}>
+    <header>{task.title}</header>
+    <p>{task.description}</p>
+    {task.children}
     <button
       className="edit-task-button non-draggable-element"
       type="edit"
-      onClick={() => props.handleEditTaskModal(props.task.id)}
+      onClick={() => handleEditTaskModal(task.id)}
       >
       edit
     </button>
