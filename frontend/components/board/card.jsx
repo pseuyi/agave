@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 
+// articleProps contains handlers from react-grid-layout that should be attached to this dom element
 const Card = ({ task, handleEditTaskModal, ...articleProps }) => (
-  <article {...articleProps}> // articleProps contains handlers from react-grid-layout that should be attached to this dom element
+  <article {...articleProps}>
     <header>{task.title}</header>
     <p>{task.description}</p>
     {task.children}
