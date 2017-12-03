@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 // articleProps contains handlers from react-grid-layout that should be attached to this dom element
 const Card = ({ task, handleEditTaskModal, ...articleProps }) => (
@@ -14,6 +14,6 @@ const Card = ({ task, handleEditTaskModal, ...articleProps }) => (
       edit
     </button>
   </article>
-)
+);
 
 export default Card;

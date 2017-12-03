@@ -26,7 +26,6 @@ class Board extends Component {
   static propTypes = {
     currentUserId: PropTypes.number,
     currentUser: PropTypes.object,
-    tasks: PropTypes.array,
     layouts: PropTypes.object,
     statuses: PropTypes.array,
   }
@@ -58,16 +57,16 @@ class Board extends Component {
 
   render () {
     if (!this.props.layouts.lg) return null;
-
     const cards = this.props.tasks.map(task => (
-      <Card
-        className='card-container'
-        style=''
-        key={`${task.id}-${task.title}`}
-        task={task}
-        handleEditTaskModal={this.handleEditTaskModal}
-      />
-    ));
+        <Card
+          className='card-container'
+          style=''
+          key={`${task.get('id')}-${task.get('title')}`}
+          task={task}
+          handleEditTaskModal={this.handleEditTaskModal}
+        />
+      )
+    ).toArray();
 
     const columns = this.props.statuses.map(status => (
       <Column key={status} header={status} />

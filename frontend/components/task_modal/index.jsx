@@ -72,7 +72,7 @@ const TaskModal = (props) => {
   }
 
   const handleDeleteTask = () => {
-    props.deleteTask(props.task.id);
+    props.deleteTask(props.task.get('id'));
     handleDisableTaskModal();
   }
 
@@ -91,7 +91,7 @@ const TaskModal = (props) => {
           </DisableModalButton>
 
           <TaskEditForm
-            initialValues={props.task}
+            initialValues={props.task.toObject()}
             onSubmit={handleSubmitEditTask}
           />
 
@@ -107,20 +107,20 @@ const TaskModal = (props) => {
   } else {
     return null;
   }
-}
+};
 
 const mapStateToProps = state => ({
   active: state.modal.active,
   task: taskSelector(state),
-})
+});
 
 const mapDispatchToProps = dispatch => ({
-  editTask: (task) => dispatch(editTask(task)),
-  deleteTask: (id) => dispatch(deleteTask(id)),
+  editTask: task => dispatch(editTask(task)),
+  deleteTask: id => dispatch(deleteTask(id)),
   disableTaskModal: () => dispatch(disableTaskModal()),
-})
+});
 
 export default withRouter(connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(TaskModal));

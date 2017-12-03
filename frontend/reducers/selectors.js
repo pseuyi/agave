@@ -1,4 +1,4 @@
-import { get, filter, map } from 'lodash';
+import { get } from 'lodash';
 import { createSelector } from 'reselect';
 
 export const currentUserSelector = state =>
@@ -10,12 +10,12 @@ export const getTasks = state => state.tasks.tasksByIds;
 export const tasksSelector = createSelector(
   getTasksIds,
   getTasks,
-  (ids, tasks) => ids.map(id => tasks[id])
-)
+  (ids, tasks) => ids.map(id => tasks.get(id)),
+);
 
 export const taskSelector = state => {
-  return state.tasks.tasksByIds[state.modal.taskId];
-}
+  return state.tasks.tasksByIds.get(state.modal.taskId);
+};
 
 export const layoutsSelector = state => state.board.layouts;
 
@@ -26,9 +26,9 @@ export const newPrioritySelector = createSelector(
   getTasks,
   getNewTaskStatus,
   (ids, tasksById, status) => {
-    const tasks = map(ids, id => tasksById[id]);
-    return filter(tasks, (task) => task.status === status ).length + 1;
-  }
-)
+    const tasks = ids.map(id => tasksById.get(id));
+    return tasks.filter(task => task.get('status') === status).length + 1;
+  },
+);
 
 export const statusesSelector = state => state.board.statuses;
