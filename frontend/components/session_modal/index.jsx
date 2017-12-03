@@ -84,16 +84,19 @@ class SessionModal extends Component {
             formType={formType}
             errors={this.props.errors}
             />
-            {
-              formType === 'login' &&
+
+          <GoogLogin login={this.props.login} />
+
+          {
+            formType === 'login' &&
               <button
-                className="login-as-guest-button"
+                className="demo-button"
                 type="submit"
                 onClick={this.handleSubmitAsGuest}>
-                login as guest
+                demo
               </button>
-            }
-            <GoogLogin login={this.props.login} />
+
+          }
         </div>
       </div>
     )
