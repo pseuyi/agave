@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
 import { GoogleLogin } from 'react-google-login';
+import { login } from 'actions/session_actions';
 
 class GoogLogin extends Component {
 
-  onLoginSuccess = (response) => {
-    console.log('response --- ', response)
-    //console.log('login success: ', accessToken, ' --- ', tokenId);
+  onLoginSuccess = ({ accessToken, tokenId }) => {
+    console.log('login success')
+    const authData = {
+      access_token: accessToken,
+      id_token: tokenId,
+    }
+    // this.props.login(authData);
   }
 
   onLoginFailure = (response) => {

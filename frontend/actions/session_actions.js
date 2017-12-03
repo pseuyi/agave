@@ -28,14 +28,14 @@ export const signUp = (formData) => (
   }
 )
 
-export const login = (formData) => (
+export const login = (data) => (
   {
     type: actions.API,
     payload: {
       options: {
         method: 'post',
         url: '/session',
-        data: formData
+        data: data
       },
       schema: schema.users,
       success: (data) => [
