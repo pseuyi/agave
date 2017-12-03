@@ -21,11 +21,12 @@ class GoogLogin extends Component {
     console.log('process: ', process.env.CLIENT_ID);
     return (
       <GoogleLogin
+        className='google-login-button'
         clientId={process.env.CLIENT_ID}
         buttonText="Login"
         onSuccess={this.onLoginSuccess}
         onFailure={this.onLoginFailure}
-        ></GoogleLogin>
+        >login with google</GoogleLogin>
     )
   }
 }

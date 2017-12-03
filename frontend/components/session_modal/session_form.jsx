@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 
 const validate = (values) => {
@@ -10,16 +10,16 @@ const validate = (values) => {
   if (!values.password) errors.password = req;
 
   return errors;
-}
+};
 
 const renderField = ({ input, label, type, meta: { touched, error } }) => (
   <div className="session-form-field">
     <div className="session-form-input">
-      <input  {...input} placeholder={label} type={type} />
+      <input {...input} placeholder={label} type={type} />
       {touched && error && <span>{error}</span>}
     </div>
   </div>
-)
+);
 
 let SessionForm = (props) => {
 
@@ -78,11 +78,11 @@ let SessionForm = (props) => {
         </form>
       </div>
     )
-}
+};
 
 SessionForm = reduxForm({
   form: 'session',
-  validate
-})(SessionForm)
+  validate,
+})(SessionForm);
 
 export default SessionForm;
