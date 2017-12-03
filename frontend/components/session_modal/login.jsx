@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { GoogleLogin } from 'react-google-login';
-import { login } from 'actions/session_actions';
 
 class GoogLogin extends Component {
 
@@ -10,7 +9,7 @@ class GoogLogin extends Component {
       access_token: accessToken,
       id_token: tokenId,
     }
-    // this.props.login(authData);
+    this.props.login(authData);
   }
 
   onLoginFailure = (response) => {

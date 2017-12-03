@@ -93,7 +93,7 @@ class SessionModal extends Component {
                 login as guest
               </button>
             }
-            <GoogLogin />
+            <GoogLogin login={this.props.login} />
         </div>
       </div>
     )
