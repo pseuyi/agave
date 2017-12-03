@@ -4,11 +4,11 @@ import Board from 'components/board';
 import Footer from 'components/footer';
 
 const Home = () => (
-  [
-    <Header />,
-    <Board />,
+  <div>
+    <Header />
+    <Board />
     <Footer />
-  ]
+  </div>
 )
 
 export default Home;
