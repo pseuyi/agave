@@ -44,10 +44,10 @@ const boardReducer = (state = defaultState, action) => {
       };
     }
     case actions.ADD_LAYOUT: {
-      const newLgLayouts = buildTaskLayout(state, ...denormalized(action.payload));
+      const newLgLayout = buildTaskLayout(state, ...denormalized(action.payload));
       return {
         ...state,
-        layouts: state.layouts.set('lg', state.layouts.lg.concat(newLgLayouts)),
+        layouts: state.layouts.set('lg', state.layouts.lg.concat(newLgLayout)),
       };
     }
     case actions.REMOVE_LAYOUT: {
