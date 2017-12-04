@@ -1,23 +1,23 @@
-import { get } from 'lodash';
+import { get, map, filter } from 'lodash';
 import { createSelector } from 'reselect';
 
 export const currentUserSelector = state =>
-  state.users.usersByIds[state.session.currentUser];
+  state.users.usersByIds.get(state.session.currentUser).toObject();
 
-export const getTasksIds = state => state.tasks.ids;
-export const getTasks = state => state.tasks.tasksByIds;
+export const getTasksIds = state => state.tasks.ids.toArray();
+export const getTasks = state => state.tasks.tasksByIds.toObject();
 
 export const tasksSelector = createSelector(
   getTasksIds,
   getTasks,
-  (ids, tasks) => ids.map(id => tasks.get(id)),
+  (ids, tasks) => map(ids, id => tasks[id]),
 );
 
 export const taskSelector = state => {
-  return state.tasks.tasksByIds.get(state.modal.taskId);
+  return state.tasks.tasksByIds.get(state.modal.taskId).toObject()
 };
 
-export const layoutsSelector = state => state.board.layouts;
+export const layoutsSelector = state => state.board.layouts.toObject();
 
 const getNewTaskStatus = state => get(state.form, 'newTask.values.status', '');
 
@@ -26,8 +26,8 @@ export const newPrioritySelector = createSelector(
   getTasks,
   getNewTaskStatus,
   (ids, tasksById, status) => {
-    const tasks = ids.map(id => tasksById.get(id));
-    return tasks.filter(task => task.get('status') === status).length + 1;
+    const tasks = map(ids, id => tasksById[id]);
+    return filter(tasks, task => task.status === status).length + 1;
   },
 );
 

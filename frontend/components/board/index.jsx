@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import * as _ from 'lodash';
+import { map } from 'lodash';
 import { Responsive, WidthProvider } from 'react-grid-layout';
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
@@ -26,6 +26,7 @@ class Board extends Component {
   static propTypes = {
     currentUserId: PropTypes.number,
     currentUser: PropTypes.object,
+    tasks: PropTypes.array,
     layouts: PropTypes.object,
     statuses: PropTypes.array,
   }
@@ -57,18 +58,18 @@ class Board extends Component {
 
   render () {
     if (!this.props.layouts.lg) return null;
-    const cards = this.props.tasks.map(task => (
+    const cards = map(this.props.tasks, task => (
         <Card
           className='card-container'
           style=''
-          key={`${task.get('id')}-${task.get('title')}`}
+          key={`${task.id}-${task.title}`}
           task={task}
           handleEditTaskModal={this.handleEditTaskModal}
         />
       )
-    ).toArray();
+    );
 
-    const columns = this.props.statuses.map(status => (
+    const columns = map(this.props.statuses, status => (
       <Column key={status} header={status} />
     ))
 

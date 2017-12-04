@@ -1,8 +1,6 @@
-import { without } from 'lodash';
 import { Map, Set } from 'immutable';
 
 import * as actions from '../consts/action-types';
-// import * as schema from '../util/schema_util';
 
 const defaultState = {
   tasksByIds: Map(),
