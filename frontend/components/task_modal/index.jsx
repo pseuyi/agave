@@ -72,7 +72,7 @@ const TaskModal = (props) => {
   }
 
   const handleDeleteTask = () => {
-    props.deleteTask(props.task.get('id'));
+    props.deleteTask(props.task.id);
     handleDisableTaskModal();
   }
 
@@ -91,7 +91,7 @@ const TaskModal = (props) => {
           </DisableModalButton>
 
           <TaskEditForm
-            initialValues={props.task.toObject()}
+            initialValues={props.task}
             onSubmit={handleSubmitEditTask}
           />
 
