@@ -2,10 +2,10 @@ import { get, map, filter } from 'lodash';
 import { createSelector } from 'reselect';
 
 export const currentUserSelector = state =>
-  state.users.usersByIds.get(state.session.currentUser).toObject();
+  state.users.usersByIds.get(state.session.currentUser.toString());
 
-export const getTasksIds = state => state.tasks.ids.toArray();
-export const getTasks = state => state.tasks.tasksByIds.toObject();
+export const getTasksIds = state => state.tasks.ids.toJS();
+export const getTasks = state => state.tasks.tasksByIds.toJS();
 
 export const tasksSelector = createSelector(
   getTasksIds,
@@ -14,10 +14,12 @@ export const tasksSelector = createSelector(
 );
 
 export const taskSelector = state => {
-  return state.tasks.tasksByIds.get(state.modal.taskId).toObject()
+  if (state.modal.taskId) {
+    return state.tasks.tasksByIds.get(state.modal.taskId.toString()).toJS()
+  }
 };
 
-export const layoutsSelector = state => state.board.layouts.toObject();
+export const layoutsSelector = state => state.board.layouts.toJS();
 
 const getNewTaskStatus = state => get(state.form, 'newTask.values.status', '');
 
