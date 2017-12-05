@@ -8,7 +8,7 @@ class GoogLogin extends Component {
       access_token: accessToken,
       id_token: tokenId,
     }
-    // this.props.login(authData);
+    this.props.login(authData);
   }
 
   onLoginFailure = (response) => {

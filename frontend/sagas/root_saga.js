@@ -5,6 +5,8 @@ import { keys } from 'lodash';
 import * as actions from '../consts/action-types';
 import * as schema from '../util/schema_util';
 
+const normalizedData = (data, schema, label) => normalize({ [label]: data }, schema);
+
 const massageData = (res, schema, label) => {
   if (keys(res.data.data).length === 0) return res.data.data
   let data;
@@ -24,9 +26,9 @@ const login = data => axios.post('/session', data);
 
 function* handleLogin(authData) {
   try {
-    const user = yield call(login, authData)
-    const formattedUser = yield call(massageData, user)
-    yield put({ type: actions.LOGIN_SUCCESS, payload: formattedUser, schema: schema.users, label: 'users' })
+    const res = yield call(login, authData)
+    const formattedUser = yield call(massageData, res)
+    yield put({ type: actions.LOGIN_SUCCESS, payload: formattedUser[0] })
   } catch (error) {
     yield put({ type: actions.LOGIN_ERROR, payload: error })
   }
@@ -45,25 +47,15 @@ function* handleLogout(id) {
 
 function* loginFlow() {
   while (true) {
-    const authData = yield take(actions.LOGIN_REQUEST)
+    const { authData } = yield take(actions.LOGIN_REQUEST)
     yield fork(handleLogin, authData)
-    const id = yield take(actions.LOGOUT_REQUEST)
-    yield call(logout, id)
+    const { id } = yield take(actions.LOGOUT_REQUEST)
+    yield call(handleLogout, id)
   }
 }
 
 export default function* rootSaga() {
   yield all([
-    loginFlow()
-  ])
-};
-
-/*
-
-uncaught at check take(patternOrChannel): patternOrChannel is undefined
-
-utils.js:225 uncaught at rootSaga at rootSaga
- at rootSaga
- Error: take(patternOrChannel): patternOrChannel is undefined
-
-*/
+    loginFlow(),
+  ]);
+}

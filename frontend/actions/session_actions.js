@@ -7,14 +7,14 @@ import * as actions from '../consts/action-types';
 export const login = (authData) => (
   {
     type: actions.LOGIN_REQUEST,
-    payload: authData,
+    authData,
   }
 );
 
 export const logout = (id) => (
   {
     type: actions.LOGOUT_REQUEST,
-    payload: id,
+    id,
   }
 );
 
