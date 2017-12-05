@@ -1,4 +1,3 @@
-// import { get } from 'lodash';
 import { createSelector } from 'reselect';
 
 export const currentUserSelector = state => state.getIn(['session', 'currentUser']);
@@ -13,10 +12,8 @@ export const tasksSelector = createSelector(
 );
 
 export const taskSelector = state => {
-  const taskId = state.getIn(['modal', 'taskId']);
-  if (taskId) {
-    return state.getIn(['tasks', 'tasksByIds', taskId.toString()]);
-  }
+  const taskId = state.getIn(['modal', 'taskId'], '');
+  return state.getIn(['tasks', 'tasksByIds', taskId], null);
 };
 
 export const layoutsSelector = state => state.getIn(['board', 'layouts']);

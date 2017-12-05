@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { connect } from 'react-redux';
-import { map, isEqual } from 'lodash';
+import { map } from 'lodash';
 import { Responsive, WidthProvider } from 'react-grid-layout';
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
@@ -42,15 +42,14 @@ class Board extends Component {
     this.props.updateTasks(tasks)
   }
 
-  getTasksData = (layout) => {
-    return (
+  getTasksData = (layout) => (
     layout.map(card => ({
         id: card.i.split('-')[0],
         status: this.props.statuses.get(card.x),
         priority: card.y + 1,
       })
     )
-  )}
+  )
 
   handleEditTaskModal = (id) => {
     this.props.activateTaskModal(id);
