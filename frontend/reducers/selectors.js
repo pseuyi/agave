@@ -1,8 +1,7 @@
 import { get, map, filter } from 'lodash';
 import { createSelector } from 'reselect';
 
-export const currentUserSelector = state =>
-  state.users.usersByIds.get(state.session.currentUser.toString());
+export const currentUserSelector = state => state.session.currentUser.toJS();
 
 export const getTasksIds = state => state.tasks.ids.toJS();
 export const getTasks = state => state.tasks.tasksByIds.toJS();

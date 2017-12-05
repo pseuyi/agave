@@ -9,13 +9,14 @@ import rootSaga from '../sagas/root_saga';
 const sagaMiddleware = createSagaMiddleware();
 
 const configureStore = (preloadedState = {}) => {
-  return createStore(
+   const store = createStore(
     rootReducer,
     preloadedState,
-    applyMiddleware(thunk, api, logger, sagaMiddleware)
+    applyMiddleware(thunk, logger, api, sagaMiddleware)
   )
+  sagaMiddleware.run(rootSaga);
+  return store;
 }
 
-sagaMiddleware.run(rootSaga);
 
 export default configureStore;
