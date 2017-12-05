@@ -1,4 +1,4 @@
-import { get } from 'lodash';
+// import { get } from 'lodash';
 import { createSelector } from 'reselect';
 
 export const currentUserSelector = state => state.getIn(['session', 'currentUser']);
@@ -21,7 +21,7 @@ export const taskSelector = state => {
 
 export const layoutsSelector = state => state.getIn(['board', 'layouts']);
 
-const getNewTaskStatus = state => get(state.get('form'), 'newTask.values.status', '');
+const getNewTaskStatus = state => state.getIn(['form', 'newTask', 'values', 'status'], '');
 
 export const newPrioritySelector = createSelector(
   getTasksIds,

@@ -9,9 +9,13 @@ const defaultState = Map({
 const modalReducer = (state = defaultState, action) => {
   switch (action.type) {
     case actions.ACTIVATE_TASK_MODAL:
-      return { active: true, taskId: action.payload };
+      return state
+        .set('active', true)
+        .set('taskId', action.payload);
     case actions.DISABLE_TASK_MODAL:
-      return { active: false, taskId: null };
+      return state
+        .set('active', false)
+        .set('taskId', null);
     default:
       return state;
   }

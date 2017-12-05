@@ -67,12 +67,12 @@ const Button = styled.button`
 const TaskModal = (props) => {
 
   const handleSubmitEditTask = (values) => {
-    props.editTask(values);
+    props.editTask(values.toJS());
     handleDisableTaskModal();
   }
 
   const handleDeleteTask = () => {
-    props.deleteTask(props.task.id);
+    props.deleteTask(props.task.get('id'));
     handleDisableTaskModal();
   }
 
@@ -81,6 +81,7 @@ const TaskModal = (props) => {
   }
 
   if (props.active) {
+    console.log('task modal: ', props.task);
     return (
       <ModalBackground>
         <ModalContainer>

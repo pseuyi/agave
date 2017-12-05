@@ -20,14 +20,19 @@ export class Footer extends Component {
   }
 
   handleAddTask = (values) => {
-    values['priority'] = this.props.newPriority;
-    this.props.createTask(values);
+    values = values.set('priority', this.props.newPriority);
+    this.props.createTask(values.toJS());
   }
 
+  // add initialValues so newPrioritySelector has an initial status;
   render () {
+    console.log('priority: ', this.props.newPriority);
     return (
       <Container>
-        <TaskForm onSubmit={this.handleAddTask}/>
+        <TaskForm
+          onSubmit={this.handleAddTask}
+          initialValues={{ status: 'open' }}
+        />
       </Container>
     )
   }

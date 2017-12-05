@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { connect } from 'react-redux';
-import { map } from 'lodash';
+import { map, isEqual } from 'lodash';
 import { Responsive, WidthProvider } from 'react-grid-layout';
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
@@ -25,12 +25,12 @@ import style from './index.scss';
 class Board extends Component {
   static propTypes = {
     currentUser: ImmutablePropTypes.map.isRequired,
-    tasks: ImmutablePropTypes.list,
+    tasks: ImmutablePropTypes.set,
     layouts: ImmutablePropTypes.map,
     statuses: ImmutablePropTypes.list,
   }
 
-  state = { mounted: false }
+  state = { mounted: false, blockLayoutChange: false }
 
   componentDidMount() {
     this.props.fetchTasks(this.props.currentUser.id)
@@ -42,14 +42,15 @@ class Board extends Component {
     this.props.updateTasks(tasks)
   }
 
-  getTasksData = (layout) => (
-    layout.map((card) => ({
+  getTasksData = (layout) => {
+    return (
+    layout.map(card => ({
         id: card.i.split('-')[0],
         status: this.props.statuses.get(card.x),
         priority: card.y + 1,
       })
     )
-  )
+  )}
 
   handleEditTaskModal = (id) => {
     this.props.activateTaskModal(id);
@@ -75,9 +76,6 @@ class Board extends Component {
       <Column key={status} header={status} />
     )).toArray();
 
-    console.log('layouts: ', layouts);
-    console.log('cards: ', cards);
-    console.log('render?', cards.length === layouts.lg.length);
     return (
       <section className='board-container'>
 
@@ -93,7 +91,7 @@ class Board extends Component {
             onLayoutChange={this.onLayoutChange}
             breakpoints={{ lg: 1000 }}
             cols={{ lg: 4 }}
-            measureBeforeMount={false}
+            measureBeforeMount={true}
             useCSSTransforms={this.state.mounted}
             draggableCancel='.non-draggable-element'
             >

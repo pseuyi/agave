@@ -1,5 +1,6 @@
+import { Map, List } from 'immutable';
 import { combineReducers } from 'redux-immutable';
-import { reducer as formReducer } from 'redux-form';
+import { reducer as formReducer } from 'redux-form/immutable';
 import sessionReducer from './session_reducer';
 import taskReducer from './task_reducer';
 import boardReducer from './board_reducer';

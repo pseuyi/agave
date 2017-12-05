@@ -6,7 +6,7 @@ import * as schema from '../util/schema_util';
 import * as actions from '../consts/action-types';
 
 const defaultState = Map({
-  layouts: Map(),
+  layouts: Map({ lg: null }),
   statuses: List(['open', 'ready', 'in progress', 'done']),
 });
 
@@ -23,13 +23,14 @@ const buildTaskLayout = (state, task) => (Map({
 
 const buildLayouts = (state, tasks) => map(tasks, task => buildTaskLayout(state, task));
 
-// convert schema to array of tasks
+// Convert schema to array of tasks.
+// Sort so order matches tasks order.
 const denormalized = payload => (
   denormalize(
     payload.result,
     schema.tasks,
     payload.entities,
-  ).tasks
+  ).tasks.sort((a, b) => a.id - b.id)
 );
 
 const boardReducer = (state = defaultState, action) => {
@@ -37,18 +38,20 @@ const boardReducer = (state = defaultState, action) => {
     case actions.UPDATE_LAYOUTS:
       return state.set('layouts', Map(action.layouts));
     case actions.BUILD_LAYOUTS: {
-      const builtLayouts = buildLayouts(state, denormalized(action.payload));
-      return state.set('layouts', Map({ lg: List(builtLayouts) }));
+      const builtLayouts = List(buildLayouts(state, denormalized(action.payload)));
+      return state.set('layouts', Map({ lg: builtLayouts }));
     }
     case actions.ADD_LAYOUT: {
-      const newLgLayout = buildTaskLayout(state, ...denormalized(action.payload));
-      return state.getIn(['layouts', 'lg']).concat(newLgLayout);
+      const newLayoutItem = buildTaskLayout(state, ...denormalized(action.payload));
+      const newLgLayout = state.getIn(['layouts', 'lg']).push(Map(newLayoutItem));
+      return state.setIn(['layouts', 'lg'], newLgLayout);
     }
     case actions.REMOVE_LAYOUT: {
       const task = action.payload[0];
-      return state
+      const newLgLayout = state
         .getIn(['layouts', 'lg'])
-        .filterNot(layout => layout.i === `${task.id}-${task.title}`);
+        .filterNot(layout => layout.get('i') === `${task.id}-${task.title}`);
+      return state.setIn(['layouts', 'lg'], newLgLayout);
     }
     default:
       return state;

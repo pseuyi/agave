@@ -1,10 +1,10 @@
-import { Map, List, fromJS } from 'immutable';
+import { Map, Set, fromJS } from 'immutable';
 
 import * as actions from '../consts/action-types';
 
 const defaultState = Map({
   tasksByIds: Map(),
-  ids: List(),
+  ids: Set(),
 });
 
 const taskReducer = (state = defaultState, action) => {
@@ -12,7 +12,7 @@ const taskReducer = (state = defaultState, action) => {
     case actions.RECEIVE_TASKS:
       return state
         .set('tasksByIds', fromJS(action.payload.entities.tasks))
-        .set('ids', fromJS(action.payload.result.tasks));
+        .set('ids', Set(action.payload.result.tasks).sort((a,b) => a - b)); // sort so order is the same as layouts
     case actions.RECEIVE_TASK: {
       const mergedTasks = state.get('tasksByIds').merge(action.payload.entities.tasks);
       const addedIds = state.get('ids').add(action.payload.result.tasks[0]);
