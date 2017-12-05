@@ -1,9 +1,10 @@
+import { Map } from 'immutable';
 import * as actions from '../consts/action-types';
 
-const defaultState = {
+const defaultState = Map({
   active: false,
   taskId: null,
-}
+});
 
 const modalReducer = (state = defaultState, action) => {
   switch (action.type) {
@@ -14,6 +15,6 @@ const modalReducer = (state = defaultState, action) => {
     default:
       return state;
   }
-}
+};
 
 export default modalReducer;

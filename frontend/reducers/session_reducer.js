@@ -1,18 +1,15 @@
-import * as actions from '../consts/action-types';
 import { Map } from 'immutable';
+import * as actions from '../consts/action-types';
 
-const defaultState = {
+const defaultState = Map({
   currentUser: null,
   error: '',
-}
+});
 
 const sessionReducer = (state = defaultState, action) => {
   switch (action.type) {
     case actions.LOGIN_SUCCESS:
-      return {
-        ...state,
-        currentUser: Map(action.payload),
-      };
+      return state.set('currentUser', Map(action.payload));
     case actions.LOGIN_ERROR:
       return {
         currentUser: null,
@@ -23,7 +20,7 @@ const sessionReducer = (state = defaultState, action) => {
         ...state,
         currentUser: null,
       };
-    case actions.LOGIN_ERROR:
+    case actions.LOGOUT_ERROR:
       return {
         ...state,
         error: 'Logout failed',
@@ -31,6 +28,6 @@ const sessionReducer = (state = defaultState, action) => {
     default:
       return state;
   }
-}
+};
 
 export default sessionReducer;
