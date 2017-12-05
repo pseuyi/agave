@@ -107,20 +107,20 @@ const TaskModal = (props) => {
   } else {
     return null;
   }
-}
+};
 
 const mapStateToProps = state => ({
   active: state.modal.active,
   task: taskSelector(state),
-})
+});
 
 const mapDispatchToProps = dispatch => ({
-  editTask: (task) => dispatch(editTask(task)),
-  deleteTask: (id) => dispatch(deleteTask(id)),
+  editTask: task => dispatch(editTask(task)),
+  deleteTask: id => dispatch(deleteTask(id)),
   disableTaskModal: () => dispatch(disableTaskModal()),
-})
+});
 
 export default withRouter(connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(TaskModal));

@@ -1,17 +1,16 @@
-import { map, without } from 'lodash';
+import { Map, List } from 'immutable';
+import { map } from 'lodash';
 import { denormalize } from 'normalizr';
 
 import * as schema from '../util/schema_util';
 import * as actions from '../consts/action-types';
 
 const defaultState = {
-  layouts: {},
+  layouts: Map(),
   statuses: ['open', 'ready', 'in progress', 'done'],
-}
+};
 
-const buildLayouts = (state, tasks) => (
-  map(tasks, (task) => buildTaskLayout(state, task))
-)
+const getColIdx = (state, status) => state.statuses.indexOf(status);
 
 const buildTaskLayout = (state, task) => ({
   i: `${task.id}-${task.title}`,
@@ -22,49 +21,45 @@ const buildTaskLayout = (state, task) => ({
   isResizable: false,
 });
 
-const getColIdx = (state, status) => state.statuses.indexOf(status);
+const buildLayouts = (state, tasks) => map(tasks, task => buildTaskLayout(state, task));
 
 // convert schema to array of tasks
 const denormalized = payload => (
   denormalize(
     payload.result,
     schema.tasks,
-    payload.entities
+    payload.entities,
   ).tasks
-)
+);
 
 const boardReducer = (state = defaultState, action) => {
   switch (action.type) {
     case actions.UPDATE_LAYOUTS:
-      return { ...state, layouts: action.layouts };
-    case actions.BUILD_LAYOUTS:
+      return { ...state, layouts: Map(action.layouts) };
+    case actions.BUILD_LAYOUTS: {
+      const builtLayouts = buildLayouts(state, denormalized(action.payload));
       return {
         ...state,
-        layouts: {
-          lg: buildLayouts(state, denormalized(action.payload))
-        }
+        layouts: state.layouts.set('lg', List(builtLayouts)),
       };
-    case actions.ADD_LAYOUT:
+    }
+    case actions.ADD_LAYOUT: {
+      const newLgLayout = buildTaskLayout(state, ...denormalized(action.payload));
       return {
         ...state,
-        layouts: {
-          lg: [
-            ...state.layouts.lg,
-            buildTaskLayout(state, ...denormalized(action.payload))
-          ]
-        }
-      }
-    case actions.REMOVE_LAYOUT:
+        layouts: state.layouts.set('lg', state.layouts.lg.concat(newLgLayout)),
+      };
+    }
+    case actions.REMOVE_LAYOUT: {
       const task = action.payload[0];
-      const newLayout = Object.assign([], state.layouts.lg)
-        .filter(layout => layout.i !== `${task.id}-${task.title}`);
       return {
         ...state,
-        layouts: { lg: newLayout }
-      }
+        layouts: state.layouts.lg.filterNot(layout => layout.i === `${task.id}-${task.title}`),
+      };
+    }
     default:
       return state;
   }
-}
+};
 
 export default boardReducer;
