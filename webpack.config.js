@@ -3,7 +3,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
 
 module.exports = {
-  entry: ['./frontend/agave.jsx', './scss/main.scss'],
+  entry: ['babel-polyfill', './frontend/agave.jsx', './scss/main.scss'],
   output: {
     path: path.resolve(__dirname, 'public', 'dist'),
     filename: 'bundle.js',
@@ -26,7 +26,7 @@ module.exports = {
         loader: 'babel-loader',
         query: {
           presets: ['env', 'react'],
-          plugins: ['transform-object-rest-spread', 'transform-class-properties'],
+          plugins: ['transform-object-rest-spread', 'transform-class-properties', 'transform-regenerator'],
         },
       }, {
         test: /\.scss$/,

@@ -24,7 +24,6 @@ import style from './index.scss';
 
 class Board extends Component {
   static propTypes = {
-    currentUserId: PropTypes.number,
     currentUser: PropTypes.object,
     tasks: PropTypes.array,
     layouts: PropTypes.object,
@@ -34,7 +33,7 @@ class Board extends Component {
   state = { mounted: false }
 
   componentDidMount() {
-    this.props.fetchTasks(this.props.currentUserId)
+    this.props.fetchTasks(this.props.currentUser.id)
     this.setState({ mounted: true });
   }
 
@@ -107,7 +106,6 @@ class Board extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    currentUserId: state.session.currentUser,
     currentUser: currentUserSelector(state),
     tasks: tasksSelector(state),
     layouts: layoutsSelector(state),

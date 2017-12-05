@@ -38,7 +38,7 @@ const Header = (props) => {
 
   const handleLogout = (e) => {
     e.preventDefault();
-    props.logout(props.currentUserId);
+    props.logout(props.currentUser.id);
   }
 
   return (
@@ -67,7 +67,6 @@ const Header = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    currentUserId: state.session.currentUser,
     currentUser: currentUserSelector(state),
   }
 }
