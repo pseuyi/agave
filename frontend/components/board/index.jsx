@@ -30,7 +30,7 @@ class Board extends Component {
     statuses: ImmutablePropTypes.list,
   }
 
-  state = { mounted: false, blockLayoutChange: false }
+  state = { mounted: false }
 
   componentDidMount() {
     this.props.fetchTasks(this.props.currentUser.id)
