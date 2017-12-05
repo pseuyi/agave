@@ -81,7 +81,6 @@ const TaskModal = (props) => {
   }
 
   if (props.active) {
-    console.log('task modal: ', props.task);
     return (
       <ModalBackground>
         <ModalContainer>

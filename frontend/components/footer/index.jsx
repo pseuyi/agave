@@ -26,7 +26,6 @@ export class Footer extends Component {
 
   // add initialValues so newPrioritySelector has an initial status;
   render () {
-    console.log('priority: ', this.props.newPriority);
     return (
       <Container>
         <TaskForm
