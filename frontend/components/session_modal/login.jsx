@@ -4,21 +4,18 @@ import { GoogleLogin } from 'react-google-login';
 class GoogLogin extends Component {
 
   onLoginSuccess = ({ accessToken, tokenId }) => {
-    console.log('login success')
     const authData = {
       access_token: accessToken,
       id_token: tokenId,
     }
-    this.props.login(authData);
+    // this.props.login(authData);
   }
 
   onLoginFailure = (response) => {
-    console.log('response --- ', response)
-    // console.log('login failed: ', error, ' --- ', details);
+    console.log('login failed', response)
   }
 
   render() {
-    console.log('process: ', process.env.CLIENT_ID);
     return (
       <GoogleLogin
         className='google-login-button'
