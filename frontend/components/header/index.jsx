@@ -38,7 +38,7 @@ const Header = (props) => {
 
   const handleLogout = (e) => {
     e.preventDefault();
-    props.logout(props.currentUser.id);
+    props.logout(props.currentUser.get('id'));
   }
 
   return (
@@ -48,7 +48,7 @@ const Header = (props) => {
           props.currentUser ?
             (
               <LeftNav>
-                <h4 key='username'>welcome, {props.currentUser.username}</h4>
+                <h4 key='username'>welcome, {props.currentUser.get('username')}</h4>
                 <button key='logout' onClick={handleLogout}>logout</button>
               </LeftNav>
             )

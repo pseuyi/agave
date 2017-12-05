@@ -110,7 +110,7 @@ const TaskModal = (props) => {
 };
 
 const mapStateToProps = state => ({
-  active: state.modal.active,
+  active: state.getIn(['modal', 'active']),
   task: taskSelector(state),
 });
 

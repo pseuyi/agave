@@ -106,7 +106,7 @@ class SessionModal extends Component {
 const mapStateToProps = (state, { match }) => {
   const { path } = match;
   return {
-    loggedIn: !!state.session.currentUser,
+    loggedIn: !!state.get('session').get('currentUser'),
     errors: state.errors,
     path
   }

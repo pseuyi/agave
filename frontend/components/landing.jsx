@@ -44,10 +44,10 @@ const Landing = ({ loggedIn, history }) => {
       </Links>
     </Modal>
   )
-}
+};
 
-const mapStateToProps = (state) => ({
-  loggedIn: Boolean(state.session.currentUser)
-})
+const mapStateToProps = state => ({
+  loggedIn: Boolean(state.getIn(['session', 'currentUser'])),
+});
 
 export default withRouter(connect(mapStateToProps, null)(Landing));
