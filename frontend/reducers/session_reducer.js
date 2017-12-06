@@ -9,22 +9,35 @@ const defaultState = Map({
 const sessionReducer = (state = defaultState, action) => {
   switch (action.type) {
     case actions.LOGIN_SUCCESS:
-      return state.set('currentUser', Map(action.payload));
+      return state
+        .set('currentUser', Map(action.payload))
+        .set('error', '');
+
     case actions.LOGIN_ERROR:
-      return {
-        currentUser: null,
-        error: 'Login failed',
-      };
+      return state
+        .set('currentUser', null)
+        .set('error', action.payload);
+
     case actions.LOGOUT_SUCCESS:
-      return {
-        ...state,
-        currentUser: null,
-      };
+      return state
+        .set('currentUser', null)
+        .set('error', '');
+
     case actions.LOGOUT_ERROR:
-      return {
-        ...state,
-        error: 'Logout failed',
-      };
+      return state
+        .set('currentUser', null)
+        .set('error', action.payload);
+
+    case actions.SIGN_UP_SUCCESS:
+      return state
+        .set('currentUser', Map(action.payload))
+        .set('error', '');
+
+    case actions.SIGN_UP_ERROR:
+      return state
+        .set('currentUser', null)
+        .set('error', action.payload);
+
     default:
       return state;
   }

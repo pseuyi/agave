@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
+import { Map } from 'immutable';
 
 import SessionForm from './session_form';
 import GoogLogin from './login';
@@ -27,12 +28,12 @@ class SessionModal extends Component {
   handleSubmit = (values) => {
     const formData = new FormData();
 
-    formData.append("user[username]", values.username);
-    formData.append("user[password]", values.password);
+    formData.append("user[username]", values.get('username'));
+    formData.append("user[password]", values.get('password'));
 
     if (this.props.path === '/signup') {
       if (this.state.avatar) formData.append("user[avatar]", this.state.avatar);
-      formData.append("user[email]", values.email);
+      formData.append("user[email]", values.get('email'));
       this.props.signUp(formData)
     } else {
       this.props.login(formData)
@@ -40,10 +41,10 @@ class SessionModal extends Component {
   }
 
   handleSubmitAsGuest = () => {
-    const values = {
+    const values = Map({
       username: 'guest',
       password: 'carrot'
-    }
+    });
 
     this.handleSubmit(values);
   }

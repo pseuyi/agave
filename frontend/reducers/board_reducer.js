@@ -6,7 +6,7 @@ import * as schema from '../util/schema_util';
 import * as actions from '../consts/action-types';
 
 const defaultState = Map({
-  layouts: Map({ lg: null }),
+  layouts: Map({ lg: List() }),
   statuses: List(['open', 'ready', 'in progress', 'done']),
 });
 
@@ -37,15 +37,21 @@ const boardReducer = (state = defaultState, action) => {
   switch (action.type) {
     case actions.UPDATE_LAYOUTS:
       return state.set('layouts', Map(action.layouts));
+
     case actions.BUILD_LAYOUTS: {
+      if (!action.payload || action.payload.length === 0) {
+        return state.setIn(['layouts', 'lg'], List());
+      }
       const builtLayouts = List(buildLayouts(state, denormalized(action.payload)));
       return state.set('layouts', Map({ lg: builtLayouts }));
     }
+
     case actions.ADD_LAYOUT: {
       const newLayoutItem = buildTaskLayout(state, ...denormalized(action.payload));
       const newLgLayout = state.getIn(['layouts', 'lg']).push(Map(newLayoutItem));
       return state.setIn(['layouts', 'lg'], newLgLayout);
     }
+
     case actions.REMOVE_LAYOUT: {
       const task = action.payload[0];
       const newLgLayout = state
@@ -53,6 +59,7 @@ const boardReducer = (state = defaultState, action) => {
         .filterNot(layout => layout.get('i') === `${task.id}-${task.title}`);
       return state.setIn(['layouts', 'lg'], newLgLayout);
     }
+
     default:
       return state;
   }
