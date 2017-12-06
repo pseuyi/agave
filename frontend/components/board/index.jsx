@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 import { connect } from 'react-redux';
 import { map } from 'lodash';
 import { Responsive, WidthProvider } from 'react-grid-layout';
@@ -24,10 +24,10 @@ import style from './index.scss';
 
 class Board extends Component {
   static propTypes = {
-    currentUser: PropTypes.object,
-    tasks: PropTypes.array,
-    layouts: PropTypes.object,
-    statuses: PropTypes.array,
+    currentUser: ImmutablePropTypes.map.isRequired,
+    tasks: ImmutablePropTypes.set,
+    layouts: ImmutablePropTypes.map,
+    statuses: ImmutablePropTypes.list,
   }
 
   state = { mounted: false }
@@ -43,9 +43,9 @@ class Board extends Component {
   }
 
   getTasksData = (layout) => (
-    layout.map((card) => ({
+    layout.map(card => ({
         id: card.i.split('-')[0],
-        status: this.props.statuses[card.x],
+        status: this.props.statuses.get(card.x),
         priority: card.y + 1,
       })
     )
@@ -56,21 +56,24 @@ class Board extends Component {
   }
 
   render () {
-    if (!this.props.layouts.lg) return null;
-    const cards = map(this.props.tasks, task => (
+    if (!this.props.layouts.get('lg')) return null;
+
+    const layouts = this.props.layouts.toJS();
+
+    const cards = this.props.tasks.map(task => (
         <Card
           className='card-container'
           style=''
-          key={`${task.id}-${task.title}`}
-          task={task}
+          key={`${task.get('id')}-${task.get('title')}`}
+          task={task.toJS()}
           handleEditTaskModal={this.handleEditTaskModal}
         />
       )
-    );
+    ).toArray();
 
-    const columns = map(this.props.statuses, status => (
+    const columns = this.props.statuses.map(status => (
       <Column key={status} header={status} />
-    ))
+    )).toArray();
 
     return (
       <section className='board-container'>
@@ -80,14 +83,14 @@ class Board extends Component {
         </div>
 
         {
-          cards.length === this.props.layouts.lg.length &&
+          cards.length === layouts.lg.length &&
           <ResponsiveReactGridLayout
             style={{ width: '100%', height: '90%', overflowY: 'scroll' }}
-            layouts={this.props.layouts}
+            layouts={layouts}
             onLayoutChange={this.onLayoutChange}
             breakpoints={{ lg: 1000 }}
             cols={{ lg: 4 }}
-            measureBeforeMount={false}
+            measureBeforeMount={true}
             useCSSTransforms={this.state.mounted}
             draggableCancel='.non-draggable-element'
             >

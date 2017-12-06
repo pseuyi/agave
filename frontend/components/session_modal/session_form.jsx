@@ -1,13 +1,13 @@
 import React from 'react';
-import { Field, reduxForm } from 'redux-form';
+import { Field, reduxForm } from 'redux-form/immutable';
 
 const validate = (values) => {
   const errors = {};
   const req = 'required';
 
-  if (!values.username) errors.username = req;
-  if (!values.email) errors.email = req;
-  if (!values.password) errors.password = req;
+  if (!values.get('username')) errors.username = req;
+  if (!values.get('email')) errors.email = req;
+  if (!values.get('password')) errors.password = req;
 
   return errors;
 };

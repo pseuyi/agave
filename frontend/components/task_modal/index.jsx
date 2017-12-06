@@ -67,12 +67,12 @@ const Button = styled.button`
 const TaskModal = (props) => {
 
   const handleSubmitEditTask = (values) => {
-    props.editTask(values);
+    props.editTask(values.toJS());
     handleDisableTaskModal();
   }
 
   const handleDeleteTask = () => {
-    props.deleteTask(props.task.id);
+    props.deleteTask(props.task.get('id'));
     handleDisableTaskModal();
   }
 
@@ -110,7 +110,7 @@ const TaskModal = (props) => {
 };
 
 const mapStateToProps = state => ({
-  active: state.modal.active,
+  active: state.getIn(['modal', 'active']),
   task: taskSelector(state),
 });
 

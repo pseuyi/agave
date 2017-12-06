@@ -8,10 +8,9 @@ import rootSaga from '../sagas/root_saga';
 
 const sagaMiddleware = createSagaMiddleware();
 
-const configureStore = (preloadedState = {}) => {
+const configureStore = () => {
    const store = createStore(
     rootReducer,
-    preloadedState,
     applyMiddleware(thunk, logger, api, sagaMiddleware)
   )
   sagaMiddleware.run(rootSaga);

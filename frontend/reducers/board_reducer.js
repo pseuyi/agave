@@ -5,57 +5,53 @@ import { denormalize } from 'normalizr';
 import * as schema from '../util/schema_util';
 import * as actions from '../consts/action-types';
 
-const defaultState = {
-  layouts: Map(),
-  statuses: ['open', 'ready', 'in progress', 'done'],
-};
+const defaultState = Map({
+  layouts: Map({ lg: null }),
+  statuses: List(['open', 'ready', 'in progress', 'done']),
+});
 
-const getColIdx = (state, status) => state.statuses.indexOf(status);
+const getColIdx = (state, status) => state.get('statuses').indexOf(status);
 
-const buildTaskLayout = (state, task) => ({
+const buildTaskLayout = (state, task) => (Map({
   i: `${task.id}-${task.title}`,
   x: getColIdx(state, task.status),
   y: task.priority - 1,
   w: 1,
   h: 1,
   isResizable: false,
-});
+}));
 
 const buildLayouts = (state, tasks) => map(tasks, task => buildTaskLayout(state, task));
 
-// convert schema to array of tasks
+// Convert schema to array of tasks.
+// Sort so order matches tasks order.
 const denormalized = payload => (
   denormalize(
     payload.result,
     schema.tasks,
     payload.entities,
-  ).tasks
+  ).tasks.sort((a, b) => a.id - b.id)
 );
 
 const boardReducer = (state = defaultState, action) => {
   switch (action.type) {
     case actions.UPDATE_LAYOUTS:
-      return { ...state, layouts: Map(action.layouts) };
+      return state.set('layouts', Map(action.layouts));
     case actions.BUILD_LAYOUTS: {
-      const builtLayouts = buildLayouts(state, denormalized(action.payload));
-      return {
-        ...state,
-        layouts: state.layouts.set('lg', List(builtLayouts)),
-      };
+      const builtLayouts = List(buildLayouts(state, denormalized(action.payload)));
+      return state.set('layouts', Map({ lg: builtLayouts }));
     }
     case actions.ADD_LAYOUT: {
-      const newLgLayout = buildTaskLayout(state, ...denormalized(action.payload));
-      return {
-        ...state,
-        layouts: state.layouts.set('lg', state.layouts.lg.concat(newLgLayout)),
-      };
+      const newLayoutItem = buildTaskLayout(state, ...denormalized(action.payload));
+      const newLgLayout = state.getIn(['layouts', 'lg']).push(Map(newLayoutItem));
+      return state.setIn(['layouts', 'lg'], newLgLayout);
     }
     case actions.REMOVE_LAYOUT: {
       const task = action.payload[0];
-      return {
-        ...state,
-        layouts: state.layouts.lg.filterNot(layout => layout.i === `${task.id}-${task.title}`),
-      };
+      const newLgLayout = state
+        .getIn(['layouts', 'lg'])
+        .filterNot(layout => layout.get('i') === `${task.id}-${task.title}`);
+      return state.setIn(['layouts', 'lg'], newLgLayout);
     }
     default:
       return state;
