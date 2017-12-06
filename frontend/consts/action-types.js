@@ -1,7 +1,3 @@
-
-// API
-export const API = 'API';
-
 // TASKS
 export const FETCH_TASKS_REQUEST = 'TASK::FETCH_TASKS_REQUEST';
 export const FETCH_TASKS_SUCCESS = 'TASK::FETCH_TASKS_SUCCESS';
