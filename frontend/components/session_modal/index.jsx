@@ -7,7 +7,7 @@ import { Map } from 'immutable';
 import SessionForm from './session_form';
 import GoogLogin from './login';
 
-import { signUp, login } from '../../actions/session_actions';
+import { signUp, login } from 'reducers/session_reducer';
 
 import style from './index.scss';
 
