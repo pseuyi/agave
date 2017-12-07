@@ -57,7 +57,7 @@ export function* loginFlow() {
   }
 }
 
-export function* waitingSignUp() {
+export function* signUpFlow() {
   while (true) {
     const { formData } = yield take(SIGN_UP_REQUEST);
     yield fork(handleSignUp, formData);
