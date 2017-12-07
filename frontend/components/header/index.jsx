@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import { currentUserSelector } from 'reducers/selectors';
 import { Link } from 'react-router-dom';
-import { logout } from 'actions/session_actions';
+import { logout } from 'reducers/session_reducer';
+import { currentUserSelector } from 'reducers/selectors';
 
 const Container = styled.header`
   height: 100px;

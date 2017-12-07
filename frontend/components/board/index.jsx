@@ -5,14 +5,14 @@ import { map } from 'lodash';
 import { Responsive, WidthProvider } from 'react-grid-layout';
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
-import { fetchTasks, updateTasks } from 'actions/task_actions';
-import { activateTaskModal } from 'actions/modal_actions';
+import { fetchTasks, updateTasks } from 'reducers/task_reducer';
+import { activateTaskModal } from 'reducers/modal_reducer';
 
 import {
   currentUserSelector,
   tasksSelector,
   layoutsSelector,
-  statusesSelector
+  statusesSelector,
 } from 'reducers/selectors';
 
 import TaskModal from 'components/task_modal';

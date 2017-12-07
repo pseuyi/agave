@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { editTask, deleteTask } from 'actions/task_actions';
-import { disableTaskModal } from 'actions/modal_actions';
+import { editTask, deleteTask } from 'reducers/task_reducer';
+import { disableTaskModal } from 'reducers/modal_reducer';
 import { taskSelector } from 'reducers/selectors';
 
 import TaskEditForm from './task_edit_form';

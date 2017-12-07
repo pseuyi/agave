@@ -3,7 +3,8 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import TaskForm from 'components/task_form';
-import { createTask } from 'actions/task_actions';
+
+import { createTask } from 'reducers/task_reducer';
 import { newPrioritySelector } from 'reducers/selectors';
 
 const Container = styled.footer`
