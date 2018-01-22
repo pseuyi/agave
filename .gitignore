@@ -30,3 +30,4 @@ public/dist/
 
 package-lock.json
 .env
+Gemfile.lock

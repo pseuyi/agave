@@ -4,4 +4,4 @@
 
 ### run application
 `npm run pack`
-`bundle exec rails s`
+`npm run start`

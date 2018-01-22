@@ -13,7 +13,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "pack": "webpack --watch",
-    "build-css": "node-sass --include-path scss frontend/scss/main.scss public/css/main.css",
+    "build-css": "node-sass --include-path scss scss/main.scss public/css/main.css",
     "watch-css": "nodemon -e scss -x \"npm run build-css\"",
     "postinstall": "webpack"
   },
